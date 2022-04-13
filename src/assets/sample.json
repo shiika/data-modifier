@@ -1,0 +1,1956 @@
+[
+  {
+    "word": "Kilbystraat",
+    "top-left-point": [2862, 48],
+    "width": 283,
+    "height": 80
+  },
+  {
+    "word": "LLS __Akrooo",
+    "top-left-point": [274, 81],
+    "width": 808,
+    "height": 185
+  },
+  {
+    "word": "PRICE",
+    "top-left-point": [1484, 96],
+    "width": 320,
+    "height": 109
+  },
+  {
+    "word": "INQUIRY",
+    "top-left-point": [1810, 101],
+    "width": 422,
+    "height": 103
+  },
+  { "word": "8263", "top-left-point": [2864, 136], "width": 142, "height": 65 },
+  { "word": "CJ", "top-left-point": [3005, 136], "width": 79, "height": 60 },
+  {
+    "word": "KAMPEN",
+    "top-left-point": [3106, 136],
+    "width": 252,
+    "height": 65
+  },
+  {
+    "word": "NEDERLAND",
+    "top-left-point": [2868, 218],
+    "width": 353,
+    "height": 61
+  },
+  { "word": "Tel:", "top-left-point": [2868, 328], "width": 97, "height": 60 },
+  {
+    "word": "+(31)383",
+    "top-left-point": [2977, 327],
+    "width": 240,
+    "height": 76
+  },
+  { "word": "32", "top-left-point": [3215, 328], "width": 79, "height": 65 },
+  { "word": "100", "top-left-point": [3298, 328], "width": 106, "height": 65 },
+  { "word": "20", "top-left-point": [3403, 328], "width": 78, "height": 65 },
+  { "word": "Fax", "top-left-point": [2864, 424], "width": 110, "height": 65 },
+  {
+    "word": "+(31)383",
+    "top-left-point": [2972, 423],
+    "width": 245,
+    "height": 76
+  },
+  { "word": "32", "top-left-point": [3215, 424], "width": 79, "height": 69 },
+  {
+    "word": "100200",
+    "top-left-point": [3293, 424],
+    "width": 202,
+    "height": 69
+  },
+  {
+    "word": "Email:",
+    "top-left-point": [2868, 524],
+    "width": 166,
+    "height": 61
+  },
+  {
+    "word": "info@asiaexpress_",
+    "top-left-point": [3032, 523],
+    "width": 464,
+    "height": 72
+  },
+  { "word": "com", "top-left-point": [3495, 535], "width": 118, "height": 49 },
+  {
+    "word": "Website:",
+    "top-left-point": [2864, 625],
+    "width": 234,
+    "height": 60
+  },
+  {
+    "word": "WWW _",
+    "top-left-point": [3102, 631],
+    "width": 132,
+    "height": 53
+  },
+  {
+    "word": "asiaexpress",
+    "top-left-point": [3232, 621],
+    "width": 315,
+    "height": 74
+  },
+  { "word": "com", "top-left-point": [3545, 631], "width": 118, "height": 53 },
+  { "word": "Your", "top-left-point": [150, 721], "width": 142, "height": 60 },
+  {
+    "word": "Account",
+    "top-left-point": [291, 721],
+    "width": 239,
+    "height": 60
+  },
+  { "word": "Nr:", "top-left-point": [534, 721], "width": 83, "height": 60 },
+  { "word": "7858", "top-left-point": [620, 721], "width": 143, "height": 65 },
+  { "word": "Your", "top-left-point": [1429, 721], "width": 143, "height": 60 },
+  {
+    "word": "reference:",
+    "top-left-point": [1571, 721],
+    "width": 284,
+    "height": 60
+  },
+  {
+    "word": "Shipping",
+    "top-left-point": [2707, 720],
+    "width": 254,
+    "height": 76
+  },
+  {
+    "word": "date:",
+    "top-left-point": [2964, 721],
+    "width": 143,
+    "height": 60
+  },
+  {
+    "word": "2022-03-06",
+    "top-left-point": [3110, 721],
+    "width": 303,
+    "height": 65
+  },
+  { "word": "Doc.", "top-left-point": [154, 821], "width": 129, "height": 61 },
+  { "word": "Nr.:", "top-left-point": [288, 822], "width": 108, "height": 54 },
+  {
+    "word": "027055",
+    "top-left-point": [392, 817],
+    "width": 206,
+    "height": 69
+  },
+  {
+    "word": "Sales",
+    "top-left-point": [1429, 817],
+    "width": 156,
+    "height": 65
+  },
+  {
+    "word": "person:",
+    "top-left-point": [1588, 823],
+    "width": 218,
+    "height": 64
+  },
+  { "word": "test", "top-left-point": [1804, 821], "width": 110, "height": 61 },
+  {
+    "word": "salesman",
+    "top-left-point": [1913, 821],
+    "width": 253,
+    "height": 61
+  },
+  {
+    "word": "Offer",
+    "top-left-point": [2708, 817],
+    "width": 147,
+    "height": 65
+  },
+  {
+    "word": "valid",
+    "top-left-point": [2855, 821],
+    "width": 137,
+    "height": 61
+  },
+  {
+    "word": "until:",
+    "top-left-point": [2996, 821],
+    "width": 152,
+    "height": 61
+  },
+  { "word": "Doc.", "top-left-point": [150, 917], "width": 133, "height": 61 },
+  { "word": "Date:", "top-left-point": [287, 917], "width": 147, "height": 61 },
+  {
+    "word": "2022-02-07",
+    "top-left-point": [438, 917],
+    "width": 298,
+    "height": 61
+  },
+  {
+    "word": "Delivery address",
+    "top-left-point": [150, 1010],
+    "width": 460,
+    "height": 86
+  },
+  {
+    "word": "Billing",
+    "top-left-point": [2022, 1017],
+    "width": 186,
+    "height": 76
+  },
+  {
+    "word": "address",
+    "top-left-point": [2201, 1018],
+    "width": 230,
+    "height": 60
+  },
+  {
+    "word": "Prolasku",
+    "top-left-point": [150, 1105],
+    "width": 229,
+    "height": 60
+  },
+  { "word": "Ltd", "top-left-point": [383, 1105], "width": 88, "height": 60 },
+  {
+    "word": "Billing",
+    "top-left-point": [2017, 1095],
+    "width": 173,
+    "height": 88
+  },
+  { "word": "Oy", "top-left-point": [2182, 1104], "width": 90, "height": 76 },
+  { "word": "St", "top-left-point": [150, 1187], "width": 74, "height": 65 },
+  { "word": "261", "top-left-point": [218, 1187], "width": 106, "height": 69 },
+  { "word": "PL", "top-left-point": [2023, 1192], "width": 79, "height": 60 },
+  {
+    "word": "FI555",
+    "top-left-point": [2105, 1187],
+    "width": 156,
+    "height": 65
+  },
+  {
+    "word": "FI-005100",
+    "top-left-point": [149, 1268],
+    "width": 272,
+    "height": 72
+  },
+  {
+    "word": "HELSINKI",
+    "top-left-point": [419, 1274],
+    "width": 271,
+    "height": 60
+  },
+  {
+    "word": "FI-555",
+    "top-left-point": [2017, 1268],
+    "width": 182,
+    "height": 72
+  },
+  {
+    "word": "LASKUNET",
+    "top-left-point": [2197, 1274],
+    "width": 302,
+    "height": 60
+  },
+  {
+    "word": "Tel.",
+    "top-left-point": [2014, 1444],
+    "width": 110,
+    "height": 74
+  },
+  {
+    "word": "+(358)400",
+    "top-left-point": [2127, 1446],
+    "width": 277,
+    "height": 76
+  },
+  { "word": "77", "top-left-point": [2402, 1447], "width": 74, "height": 65 },
+  { "word": "87", "top-left-point": [2475, 1452], "width": 74, "height": 60 },
+  { "word": "82", "top-left-point": [2558, 1452], "width": 78, "height": 65 },
+  {
+    "word": "Unloading",
+    "top-left-point": [153, 1538],
+    "width": 268,
+    "height": 76
+  },
+  {
+    "word": "Time:",
+    "top-left-point": [419, 1539],
+    "width": 152,
+    "height": 60
+  },
+  {
+    "word": "10.00-12.00",
+    "top-left-point": [575, 1539],
+    "width": 311,
+    "height": 60
+  },
+  { "word": "1", "top-left-point": [888, 1551], "width": 27, "height": 40 },
+  {
+    "word": "12.00-17.00",
+    "top-left-point": [922, 1539],
+    "width": 307,
+    "height": 60
+  },
+  { "word": "Fax", "top-left-point": [2018, 1539], "width": 111, "height": 60 },
+  {
+    "word": "+(358)98",
+    "top-left-point": [2124, 1528],
+    "width": 251,
+    "height": 90
+  },
+  { "word": "76", "top-left-point": [2370, 1539], "width": 79, "height": 65 },
+  { "word": "10", "top-left-point": [2452, 1539], "width": 74, "height": 65 },
+  { "word": "18", "top-left-point": [2526, 1539], "width": 74, "height": 60 },
+  { "word": "VAT", "top-left-point": [2023, 1717], "width": 120, "height": 65 },
+  {
+    "word": "Nr.:",
+    "top-left-point": [2146, 1717],
+    "width": 102,
+    "height": 60
+  },
+  {
+    "word": "Fl12345573",
+    "top-left-point": [2251, 1717],
+    "width": 317,
+    "height": 65
+  },
+  {
+    "word": "Article",
+    "top-left-point": [168, 1822],
+    "width": 165,
+    "height": 65
+  },
+  {
+    "word": "Quantity",
+    "top-left-point": [595, 1820],
+    "width": 234,
+    "height": 78
+  },
+  {
+    "word": "Material",
+    "top-left-point": [890, 1822],
+    "width": 211,
+    "height": 65
+  },
+  {
+    "word": "description",
+    "top-left-point": [1098, 1820],
+    "width": 293,
+    "height": 79
+  },
+  { "word": "BBD", "top-left-point": [2466, 1827], "width": 124, "height": 60 },
+  {
+    "word": "Price",
+    "top-left-point": [2658, 1822],
+    "width": 138,
+    "height": 65
+  },
+  { "word": "per", "top-left-point": [2800, 1831], "width": 92, "height": 60 },
+  {
+    "word": "Price",
+    "top-left-point": [3028, 1822],
+    "width": 143,
+    "height": 65
+  },
+  { "word": "per", "top-left-point": [3170, 1831], "width": 97, "height": 60 },
+  { "word": "box", "top-left-point": [3266, 1822], "width": 106, "height": 65 },
+  { "word": "Net", "top-left-point": [3517, 1822], "width": 97, "height": 65 },
+  {
+    "word": "worth",
+    "top-left-point": [3613, 1827],
+    "width": 152,
+    "height": 60
+  },
+  { "word": "VAT", "top-left-point": [3841, 1822], "width": 120, "height": 60 },
+  {
+    "word": "piece",
+    "top-left-point": [2745, 1909],
+    "width": 147,
+    "height": 65
+  },
+  { "word": "6472", "top-left-point": [150, 2023], "width": 138, "height": 60 },
+  { "word": "45", "top-left-point": [621, 2024], "width": 77, "height": 54 },
+  { "word": "CV", "top-left-point": [770, 2017], "width": 94, "height": 72 },
+  {
+    "word": "Unfried",
+    "top-left-point": [889, 2017],
+    "width": 195,
+    "height": 72
+  },
+  {
+    "word": "Prawn",
+    "top-left-point": [1086, 2023],
+    "width": 170,
+    "height": 60
+  },
+  {
+    "word": "Crackers",
+    "top-left-point": [1260, 2023],
+    "width": 234,
+    "height": 60
+  },
+  { "word": "12", "top-left-point": [1498, 2023], "width": 78, "height": 60 },
+  { "word": "X", "top-left-point": [1572, 2024], "width": 53, "height": 58 },
+  { "word": "KG", "top-left-point": [1671, 2018], "width": 92, "height": 65 },
+  { "word": "SA", "top-left-point": [1771, 2017], "width": 85, "height": 72 },
+  {
+    "word": "GIANG",
+    "top-left-point": [1859, 2018],
+    "width": 192,
+    "height": 65
+  },
+  {
+    "word": "2023-11-24",
+    "top-left-point": [2306, 2018],
+    "width": 298,
+    "height": 65
+  },
+  {
+    "word": "3,25",
+    "top-left-point": [2781, 2023],
+    "width": 120,
+    "height": 60
+  },
+  { "word": "39_", "top-left-point": [3056, 2023], "width": 83, "height": 60 },
+  { "word": "00", "top-left-point": [3138, 2023], "width": 78, "height": 65 },
+  { "word": "EUR", "top-left-point": [3243, 2023], "width": 129, "height": 65 },
+  {
+    "word": "1.755,00",
+    "top-left-point": [3576, 2023],
+    "width": 225,
+    "height": 60
+  },
+  {
+    "word": "TRANSPORT",
+    "top-left-point": [150, 2119],
+    "width": 357,
+    "height": 65
+  },
+  { "word": "8", "top-left-point": [659, 2126], "width": 38, "height": 51 },
+  { "word": "PC", "top-left-point": [770, 2113], "width": 94, "height": 72 },
+  {
+    "word": "Transport",
+    "top-left-point": [889, 2118],
+    "width": 254,
+    "height": 68
+  },
+  {
+    "word": "Contribution",
+    "top-left-point": [1141, 2119],
+    "width": 316,
+    "height": 60
+  },
+  {
+    "word": "0,01",
+    "top-left-point": [2777, 2119],
+    "width": 124,
+    "height": 65
+  },
+  {
+    "word": "0,01",
+    "top-left-point": [3088, 2119],
+    "width": 124,
+    "height": 65
+  },
+  { "word": "EUR", "top-left-point": [3243, 2119], "width": 129, "height": 65 },
+  {
+    "word": "0,08",
+    "top-left-point": [3681, 2119],
+    "width": 125,
+    "height": 65
+  },
+  {
+    "word": "4030-2",
+    "top-left-point": [150, 2215],
+    "width": 188,
+    "height": 60
+  },
+  { "word": "5", "top-left-point": [659, 2221], "width": 38, "height": 52 },
+  { "word": "CV", "top-left-point": [771, 2215], "width": 92, "height": 65 },
+  {
+    "word": "Coconut",
+    "top-left-point": [885, 2215],
+    "width": 230,
+    "height": 60
+  },
+  {
+    "word": "Juice",
+    "top-left-point": [1114, 2215],
+    "width": 142,
+    "height": 60
+  },
+  { "word": "24", "top-left-point": [1255, 2215], "width": 74, "height": 60 },
+  { "word": "X", "top-left-point": [1334, 2216], "width": 49, "height": 58 },
+  { "word": "350", "top-left-point": [1388, 2215], "width": 110, "height": 65 },
+  { "word": "ML", "top-left-point": [1502, 2215], "width": 83, "height": 60 },
+  {
+    "word": "FOCO",
+    "top-left-point": [1594, 2215],
+    "width": 174,
+    "height": 65
+  },
+  {
+    "word": "2023-11-15",
+    "top-left-point": [2302, 2215],
+    "width": 302,
+    "height": 60
+  },
+  {
+    "word": "0,82",
+    "top-left-point": [2777, 2215],
+    "width": 124,
+    "height": 65
+  },
+  {
+    "word": "19,68",
+    "top-left-point": [3060, 2215],
+    "width": 152,
+    "height": 65
+  },
+  { "word": "EUR", "top-left-point": [3243, 2215], "width": 129, "height": 65 },
+  {
+    "word": "98,40",
+    "top-left-point": [3650, 2215],
+    "width": 156,
+    "height": 65
+  },
+  {
+    "word": "4031-1",
+    "top-left-point": [150, 2311],
+    "width": 183,
+    "height": 60
+  },
+  { "word": "5", "top-left-point": [654, 2313], "width": 43, "height": 56 },
+  { "word": "CV", "top-left-point": [771, 2311], "width": 92, "height": 65 },
+  {
+    "word": "Coconut",
+    "top-left-point": [884, 2310],
+    "width": 232,
+    "height": 68
+  },
+  {
+    "word": "Juice",
+    "top-left-point": [1114, 2311],
+    "width": 142,
+    "height": 60
+  },
+  { "word": "24", "top-left-point": [1255, 2311], "width": 79, "height": 60 },
+  { "word": "X", "top-left-point": [1334, 2316], "width": 49, "height": 54 },
+  { "word": "520", "top-left-point": [1388, 2311], "width": 110, "height": 65 },
+  { "word": "ML", "top-left-point": [1502, 2311], "width": 83, "height": 60 },
+  {
+    "word": "FOCO",
+    "top-left-point": [1594, 2311],
+    "width": 174,
+    "height": 69
+  },
+  {
+    "word": "2023-08-25",
+    "top-left-point": [2302, 2311],
+    "width": 302,
+    "height": 60
+  },
+  {
+    "word": "1,09",
+    "top-left-point": [2781, 2311],
+    "width": 120,
+    "height": 65
+  },
+  {
+    "word": "26,16",
+    "top-left-point": [3060, 2311],
+    "width": 152,
+    "height": 69
+  },
+  { "word": "EUR", "top-left-point": [3243, 2311], "width": 129, "height": 69 },
+  {
+    "word": "130,80",
+    "top-left-point": [3622, 2311],
+    "width": 184,
+    "height": 69
+  },
+  {
+    "word": "4055-1",
+    "top-left-point": [150, 2407],
+    "width": 183,
+    "height": 65
+  },
+  { "word": "5", "top-left-point": [659, 2413], "width": 38, "height": 57 },
+  { "word": "CV", "top-left-point": [771, 2411], "width": 92, "height": 65 },
+  {
+    "word": "Roasted",
+    "top-left-point": [890, 2411],
+    "width": 220,
+    "height": 61
+  },
+  {
+    "word": "Coconut",
+    "top-left-point": [1114, 2411],
+    "width": 225,
+    "height": 61
+  },
+  {
+    "word": "Juice",
+    "top-left-point": [1338, 2411],
+    "width": 142,
+    "height": 61
+  },
+  { "word": "24", "top-left-point": [1479, 2411], "width": 79, "height": 61 },
+  { "word": "X", "top-left-point": [1558, 2412], "width": 54, "height": 59 },
+  { "word": "350", "top-left-point": [1612, 2411], "width": 110, "height": 65 },
+  {
+    "word": "FOCO",
+    "top-left-point": [1813, 2411],
+    "width": 179,
+    "height": 65
+  },
+  {
+    "word": "2023-08-15",
+    "top-left-point": [2302, 2407],
+    "width": 302,
+    "height": 65
+  },
+  {
+    "word": "0,85",
+    "top-left-point": [2777, 2411],
+    "width": 124,
+    "height": 65
+  },
+  {
+    "word": "20,40",
+    "top-left-point": [3056, 2407],
+    "width": 160,
+    "height": 69
+  },
+  { "word": "EUR", "top-left-point": [3243, 2411], "width": 129, "height": 65 },
+  {
+    "word": "102,00",
+    "top-left-point": [3622, 2411],
+    "width": 184,
+    "height": 65
+  },
+  {
+    "word": "4055-2",
+    "top-left-point": [150, 2507],
+    "width": 188,
+    "height": 61
+  },
+  { "word": "5", "top-left-point": [659, 2514], "width": 38, "height": 52 },
+  { "word": "CV", "top-left-point": [771, 2507], "width": 92, "height": 65 },
+  {
+    "word": "Roasted",
+    "top-left-point": [890, 2507],
+    "width": 220,
+    "height": 61
+  },
+  {
+    "word": "Coconut",
+    "top-left-point": [1114, 2507],
+    "width": 225,
+    "height": 61
+  },
+  {
+    "word": "Juice",
+    "top-left-point": [1338, 2507],
+    "width": 142,
+    "height": 61
+  },
+  { "word": "24", "top-left-point": [1479, 2507], "width": 79, "height": 61 },
+  { "word": "X", "top-left-point": [1558, 2508], "width": 49, "height": 59 },
+  { "word": "520", "top-left-point": [1612, 2507], "width": 110, "height": 65 },
+  { "word": "ML", "top-left-point": [1721, 2507], "width": 88, "height": 61 },
+  {
+    "word": "FOCO",
+    "top-left-point": [1813, 2507],
+    "width": 179,
+    "height": 65
+  },
+  {
+    "word": "2023-08-09",
+    "top-left-point": [2302, 2507],
+    "width": 302,
+    "height": 61
+  },
+  {
+    "word": "1,09",
+    "top-left-point": [2786, 2507],
+    "width": 115,
+    "height": 65
+  },
+  {
+    "word": "26,16",
+    "top-left-point": [3055, 2502],
+    "width": 158,
+    "height": 76
+  },
+  { "word": "EUR", "top-left-point": [3243, 2507], "width": 129, "height": 65 },
+  {
+    "word": "130,80",
+    "top-left-point": [3620, 2501],
+    "width": 188,
+    "height": 80
+  },
+  { "word": "5121", "top-left-point": [150, 2603], "width": 133, "height": 61 },
+  { "word": "10", "top-left-point": [625, 2603], "width": 74, "height": 61 },
+  { "word": "CV", "top-left-point": [771, 2603], "width": 92, "height": 65 },
+  { "word": "Red", "top-left-point": [890, 2603], "width": 115, "height": 65 },
+  {
+    "word": "Curry",
+    "top-left-point": [1005, 2601],
+    "width": 154,
+    "height": 74
+  },
+  {
+    "word": "Paste",
+    "top-left-point": [1155, 2603],
+    "width": 156,
+    "height": 61
+  },
+  { "word": "24", "top-left-point": [1315, 2603], "width": 78, "height": 65 },
+  { "word": "X", "top-left-point": [1394, 2604], "width": 49, "height": 59 },
+  { "word": "400", "top-left-point": [1447, 2603], "width": 111, "height": 65 },
+  { "word": "GR", "top-left-point": [1557, 2603], "width": 97, "height": 65 },
+  {
+    "word": "COCK",
+    "top-left-point": [1652, 2602],
+    "width": 181,
+    "height": 72
+  },
+  {
+    "word": "2023-10-29",
+    "top-left-point": [2302, 2603],
+    "width": 302,
+    "height": 61
+  },
+  {
+    "word": "1,95",
+    "top-left-point": [2786, 2603],
+    "width": 115,
+    "height": 65
+  },
+  {
+    "word": "46,80",
+    "top-left-point": [3060, 2603],
+    "width": 152,
+    "height": 65
+  },
+  { "word": "EUR", "top-left-point": [3243, 2603], "width": 129, "height": 65 },
+  {
+    "word": "468,00",
+    "top-left-point": [3618, 2603],
+    "width": 183,
+    "height": 65
+  },
+  { "word": "7754", "top-left-point": [151, 2705], "width": 136, "height": 53 },
+  { "word": "10", "top-left-point": [625, 2699], "width": 74, "height": 60 },
+  { "word": "CV", "top-left-point": [770, 2698], "width": 94, "height": 72 },
+  {
+    "word": "Instant",
+    "top-left-point": [885, 2704],
+    "width": 189,
+    "height": 60
+  },
+  {
+    "word": "Noodles",
+    "top-left-point": [1073, 2704],
+    "width": 215,
+    "height": 60
+  },
+  {
+    "word": "Spicy",
+    "top-left-point": [1287, 2695],
+    "width": 162,
+    "height": 87
+  },
+  {
+    "word": "Beef",
+    "top-left-point": [1442, 2698],
+    "width": 140,
+    "height": 72
+  },
+  { "word": "24", "top-left-point": [1574, 2698], "width": 81, "height": 72 },
+  { "word": "X", "top-left-point": [1649, 2700], "width": 54, "height": 63 },
+  { "word": "108", "top-left-point": [1707, 2698], "width": 108, "height": 72 },
+  { "word": "GR", "top-left-point": [1812, 2698], "width": 103, "height": 72 },
+  {
+    "word": "TONGYI",
+    "top-left-point": [1912, 2698],
+    "width": 236,
+    "height": 72
+  },
+  {
+    "word": "2022-11-16",
+    "top-left-point": [2302, 2699],
+    "width": 302,
+    "height": 65
+  },
+  {
+    "word": "0,73",
+    "top-left-point": [2777, 2699],
+    "width": 124,
+    "height": 65
+  },
+  {
+    "word": "17,52",
+    "top-left-point": [3059, 2698],
+    "width": 154,
+    "height": 72
+  },
+  { "word": "EUR", "top-left-point": [3242, 2698], "width": 131, "height": 72 },
+  {
+    "word": "175,20",
+    "top-left-point": [3622, 2699],
+    "width": 179,
+    "height": 65
+  },
+  { "word": "7753", "top-left-point": [150, 2800], "width": 138, "height": 60 },
+  { "word": "10", "top-left-point": [625, 2800], "width": 74, "height": 60 },
+  { "word": "CV", "top-left-point": [770, 2794], "width": 94, "height": 72 },
+  {
+    "word": "Instant",
+    "top-left-point": [885, 2800],
+    "width": 189,
+    "height": 60
+  },
+  {
+    "word": "Noodles",
+    "top-left-point": [1073, 2800],
+    "width": 215,
+    "height": 60
+  },
+  {
+    "word": "Roasted",
+    "top-left-point": [1297, 2800],
+    "width": 215,
+    "height": 60
+  },
+  {
+    "word": "Beef",
+    "top-left-point": [1516, 2800],
+    "width": 133,
+    "height": 60
+  },
+  { "word": "24", "top-left-point": [1648, 2800], "width": 79, "height": 60 },
+  { "word": "X", "top-left-point": [1722, 2801], "width": 54, "height": 58 },
+  { "word": "108", "top-left-point": [1780, 2794], "width": 108, "height": 72 },
+  { "word": "GR", "top-left-point": [1891, 2800], "width": 96, "height": 65 },
+  {
+    "word": "TONGYI",
+    "top-left-point": [1986, 2795],
+    "width": 225,
+    "height": 65
+  },
+  {
+    "word": "2022-11-16",
+    "top-left-point": [2306, 2795],
+    "width": 298,
+    "height": 65
+  },
+  {
+    "word": "0,73",
+    "top-left-point": [2777, 2800],
+    "width": 124,
+    "height": 60
+  },
+  {
+    "word": "17,52",
+    "top-left-point": [3060, 2800],
+    "width": 152,
+    "height": 65
+  },
+  { "word": "EUR", "top-left-point": [3243, 2800], "width": 129, "height": 65 },
+  {
+    "word": "175,20",
+    "top-left-point": [3620, 2793],
+    "width": 184,
+    "height": 76
+  },
+  { "word": "5300", "top-left-point": [150, 2896], "width": 142, "height": 64 },
+  { "word": "80", "top-left-point": [625, 2896], "width": 79, "height": 64 },
+  { "word": "CV", "top-left-point": [771, 2896], "width": 92, "height": 64 },
+  {
+    "word": "Monosodium",
+    "top-left-point": [890, 2896],
+    "width": 330,
+    "height": 60
+  },
+  {
+    "word": "Glutamate",
+    "top-left-point": [1223, 2896],
+    "width": 271,
+    "height": 60
+  },
+  { "word": "X", "top-left-point": [1544, 2897], "width": 49, "height": 58 },
+  {
+    "word": "22,7",
+    "top-left-point": [1598, 2896],
+    "width": 115,
+    "height": 64
+  },
+  { "word": "KG", "top-left-point": [1721, 2896], "width": 97, "height": 64 },
+  {
+    "word": "AJINOMOTO",
+    "top-left-point": [1817, 2896],
+    "width": 349,
+    "height": 64
+  },
+  {
+    "word": "2027-01-28",
+    "top-left-point": [2306, 2896],
+    "width": 298,
+    "height": 60
+  },
+  {
+    "word": "2,13",
+    "top-left-point": [2781, 2896],
+    "width": 120,
+    "height": 64
+  },
+  {
+    "word": "48,95",
+    "top-left-point": [3056, 2896],
+    "width": 156,
+    "height": 64
+  },
+  { "word": "EUR", "top-left-point": [3243, 2896], "width": 129, "height": 64 },
+  {
+    "word": "3.916,00",
+    "top-left-point": [3572, 2896],
+    "width": 229,
+    "height": 64
+  },
+  { "word": "5903", "top-left-point": [150, 2992], "width": 142, "height": 64 },
+  { "word": "65", "top-left-point": [625, 2992], "width": 79, "height": 64 },
+  { "word": "CV", "top-left-point": [771, 2992], "width": 92, "height": 64 },
+  {
+    "word": "Sambal",
+    "top-left-point": [885, 2992],
+    "width": 207,
+    "height": 64
+  },
+  {
+    "word": "Oelek",
+    "top-left-point": [1096, 2992],
+    "width": 160,
+    "height": 64
+  },
+  { "word": "X", "top-left-point": [1302, 2993], "width": 49, "height": 58 },
+  { "word": "10", "top-left-point": [1356, 2992], "width": 79, "height": 64 },
+  { "word": "KG", "top-left-point": [1434, 2992], "width": 96, "height": 64 },
+  {
+    "word": "ROYAL",
+    "top-left-point": [1530, 2992],
+    "width": 197,
+    "height": 60
+  },
+  {
+    "word": "ORIENT",
+    "top-left-point": [1731, 2992],
+    "width": 220,
+    "height": 64
+  },
+  {
+    "word": "2022-12-01",
+    "top-left-point": [2302, 2992],
+    "width": 298,
+    "height": 64
+  },
+  {
+    "word": "1,40",
+    "top-left-point": [2786, 2992],
+    "width": 115,
+    "height": 64
+  },
+  {
+    "word": "13,95",
+    "top-left-point": [3060, 2992],
+    "width": 152,
+    "height": 69
+  },
+  { "word": "EUR", "top-left-point": [3243, 2992], "width": 129, "height": 69 },
+  {
+    "word": "906,75",
+    "top-left-point": [3618, 2992],
+    "width": 183,
+    "height": 64
+  },
+  {
+    "word": "5672-1",
+    "top-left-point": [150, 3088],
+    "width": 183,
+    "height": 64
+  },
+  { "word": "20", "top-left-point": [620, 3092], "width": 79, "height": 60 },
+  { "word": "CV", "top-left-point": [771, 3088], "width": 92, "height": 69 },
+  {
+    "word": "Broad",
+    "top-left-point": [890, 3092],
+    "width": 161,
+    "height": 60
+  },
+  {
+    "word": "Bean",
+    "top-left-point": [1054, 3092],
+    "width": 143,
+    "height": 60
+  },
+  {
+    "word": "Sauce",
+    "top-left-point": [1201, 3088],
+    "width": 170,
+    "height": 64
+  },
+  {
+    "word": "with",
+    "top-left-point": [1372, 3089],
+    "width": 115,
+    "height": 65
+  },
+  {
+    "word": "Chili 8",
+    "top-left-point": [1488, 3088],
+    "width": 170,
+    "height": 69
+  },
+  { "word": "X", "top-left-point": [1659, 3093], "width": 53, "height": 58 },
+  { "word": "1,2", "top-left-point": [1712, 3092], "width": 93, "height": 60 },
+  { "word": "KG", "top-left-point": [1804, 3088], "width": 97, "height": 64 },
+  {
+    "word": "JUAN",
+    "top-left-point": [1901, 3093],
+    "width": 154,
+    "height": 54
+  },
+  {
+    "word": "CHENG",
+    "top-left-point": [2060, 3088],
+    "width": 215,
+    "height": 69
+  },
+  {
+    "word": "2022-12-01",
+    "top-left-point": [2302, 3088],
+    "width": 298,
+    "height": 64
+  },
+  {
+    "word": "3,65",
+    "top-left-point": [2781, 3092],
+    "width": 120,
+    "height": 60
+  },
+  {
+    "word": "29,20",
+    "top-left-point": [3056, 3088],
+    "width": 156,
+    "height": 69
+  },
+  { "word": "EUR", "top-left-point": [3243, 3088], "width": 129, "height": 69 },
+  {
+    "word": "584,00",
+    "top-left-point": [3618, 3088],
+    "width": 188,
+    "height": 69
+  },
+  { "word": "5465", "top-left-point": [150, 3188], "width": 142, "height": 65 },
+  { "word": "15", "top-left-point": [625, 3188], "width": 74, "height": 60 },
+  { "word": "CV", "top-left-point": [771, 3188], "width": 92, "height": 65 },
+  {
+    "word": "Chicken",
+    "top-left-point": [890, 3188],
+    "width": 216,
+    "height": 65
+  },
+  {
+    "word": "Powder",
+    "top-left-point": [1105, 3188],
+    "width": 206,
+    "height": 60
+  },
+  { "word": "6", "top-left-point": [1307, 3189], "width": 49, "height": 58 },
+  { "word": "X", "top-left-point": [1357, 3189], "width": 49, "height": 58 },
+  { "word": "900", "top-left-point": [1405, 3182], "width": 117, "height": 72 },
+  { "word": "GR", "top-left-point": [1520, 3188], "width": 97, "height": 65 },
+  {
+    "word": "KNORR",
+    "top-left-point": [1621, 3188],
+    "width": 211,
+    "height": 65
+  },
+  {
+    "word": "2023-04-30",
+    "top-left-point": [2301, 3182],
+    "width": 309,
+    "height": 72
+  },
+  {
+    "word": "7,15",
+    "top-left-point": [2777, 3188],
+    "width": 124,
+    "height": 65
+  },
+  {
+    "word": "42,90",
+    "top-left-point": [3053, 3181],
+    "width": 162,
+    "height": 76
+  },
+  { "word": "EUR", "top-left-point": [3243, 3188], "width": 129, "height": 65 },
+  {
+    "word": "643,50",
+    "top-left-point": [3618, 3188],
+    "width": 188,
+    "height": 69
+  },
+  { "word": "4087", "top-left-point": [150, 3284], "width": 133, "height": 60 },
+  { "word": "5", "top-left-point": [654, 3286], "width": 43, "height": 56 },
+  { "word": "CV", "top-left-point": [771, 3284], "width": 92, "height": 65 },
+  { "word": "Aloe", "top-left-point": [891, 3290], "width": 118, "height": 53 },
+  {
+    "word": "Vera",
+    "top-left-point": [1018, 3284],
+    "width": 124,
+    "height": 60
+  },
+  {
+    "word": "Drink",
+    "top-left-point": [1150, 3284],
+    "width": 143,
+    "height": 60
+  },
+  {
+    "word": "Original",
+    "top-left-point": [1294, 3282],
+    "width": 211,
+    "height": 81
+  },
+  { "word": "20", "top-left-point": [1502, 3284], "width": 79, "height": 65 },
+  { "word": "X", "top-left-point": [1576, 3285], "width": 49, "height": 58 },
+  { "word": "500", "top-left-point": [1630, 3284], "width": 111, "height": 65 },
+  { "word": "ML", "top-left-point": [1745, 3290], "width": 86, "height": 53 },
+  { "word": "OKF", "top-left-point": [1836, 3284], "width": 119, "height": 60 },
+  {
+    "word": "2023-08-24",
+    "top-left-point": [2302, 3284],
+    "width": 298,
+    "height": 60
+  },
+  {
+    "word": "0,89",
+    "top-left-point": [2777, 3284],
+    "width": 129,
+    "height": 69
+  },
+  {
+    "word": "17,80",
+    "top-left-point": [3060, 3284],
+    "width": 152,
+    "height": 65
+  },
+  { "word": "EUR", "top-left-point": [3243, 3284], "width": 129, "height": 69 },
+  {
+    "word": "89,00",
+    "top-left-point": [3650, 3284],
+    "width": 156,
+    "height": 65
+  },
+  {
+    "word": "7860-1",
+    "top-left-point": [150, 3380],
+    "width": 179,
+    "height": 60
+  },
+  { "word": "10", "top-left-point": [625, 3380], "width": 74, "height": 60 },
+  { "word": "CV", "top-left-point": [771, 3380], "width": 92, "height": 69 },
+  {
+    "word": "Tempura",
+    "top-left-point": [887, 3378],
+    "width": 235,
+    "height": 77
+  },
+  {
+    "word": "Flour",
+    "top-left-point": [1123, 3376],
+    "width": 151,
+    "height": 77
+  },
+  { "word": "24", "top-left-point": [1269, 3380], "width": 79, "height": 69 },
+  { "word": "X", "top-left-point": [1348, 3386], "width": 49, "height": 58 },
+  { "word": "500", "top-left-point": [1402, 3380], "width": 110, "height": 69 },
+  { "word": "GR", "top-left-point": [1511, 3380], "width": 97, "height": 69 },
+  {
+    "word": "GOGI",
+    "top-left-point": [1612, 3380],
+    "width": 161,
+    "height": 65
+  },
+  {
+    "word": "2023-11-02",
+    "top-left-point": [2302, 3380],
+    "width": 302,
+    "height": 69
+  },
+  {
+    "word": "1,79",
+    "top-left-point": [2778, 3377],
+    "width": 127,
+    "height": 72
+  },
+  { "word": "42,", "top-left-point": [3056, 3380], "width": 83, "height": 65 },
+  { "word": ",96", "top-left-point": [3133, 3380], "width": 83, "height": 69 },
+  { "word": "EUR", "top-left-point": [3243, 3380], "width": 129, "height": 69 },
+  {
+    "word": "429,60",
+    "top-left-point": [3618, 3380],
+    "width": 188,
+    "height": 69
+  },
+  { "word": "867", "top-left-point": [150, 3480], "width": 101, "height": 61 },
+  { "word": "3", "top-left-point": [654, 3482], "width": 43, "height": 57 },
+  { "word": "CV", "top-left-point": [771, 3476], "width": 92, "height": 69 },
+  {
+    "word": "Prawn",
+    "top-left-point": [890, 3480],
+    "width": 170,
+    "height": 61
+  },
+  {
+    "word": "Crackers",
+    "top-left-point": [1064, 3480],
+    "width": 233,
+    "height": 61
+  },
+  { "word": "36", "top-left-point": [1301, 3480], "width": 79, "height": 65 },
+  { "word": "X", "top-left-point": [1375, 3481], "width": 49, "height": 54 },
+  { "word": "60", "top-left-point": [1429, 3480], "width": 79, "height": 61 },
+  { "word": "GR", "top-left-point": [1511, 3480], "width": 97, "height": 65 },
+  {
+    "word": "HANAMI",
+    "top-left-point": [1607, 3480],
+    "width": 230,
+    "height": 61
+  },
+  {
+    "word": "2022-06-22",
+    "top-left-point": [2306, 3476],
+    "width": 298,
+    "height": 65
+  },
+  {
+    "word": "1,15",
+    "top-left-point": [2781, 3480],
+    "width": 120,
+    "height": 61
+  },
+  {
+    "word": "41,40",
+    "top-left-point": [3056, 3476],
+    "width": 156,
+    "height": 65
+  },
+  { "word": "EUR", "top-left-point": [3243, 3480], "width": 129, "height": 65 },
+  {
+    "word": "124,20",
+    "top-left-point": [3622, 3480],
+    "width": 179,
+    "height": 65
+  },
+  { "word": "865", "top-left-point": [150, 3576], "width": 110, "height": 65 },
+  { "word": "5", "top-left-point": [659, 3583], "width": 38, "height": 52 },
+  { "word": "CV", "top-left-point": [771, 3576], "width": 92, "height": 65 },
+  {
+    "word": "Fortune",
+    "top-left-point": [890, 3576],
+    "width": 202,
+    "height": 61
+  },
+  {
+    "word": "Cookies",
+    "top-left-point": [1096, 3576],
+    "width": 215,
+    "height": 61
+  },
+  {
+    "word": "(NLIENIDEICN)",
+    "top-left-point": [1314, 3575],
+    "width": 409,
+    "height": 72
+  },
+  { "word": "X", "top-left-point": [1764, 3577], "width": 53, "height": 59 },
+  { "word": "250", "top-left-point": [1817, 3576], "width": 111, "height": 65 },
+  { "word": "PCS", "top-left-point": [1927, 3572], "width": 129, "height": 69 },
+  {
+    "word": "2022-11-30",
+    "top-left-point": [2302, 3576],
+    "width": 302,
+    "height": 61
+  },
+  {
+    "word": "0,10",
+    "top-left-point": [2777, 3576],
+    "width": 129,
+    "height": 65
+  },
+  {
+    "word": "23,95",
+    "top-left-point": [3060, 3576],
+    "width": 152,
+    "height": 65
+  },
+  { "word": "EUR", "top-left-point": [3243, 3576], "width": 129, "height": 65 },
+  {
+    "word": "119,75",
+    "top-left-point": [3622, 3576],
+    "width": 179,
+    "height": 65
+  },
+  { "word": "1104", "top-left-point": [154, 3672], "width": 134, "height": 61 },
+  { "word": "5", "top-left-point": [659, 3683], "width": 38, "height": 48 },
+  { "word": "CV", "top-left-point": [771, 3672], "width": 92, "height": 65 },
+  {
+    "word": "Preserved",
+    "top-left-point": [890, 3677],
+    "width": 261,
+    "height": 60
+  },
+  {
+    "word": "Vegetable",
+    "top-left-point": [1157, 3671],
+    "width": 270,
+    "height": 80
+  },
+  {
+    "word": "Shredded",
+    "top-left-point": [1424, 3671],
+    "width": 263,
+    "height": 72
+  },
+  { "word": "48", "top-left-point": [1680, 3672], "width": 79, "height": 61 },
+  { "word": "X", "top-left-point": [1758, 3672], "width": 60, "height": 65 },
+  { "word": "417", "top-left-point": [1813, 3672], "width": 106, "height": 61 },
+  { "word": "GR", "top-left-point": [1923, 3677], "width": 96, "height": 60 },
+  {
+    "word": "FISH",
+    "top-left-point": [2023, 3672],
+    "width": 138,
+    "height": 65
+  },
+  {
+    "word": "2023-08-04",
+    "top-left-point": [2302, 3672],
+    "width": 302,
+    "height": 65
+  },
+  {
+    "word": "0,89",
+    "top-left-point": [2777, 3672],
+    "width": 124,
+    "height": 65
+  },
+  {
+    "word": "42,72",
+    "top-left-point": [3055, 3671],
+    "width": 162,
+    "height": 72
+  },
+  { "word": "EUR", "top-left-point": [3242, 3671], "width": 131, "height": 72 },
+  {
+    "word": "213,60",
+    "top-left-point": [3617, 3671],
+    "width": 190,
+    "height": 72
+  },
+  { "word": "WELL", "top-left-point": [890, 3759], "width": 170, "height": 65 },
+  {
+    "word": "4413-1",
+    "top-left-point": [150, 3855],
+    "width": 183,
+    "height": 60
+  },
+  { "word": "5", "top-left-point": [654, 3857], "width": 43, "height": 52 },
+  { "word": "CV", "top-left-point": [771, 3855], "width": 92, "height": 65 },
+  {
+    "word": "Seasoning",
+    "top-left-point": [885, 3855],
+    "width": 280,
+    "height": 69
+  },
+  { "word": "Mix", "top-left-point": [1169, 3855], "width": 101, "height": 60 },
+  {
+    "word": "Sweet",
+    "top-left-point": [1269, 3855],
+    "width": 170,
+    "height": 60
+  },
+  { "word": "&", "top-left-point": [1439, 3856], "width": 49, "height": 58 },
+  {
+    "word": "Sour",
+    "top-left-point": [1493, 3855],
+    "width": 133,
+    "height": 60
+  },
+  {
+    "word": "12 X",
+    "top-left-point": [1626, 3855],
+    "width": 128,
+    "height": 60
+  },
+  { "word": "30", "top-left-point": [1753, 3855], "width": 84, "height": 65 },
+  { "word": "GR", "top-left-point": [1836, 3855], "width": 101, "height": 65 },
+  {
+    "word": "LOBO",
+    "top-left-point": [1932, 3851],
+    "width": 170,
+    "height": 69
+  },
+  {
+    "word": "2023-04-23",
+    "top-left-point": [2302, 3851],
+    "width": 302,
+    "height": 64
+  },
+  {
+    "word": "0,56",
+    "top-left-point": [2777, 3855],
+    "width": 124,
+    "height": 65
+  },
+  {
+    "word": "6,72",
+    "top-left-point": [3088, 3855],
+    "width": 128,
+    "height": 65
+  },
+  { "word": "EUR", "top-left-point": [3243, 3855], "width": 129, "height": 65 },
+  {
+    "word": "33,60",
+    "top-left-point": [3650, 3855],
+    "width": 156,
+    "height": 65
+  },
+  { "word": "7680", "top-left-point": [150, 3951], "width": 142, "height": 65 },
+  { "word": "30", "top-left-point": [620, 3951], "width": 84, "height": 65 },
+  { "word": "CV", "top-left-point": [771, 3951], "width": 92, "height": 65 },
+  {
+    "word": "Instant",
+    "top-left-point": [885, 3951],
+    "width": 189,
+    "height": 60
+  },
+  {
+    "word": "Noodle",
+    "top-left-point": [1077, 3951],
+    "width": 184,
+    "height": 60
+  },
+  {
+    "word": "Shin",
+    "top-left-point": [1265, 3951],
+    "width": 128,
+    "height": 65
+  },
+  {
+    "word": "Ramyun",
+    "top-left-point": [1390, 3949],
+    "width": 225,
+    "height": 75
+  },
+  { "word": "20", "top-left-point": [1612, 3951], "width": 83, "height": 65 },
+  { "word": "X", "top-left-point": [1691, 3952], "width": 53, "height": 58 },
+  { "word": "120", "top-left-point": [1749, 3951], "width": 106, "height": 65 },
+  { "word": "GR", "top-left-point": [1854, 3951], "width": 101, "height": 65 },
+  {
+    "word": "NONGSHIM",
+    "top-left-point": [1959, 3951],
+    "width": 316,
+    "height": 65
+  },
+  {
+    "word": "2022-07-28",
+    "top-left-point": [2302, 3951],
+    "width": 302,
+    "height": 60
+  },
+  {
+    "word": "0,79",
+    "top-left-point": [2777, 3951],
+    "width": 129,
+    "height": 65
+  },
+  {
+    "word": "15,80",
+    "top-left-point": [3060, 3951],
+    "width": 152,
+    "height": 65
+  },
+  { "word": "EUR", "top-left-point": [3243, 3951], "width": 129, "height": 65 },
+  {
+    "word": "474,00",
+    "top-left-point": [3618, 3951],
+    "width": 183,
+    "height": 65
+  },
+  {
+    "word": "7689-20",
+    "top-left-point": [150, 4047],
+    "width": 220,
+    "height": 65
+  },
+  { "word": "10", "top-left-point": [625, 4047], "width": 74, "height": 65 },
+  { "word": "CV", "top-left-point": [771, 4047], "width": 92, "height": 65 },
+  {
+    "word": "Instant",
+    "top-left-point": [885, 4052],
+    "width": 189,
+    "height": 60
+  },
+  { "word": "Cup", "top-left-point": [1068, 4043], "width": 129, "height": 81 },
+  {
+    "word": "Noodle",
+    "top-left-point": [1192, 4052],
+    "width": 188,
+    "height": 60
+  },
+  {
+    "word": "Shin",
+    "top-left-point": [1383, 4047],
+    "width": 129,
+    "height": 69
+  },
+  { "word": "12", "top-left-point": [1511, 4052], "width": 79, "height": 60 },
+  { "word": "X", "top-left-point": [1590, 4053], "width": 49, "height": 58 },
+  { "word": "68", "top-left-point": [1639, 4047], "width": 79, "height": 65 },
+  { "word": "GR", "top-left-point": [1721, 4047], "width": 97, "height": 69 },
+  {
+    "word": "NONGSHIM",
+    "top-left-point": [1822, 4047],
+    "width": 316,
+    "height": 69
+  },
+  {
+    "word": "2022-09-01",
+    "top-left-point": [2302, 4047],
+    "width": 298,
+    "height": 65
+  },
+  {
+    "word": "0,99",
+    "top-left-point": [2777, 4047],
+    "width": 124,
+    "height": 69
+  },
+  {
+    "word": "11,88",
+    "top-left-point": [3060, 4047],
+    "width": 152,
+    "height": 69
+  },
+  { "word": "EUR", "top-left-point": [3243, 4047], "width": 129, "height": 69 },
+  {
+    "word": "118,80",
+    "top-left-point": [3622, 4047],
+    "width": 179,
+    "height": 65
+  },
+  { "word": "7690", "top-left-point": [150, 4143], "width": 142, "height": 69 },
+  { "word": "10", "top-left-point": [625, 4147], "width": 74, "height": 61 },
+  { "word": "CV", "top-left-point": [771, 4147], "width": 92, "height": 65 },
+  {
+    "word": "Instant",
+    "top-left-point": [885, 4147],
+    "width": 184,
+    "height": 61
+  },
+  {
+    "word": "Noodle",
+    "top-left-point": [1077, 4147],
+    "width": 184,
+    "height": 61
+  },
+  { "word": "Big", "top-left-point": [1264, 4146], "width": 98, "height": 76 },
+  {
+    "word": "Bowl",
+    "top-left-point": [1361, 4147],
+    "width": 133,
+    "height": 61
+  },
+  {
+    "word": "Shin",
+    "top-left-point": [1493, 4147],
+    "width": 129,
+    "height": 61
+  },
+  {
+    "word": "16 X",
+    "top-left-point": [1626, 4147],
+    "width": 128,
+    "height": 61
+  },
+  { "word": "114", "top-left-point": [1758, 4147], "width": 101, "height": 61 },
+  { "word": "GR", "top-left-point": [1863, 4147], "width": 97, "height": 61 },
+  {
+    "word": "2022-10-06",
+    "top-left-point": [2302, 4143],
+    "width": 302,
+    "height": 65
+  },
+  { "word": "1", "top-left-point": [2789, 4155], "width": 31, "height": 50 },
+  { "word": "59", "top-left-point": [2827, 4147], "width": 79, "height": 65 },
+  {
+    "word": "25,44",
+    "top-left-point": [3060, 4147],
+    "width": 156,
+    "height": 65
+  },
+  { "word": "EUR", "top-left-point": [3243, 4147], "width": 129, "height": 65 },
+  {
+    "word": "254,",
+    "top-left-point": [3618, 4147],
+    "width": 115,
+    "height": 61
+  },
+  { "word": "40", "top-left-point": [3727, 4147], "width": 79, "height": 65 },
+  {
+    "word": "NONGSHIM",
+    "top-left-point": [889, 4224],
+    "width": 323,
+    "height": 72
+  },
+  { "word": "7682", "top-left-point": [150, 4326], "width": 142, "height": 65 },
+  { "word": "30", "top-left-point": [625, 4326], "width": 79, "height": 65 },
+  { "word": "CV", "top-left-point": [771, 4326], "width": 92, "height": 65 },
+  {
+    "word": "Instant",
+    "top-left-point": [885, 4326],
+    "width": 189,
+    "height": 60
+  },
+  {
+    "word": "Noodle",
+    "top-left-point": [1073, 4326],
+    "width": 188,
+    "height": 60
+  },
+  {
+    "word": "Neoguri",
+    "top-left-point": [1269, 4326],
+    "width": 207,
+    "height": 69
+  },
+  { "word": "Hot", "top-left-point": [1475, 4326], "width": 101, "height": 60 },
+  { "word": "20", "top-left-point": [1575, 4326], "width": 83, "height": 65 },
+  { "word": "X", "top-left-point": [1654, 4327], "width": 49, "height": 58 },
+  { "word": "120", "top-left-point": [1712, 4326], "width": 106, "height": 65 },
+  { "word": "GR", "top-left-point": [1817, 4326], "width": 97, "height": 65 },
+  {
+    "word": "NONGSHIM",
+    "top-left-point": [1923, 4326],
+    "width": 316,
+    "height": 65
+  },
+  {
+    "word": "2022-09-15",
+    "top-left-point": [2306, 4326],
+    "width": 298,
+    "height": 60
+  },
+  {
+    "word": "0,89",
+    "top-left-point": [2777, 4326],
+    "width": 129,
+    "height": 65
+  },
+  {
+    "word": "17,80",
+    "top-left-point": [3065, 4326],
+    "width": 151,
+    "height": 69
+  },
+  { "word": "EUR", "top-left-point": [3243, 4326], "width": 129, "height": 65 },
+  {
+    "word": "534,00",
+    "top-left-point": [3615, 4323],
+    "width": 191,
+    "height": 68
+  },
+  { "word": "7684", "top-left-point": [150, 4422], "width": 142, "height": 69 },
+  { "word": "5", "top-left-point": [654, 4428], "width": 43, "height": 52 },
+  { "word": "CV", "top-left-point": [771, 4422], "width": 92, "height": 64 },
+  {
+    "word": "Instant",
+    "top-left-point": [885, 4426],
+    "width": 189,
+    "height": 60
+  },
+  {
+    "word": "Noodle",
+    "top-left-point": [1073, 4426],
+    "width": 188,
+    "height": 60
+  },
+  {
+    "word": "Neoguri",
+    "top-left-point": [1268, 4425],
+    "width": 209,
+    "height": 72
+  },
+  {
+    "word": "Mild",
+    "top-left-point": [1479, 4426],
+    "width": 111,
+    "height": 60
+  },
+  { "word": "20", "top-left-point": [1594, 4422], "width": 78, "height": 69 },
+  { "word": "X", "top-left-point": [1668, 4427], "width": 53, "height": 58 },
+  { "word": "120", "top-left-point": [1726, 4422], "width": 106, "height": 69 },
+  { "word": "GR", "top-left-point": [1831, 4426], "width": 97, "height": 60 },
+  {
+    "word": "NONGSHIM",
+    "top-left-point": [1936, 4422],
+    "width": 316,
+    "height": 69
+  },
+  {
+    "word": "2022-05-12",
+    "top-left-point": [2302, 4422],
+    "width": 302,
+    "height": 64
+  },
+  { "word": "0", "top-left-point": [2778, 4427], "width": 49, "height": 58 },
+  { "word": "79", "top-left-point": [2827, 4422], "width": 79, "height": 64 },
+  {
+    "word": "15,80",
+    "top-left-point": [3060, 4422],
+    "width": 156,
+    "height": 69
+  },
+  { "word": "EUR", "top-left-point": [3243, 4422], "width": 129, "height": 69 },
+  { "word": "79", "top-left-point": [3650, 4422], "width": 78, "height": 64 },
+  { "word": "00", "top-left-point": [3727, 4422], "width": 79, "height": 69 },
+  {
+    "word": "373-1",
+    "top-left-point": [150, 4522],
+    "width": 151,
+    "height": 60
+  },
+  { "word": "2", "top-left-point": [654, 4524], "width": 43, "height": 56 },
+  { "word": "CV", "top-left-point": [771, 4522], "width": 92, "height": 65 },
+  {
+    "word": "Fried",
+    "top-left-point": [885, 4522],
+    "width": 143,
+    "height": 60
+  },
+  {
+    "word": "Tofu",
+    "top-left-point": [1032, 4518],
+    "width": 124,
+    "height": 64
+  },
+  { "word": "15", "top-left-point": [1164, 4522], "width": 79, "height": 65 },
+  { "word": "X", "top-left-point": [1238, 4523], "width": 49, "height": 58 },
+  { "word": "170", "top-left-point": [1292, 4522], "width": 106, "height": 60 },
+  { "word": "GR", "top-left-point": [1402, 4522], "width": 96, "height": 65 },
+  {
+    "word": "KOMY",
+    "top-left-point": [1502, 4522],
+    "width": 175,
+    "height": 65
+  },
+  {
+    "word": "TOFU",
+    "top-left-point": [1676, 4522],
+    "width": 170,
+    "height": 65
+  },
+  {
+    "word": "2022-03-22",
+    "top-left-point": [2302, 4518],
+    "width": 302,
+    "height": 64
+  },
+  {
+    "word": "1,99",
+    "top-left-point": [2781, 4522],
+    "width": 120,
+    "height": 65
+  },
+  {
+    "word": "29,85",
+    "top-left-point": [3056, 4522],
+    "width": 156,
+    "height": 65
+  },
+  { "word": "EUR", "top-left-point": [3243, 4522], "width": 129, "height": 65 },
+  {
+    "word": "59,70",
+    "top-left-point": [3649, 4521],
+    "width": 158,
+    "height": 72
+  },
+  { "word": "3002", "top-left-point": [150, 4618], "width": 142, "height": 65 },
+  { "word": "5", "top-left-point": [659, 4625], "width": 38, "height": 51 },
+  { "word": "CV", "top-left-point": [771, 4618], "width": 92, "height": 65 },
+  {
+    "word": "Poggi",
+    "top-left-point": [889, 4617],
+    "width": 163,
+    "height": 76
+  },
+  {
+    "word": "Kimchi",
+    "top-left-point": [1045, 4618],
+    "width": 188,
+    "height": 65
+  },
+  { "word": "10", "top-left-point": [1233, 4618], "width": 74, "height": 65 },
+  { "word": "X", "top-left-point": [1308, 4620], "width": 42, "height": 56 },
+  { "word": "500", "top-left-point": [1356, 4618], "width": 115, "height": 65 },
+  { "word": "GR", "top-left-point": [1470, 4618], "width": 97, "height": 65 },
+  {
+    "word": "JONGGA",
+    "top-left-point": [1566, 4618],
+    "width": 248,
+    "height": 65
+  },
+  {
+    "word": "2022-06-15",
+    "top-left-point": [2302, 4618],
+    "width": 302,
+    "height": 60
+  },
+  {
+    "word": "3,29",
+    "top-left-point": [2781, 4618],
+    "width": 120,
+    "height": 65
+  },
+  {
+    "word": "32,90",
+    "top-left-point": [3056, 4618],
+    "width": 160,
+    "height": 65
+  },
+  { "word": "EUR", "top-left-point": [3243, 4618], "width": 129, "height": 65 },
+  {
+    "word": "164,50",
+    "top-left-point": [3622, 4618],
+    "width": 184,
+    "height": 65
+  },
+  { "word": "285", "top-left-point": [150, 4714], "width": 110, "height": 65 },
+  { "word": "84", "top-left-point": [620, 4714], "width": 74, "height": 60 },
+  { "word": "CV", "top-left-point": [771, 4714], "width": 92, "height": 65 },
+  { "word": "Tofu", "top-left-point": [890, 4714], "width": 124, "height": 60 },
+  {
+    "word": "Vacuum",
+    "top-left-point": [1017, 4713],
+    "width": 218,
+    "height": 69
+  },
+  { "word": "12", "top-left-point": [1237, 4714], "width": 79, "height": 60 },
+  { "word": "X", "top-left-point": [1316, 4720], "width": 49, "height": 53 },
+  { "word": "500", "top-left-point": [1365, 4714], "width": 111, "height": 60 },
+  { "word": "GR", "top-left-point": [1479, 4714], "width": 97, "height": 65 },
+  {
+    "word": "NATURAL",
+    "top-left-point": [1580, 4714],
+    "width": 266,
+    "height": 60
+  },
+  {
+    "word": "VEGETARIAN",
+    "top-left-point": [1849, 4714],
+    "width": 371,
+    "height": 60
+  },
+  {
+    "word": "2022-03-30",
+    "top-left-point": [2302, 4714],
+    "width": 302,
+    "height": 65
+  },
+  {
+    "word": "0,89",
+    "top-left-point": [2777, 4714],
+    "width": 124,
+    "height": 65
+  },
+  {
+    "word": "10,68",
+    "top-left-point": [3060, 4714],
+    "width": 156,
+    "height": 69
+  },
+  { "word": "EUR", "top-left-point": [3243, 4714], "width": 129, "height": 69 },
+  {
+    "word": "897,12",
+    "top-left-point": [3618, 4714],
+    "width": 183,
+    "height": 65
+  },
+  {
+    "word": "FOODS",
+    "top-left-point": [889, 4795],
+    "width": 213,
+    "height": 72
+  },
+  { "word": "4344", "top-left-point": [150, 4897], "width": 138, "height": 60 },
+  { "word": "105", "top-left-point": [593, 4897], "width": 106, "height": 60 },
+  { "word": "CV", "top-left-point": [771, 4897], "width": 92, "height": 65 },
+  {
+    "word": "Ginger",
+    "top-left-point": [884, 4896],
+    "width": 191,
+    "height": 76
+  },
+  {
+    "word": "Beer",
+    "top-left-point": [1068, 4897],
+    "width": 134,
+    "height": 60
+  },
+  {
+    "word": "(ITIESIEN)",
+    "top-left-point": [1201, 4897],
+    "width": 293,
+    "height": 69
+  },
+  { "word": "24", "top-left-point": [1488, 4897], "width": 79, "height": 65 },
+  { "word": "X", "top-left-point": [1567, 4898], "width": 49, "height": 58 },
+  { "word": "330", "top-left-point": [1616, 4897], "width": 115, "height": 65 },
+  { "word": "ML", "top-left-point": [1731, 4897], "width": 83, "height": 60 },
+  { "word": "OLD", "top-left-point": [1822, 4897], "width": 129, "height": 65 },
+  {
+    "word": "JAMAICA",
+    "top-left-point": [1954, 4897],
+    "width": 248,
+    "height": 60
+  },
+  {
+    "word": "2023-06-30",
+    "top-left-point": [2302, 4897],
+    "width": 302,
+    "height": 60
+  },
+  {
+    "word": "0,41",
+    "top-left-point": [2777, 4897],
+    "width": 124,
+    "height": 65
+  },
+  {
+    "word": "9,84",
+    "top-left-point": [3088, 4897],
+    "width": 128,
+    "height": 69
+  },
+  { "word": "EUR", "top-left-point": [3243, 4897], "width": 129, "height": 65 },
+  {
+    "word": "1.033,20",
+    "top-left-point": [3576, 4897],
+    "width": 225,
+    "height": 65
+  },
+  { "word": "1/2", "top-left-point": [1616, 5582], "width": 120, "height": 65 },
+  {
+    "word": "ML",
+    "top-left-point": [1727.9632031319513, 2407.0902578521222],
+    "width": 85.4539599809923,
+    "height": 57.489343630231815
+  }
+]

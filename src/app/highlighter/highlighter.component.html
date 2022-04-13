@@ -1,0 +1,34 @@
+<div class="wrapper__image">
+  <img
+    src="../../assets/sample.jpeg"
+    alt="document image"
+    (load)="setCoordinates()"
+    #fileImage
+  />
+  <ng-container *ngFor="let item of data; let i = index">
+    <canvas 
+          [id]="'canvas-' + i"
+          [width]="fileImage.width"
+          [height]="fileImage.height"
+          [style]="{display: activeIndex === i ? 'block' : 'none'}"
+          class="item-line"
+          ></canvas>
+    <button 
+      type="button" 
+      class="wrapper__highlighter wrapper__highlighter__active"
+      (click)="collapseItem(i)" 
+      [matTooltip]="item[1].word"
+      [style]="{ width: item[1].width, height: item[1].height, top: item[1].top, left: item[1].left}"
+      >
+    </button>
+    <app-modifier 
+      *ngIf="item[1].collapsed" 
+      (onClose)="item[1].collapsed = false" 
+      (onSave)="saveChange($event, item[0])" 
+      [item]="{key: item[0], value: item[1].word}"
+      [position]="{top: item[1].modalTop, left: item[1].left}"
+      >
+    </app-modifier>
+  </ng-container>
+</div>
+

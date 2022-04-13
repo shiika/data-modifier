@@ -1,0 +1,38 @@
+.wrapper {
+    
+    &__image {
+      position: relative;
+      display: inline-block;
+  
+      img {
+        max-width: 100%;
+        display: block;
+        margin-inline: auto;
+      }
+    }
+  
+    &__highlighter {
+      position: absolute;
+      background-color: transparent;
+      border: none;
+      z-index: 3000;
+      
+      &__active {
+        border: 1px solid rgba($color: #535bec, $alpha: 0.5);
+        background-color: rgba(0, 0, 100, 0.2);
+      }
+    }
+  }
+
+  .item-line {
+    position: fixed;
+    top: 0;
+    left: 250px;
+    z-index: 2000;
+  }
+  .item-pointer {
+    position: fixed;
+    top: 0;
+    z-index: 2001;
+  
+  }

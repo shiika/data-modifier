@@ -1,0 +1,53 @@
+[
+  {
+      "Kilbystraat": {
+          "word": "Kilbystraat",
+          "top-left-point": [48, 2862],
+          "width": 283,
+          "height": 80
+      }
+  },
+  {
+    "LLS __Akrooo": {
+        "word": "LLS __Akrooo",
+        "top-left-point": [81, 274],
+        "width": 808,
+        "height": 185
+    }
+  },
+  {
+      "PRICE": {
+          "word": "PRICE",
+          "top-left-point": [96, 1484],
+          "width": 320,
+          "height": 109
+      }
+  },
+  {
+      "INQUIRY": {
+          "word": "INQUIRY",
+          "top-left-point": [101, 1810],
+          "width": 422,
+          "height": 103
+      }
+  },
+  { "CJ": {
+    "word": "CJ", "top-left-point": [136, 3005], "width": 79, "height": 60 }
+  },
+  {
+    "KAMPEN": {
+        "word": "KAMPEN",
+        "top-left-point": [136, 3106],
+        "width": 252,
+        "height": 65
+    }
+  },
+  {
+    "NEDERLAND": {
+        "word": "NEDERLAND",
+        "top-left-point": [218, 2868],
+        "width": 353,
+        "height": 61
+    }
+  }
+]
