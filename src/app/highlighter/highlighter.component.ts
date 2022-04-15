@@ -63,7 +63,6 @@ export class HighlighterComponent implements OnInit {
 
   collapseItem(index: number): void {
     if (typeof this.activeIndex === 'number' && this.activeIndex > -1) {
-      console.log({ active: this.activeIndex, index });
       if (this.activeIndex === index) {
         this.data = this.data.map((item, i) => {
           item.collapsed = false;
@@ -111,7 +110,10 @@ export class HighlighterComponent implements OnInit {
       this.navItemsHeight * (this.pointer.navItemIndex + 1) -
       this.navItemsHeight / 2;
     const topEndPoint =
-      this.utility.extractValue(this.data[index].top) + this.toolbarHeight + 5;
+      this.utility.extractValue(this.data[index].top) +
+      this.toolbarHeight +
+      5 -
+      this.pointer.offsetTop;
     const leftEndPoint = this.utility.extractValue(this.data[index].left);
     ctx.beginPath();
     ctx.moveTo(0, topStartPoint);

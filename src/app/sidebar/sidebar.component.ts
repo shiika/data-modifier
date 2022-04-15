@@ -7,6 +7,8 @@ import objectiveItems from '../../assets/objectives_example.json';
 import { PointerService } from '../services/pointer.service';
 import { HighlighterComponent } from '../highlighter/highlighter.component';
 import { UtilityService } from '../services/utility.service';
+import { TOOLBAR_HEIGHT } from '../enums/constants';
+// import { MatSidenavContent } from '@angular/material/sidenav';
 
 @Component({
   selector: 'app-sidebar',
@@ -16,11 +18,13 @@ import { UtilityService } from '../services/utility.service';
 export class SidebarComponent implements OnInit {
   @ViewChild('highlighter') highlighterElement: HighlighterComponent;
   allPoints: { [key: string]: any }[] = JSON.parse(JSON.stringify(jsonData));
+  @ViewChild('sidenavContent') sidenavContentElement: any;
   sidebarItems: { [key: string]: any }[] = JSON.parse(
     JSON.stringify(objectiveItems)
   );
   sidebarIndex: number;
   activeKey: string;
+  toolbarHeight: number = TOOLBAR_HEIGHT;
 
   isHandset$: Observable<boolean> = this.breakpointObserver
     .observe(Breakpoints.Handset)
@@ -127,7 +131,8 @@ export class SidebarComponent implements OnInit {
     this.pointer.$itemPointEmitter.next(key);
   }
 
-  resetPointer(): void {
+  resetPointer(e: Event): void {
+    this.pointer.offsetTop = e.target['scrollTop'];
     this.pointer.$itemPointEmitter.next(null);
   }
 }

@@ -11,6 +11,7 @@ export class PointerService {
   $navItemIndex: number;
   $sidebarItems: any[];
   $allPoints: any[];
+  offsetTop: number = 0;
 
   get navItemIndex(): number {
     return this.$navItemIndex;

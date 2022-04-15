@@ -18,11 +18,11 @@
         {{ item[0] }}
       </a>
     </mat-nav-list>
-    <button mat-raised-button (click)="resetPointer()" id="reset-btn">
+    <button mat-raised-button (click)="resetPointer($event)" id="reset-btn">
       Reset Pointer
     </button>
   </mat-sidenav>
-  <mat-sidenav-content (scroll)="resetPointer()">
+  <mat-sidenav-content (scroll)="resetPointer($event)" #sidenavContent>
     <mat-toolbar color="primary">
       <span>Data Modifier</span>
       <!-- <button

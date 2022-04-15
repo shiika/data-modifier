@@ -20,7 +20,6 @@ export class ModifierComponent implements OnInit {
 
   ngOnInit(): void {
     this.form.addControl(this.item.key, this.fb.control(this.item.value));
-    console.log(this.item);
   }
 
   close(): void {

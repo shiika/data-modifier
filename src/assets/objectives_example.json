@@ -11,6 +11,17 @@
     ]
   },
   {
+    "column 1": [
+      {
+        "page-index": 0,
+        "word": "TRANSPORT",
+        "top-left-point": [2119, 150],
+        "width": 357,
+        "height": 65
+      }
+    ]
+  },
+  {
     "invoice-number": [
       {
         "page-index": 0,
