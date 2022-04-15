@@ -1,0 +1,271 @@
+[
+  {
+    "invoice-due-date": [
+      {
+        "page-index": 0,
+        "word": "2022-03-06",
+        "top-left-point": [721, 3110],
+        "width": 303,
+        "height": 65
+      }
+    ]
+  },
+  {
+    "invoice-number": [
+      {
+        "page-index": 0,
+        "word": "027055",
+        "top-left-point": [817, 392],
+        "width": 206,
+        "height": 69
+      }
+    ]
+  },
+  {
+    "invoice-date": [
+      {
+        "page-index": 0,
+        "word": "2022-02-07",
+        "top-left-point": [917, 438],
+        "width": 298,
+        "height": 61
+      }
+    ]
+  },
+  {
+    "invoice-sender-company": [
+      {
+        "page-index": 0,
+        "word": "Kilbystraat",
+        "top-left-point": [48, 2862],
+        "width": 283,
+        "height": 80
+      }
+    ]
+  },
+  {
+    "invoice-sender-vat-id": [
+      {
+        "page-index": 0,
+        "word": "Fl12345573",
+        "top-left-point": [1717, 2251],
+        "width": 317,
+        "height": 65
+      }
+    ]
+  },
+  {
+    "invoice-sender-business-id": [
+      {
+        "page-index": 0,
+        "word": "FI-005100",
+        "top-left-point": [1268, 149],
+        "width": 272,
+        "height": 72
+      }
+    ]
+  },
+  {
+    "invoice-sender-phone-number": [
+      {
+        "page-index": 0,
+        "word": "+(31)383",
+        "top-left-point": [327, 2977],
+        "width": 240,
+        "height": 76
+      },
+      {
+        "page-index": 0,
+        "word": "32",
+        "top-left-point": [328, 3215],
+        "width": 79,
+        "height": 65
+      },
+      {
+        "page-index": 0,
+        "word": "100",
+        "top-left-point": [328, 3298],
+        "width": 106,
+        "height": 65
+      },
+      {
+        "page-index": 0,
+        "word": "20",
+        "top-left-point": [328, 3403],
+        "width": 78,
+        "height": 65
+      }
+    ]
+  },
+
+  {
+    "invoice-product-lines": [
+      [
+        {
+          "line-description": [
+            {
+              "page-index": 0,
+              "word": "Unfried",
+              "top-left-point": [2017, 889],
+              "width": 195,
+              "height": 72
+            },
+            {
+              "page-index": 0,
+              "word": "Prawn",
+              "top-left-point": [2023, 1086],
+              "width": 170,
+              "height": 60
+            },
+            {
+              "page-index": 0,
+              "word": "Crackers",
+              "top-left-point": [2023, 1260],
+              "width": 234,
+              "height": 60
+            },
+            {
+              "page-index": 0,
+              "word": "12",
+              "top-left-point": [2023, 1498],
+              "width": 78,
+              "height": 60
+            },
+            {
+              "page-index": 0,
+              "word": "X",
+              "top-left-point": [2024, 1572],
+              "width": 53,
+              "height": 58
+            },
+            {
+              "page-index": 0,
+              "word": "KG",
+              "top-left-point": [2018, 1671],
+              "width": 92,
+              "height": 65
+            },
+            {
+              "page-index": 0,
+              "word": "SA",
+              "top-left-point": [2017, 1771],
+              "width": 85,
+              "height": 72
+            },
+            {
+              "page-index": 0,
+              "word": "GIANG",
+              "top-left-point": [2018, 1859],
+              "width": 192,
+              "height": 65
+            }
+          ]
+        },
+        {
+          "line-unit-price": [
+            {
+              "page-index": 0,
+              "word": "3,25",
+              "top-left-point": [2023, 2781],
+              "width": 120,
+              "height": 60
+            }
+          ]
+        },
+        {
+          "line-gross-price": [
+            {
+              "page-index": 0,
+              "word": "39_",
+              "top-left-point": [2023, 3056],
+              "width": 83,
+              "height": 60
+            },
+            {
+              "page-index": 0,
+              "word": "00",
+              "top-left-point": [2023, 3138],
+              "width": 78,
+              "height": 65
+            },
+            {
+              "page-index": 0,
+              "word": "EUR",
+              "top-left-point": [2023, 3243],
+              "width": 129,
+              "height": 65
+            }
+          ]
+        },
+        { "line-discount-percentage": [] },
+        {
+          "line-total": [
+            {
+              "page-index": 0,
+              "word": "1.755,00",
+              "top-left-point": [2023, 3576],
+              "width": 225,
+              "height": 60
+            }
+          ]
+        },
+        { "line-vat-percentage": [] }
+      ],
+      [
+        {
+          "line-description": [
+            {
+              "page-index": 0,
+              "word": "Transport",
+              "top-left-point": [2118, 889],
+              "width": 254,
+              "height": 68
+            },
+            {
+              "page-index": 0,
+              "word": "Contribution",
+              "top-left-point": [2119, 1141],
+              "width": 316,
+              "height": 60
+            }
+          ]
+        },
+        {
+          "line-unit-price": [
+            {
+              "page-index": 0,
+              "word": "0,01",
+              "top-left-point": [2119, 2777],
+              "width": 124,
+              "height": 65
+            }
+          ]
+        },
+        {
+          "line-gross-price": [
+            {
+              "page-index": 0,
+              "word": "0,01",
+              "top-left-point": [2119, 3088],
+              "width": 124,
+              "height": 65
+            }
+          ]
+        },
+        { "line-discount-percentage": [] },
+        {
+          "line-total": [
+            {
+              "page-index": 0,
+              "word": "0,08",
+              "top-left-point": [2119, 3681],
+              "width": 125,
+              "height": 65
+            }
+          ]
+        },
+        { "line-vat-percentage": [] }
+      ]
+    ]
+  }
+]

@@ -4,7 +4,8 @@
           "word": "Kilbystraat",
           "top-left-point": [48, 2862],
           "width": 283,
-          "height": 80
+          "height": 80,
+          "key": "Kilb"
       }
   },
   {
@@ -12,7 +13,8 @@
         "word": "LLS __Akrooo",
         "top-left-point": [81, 274],
         "width": 808,
-        "height": 185
+        "height": 185,
+        "key": "LLS"
     }
   },
   {
@@ -20,7 +22,8 @@
           "word": "PRICE",
           "top-left-point": [96, 1484],
           "width": 320,
-          "height": 109
+          "height": 109,
+          "key": "PRI"
       }
   },
   {
@@ -48,6 +51,38 @@
         "top-left-point": [218, 2868],
         "width": 353,
         "height": 61
+    }
+  },
+  {
+    "Delivery address": {
+      "word": "Delivery address",
+      "top-left-point": [1010, 150],
+      "width": 460,
+      "height": 86
+    }
+  },
+  {
+    "Billing": {
+      "word": "Billing",
+      "top-left-point": [1017, 2022],
+      "width": 186,
+      "height": 76
+    }
+  },
+  {
+    "address": {
+      "word": "address",
+      "top-left-point": [1018, 2201],
+      "width": 230,
+      "height": 60
+    }
+  },
+  {
+    "Prolasku": {
+      "word": "Prolasku",
+      "top-left-point": [1105, 150],
+      "width": 229,
+      "height": 60
     }
   }
 ]

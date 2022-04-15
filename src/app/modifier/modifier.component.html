@@ -1,16 +1,19 @@
-<section class="modifier" [style]="{top: position.top, left: position.left}">
-    <form [formGroup]="form" (ngSubmit)="save()">
-        <p class="modifier__label">{{item.key}}</p>
-        <mat-form-field appearance="fill">
-            <input matInput [formControlName]="item.key">
-          </mat-form-field>
-        <div class="modifier__actions">
-            <button class="modifier__actions__action" (click)="close()">
-                <img src="../../assets/icons/close-svgrepo-com.svg" alt="close icon">
-            </button>
-            <button class="modifier__actions__action" type="submit">
-                <img src="../../assets/icons/checkmark-svgrepo-com.svg" alt="checkmark icon">
-            </button>
-        </div>
-    </form>
+<section class="modifier" [style]="{ top: position.top, left: position.left }">
+  <form [formGroup]="form" (ngSubmit)="save()">
+    <p class="modifier__label">{{ item.key }}</p>
+    <mat-form-field appearance="fill">
+      <input matInput [formControlName]="item.key" [value]="item.value" />
+    </mat-form-field>
+    <div class="modifier__actions">
+      <button class="modifier__actions__action" (click)="close()">
+        <img src="../../assets/icons/close-svgrepo-com.svg" alt="close icon" />
+      </button>
+      <button class="modifier__actions__action" type="submit">
+        <img
+          src="../../assets/icons/checkmark-svgrepo-com.svg"
+          alt="checkmark icon"
+        />
+      </button>
+    </div>
+  </form>
 </section>

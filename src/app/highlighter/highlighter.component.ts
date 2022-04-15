@@ -1,4 +1,12 @@
-import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  ViewChild,
+} from '@angular/core';
 import { NAV_ITEM_HEIGHT, TOOLBAR_HEIGHT } from '../enums/constants';
 import { PointerService } from '../services/pointer.service';
 import { UtilityService } from '../services/utility.service';
@@ -6,73 +14,136 @@ import { UtilityService } from '../services/utility.service';
 @Component({
   selector: 'app-highlighter',
   templateUrl: './highlighter.component.html',
-  styleUrls: ['./highlighter.component.scss']
+  styleUrls: ['./highlighter.component.scss'],
 })
 export class HighlighterComponent implements OnInit {
   @Input() data: any;
-  @ViewChild("fileImage") fileImage: ElementRef;
+  @ViewChild('fileImage') fileImage: ElementRef;
+  @Output() updateSidebarItems: EventEmitter<any> = new EventEmitter<any>();
   aspectRatio: number;
   activeIndex: number;
+  activeKey: string;
   navItemsHeight: any = NAV_ITEM_HEIGHT;
   toolbarHeight: number = TOOLBAR_HEIGHT;
-  constructor(private pointer: PointerService, private utility: UtilityService) {}
+  constructor(
+    private pointer: PointerService,
+    private utility: UtilityService
+  ) {}
 
   ngOnInit(): void {
-    this.pointer.$itemPointEmitter
-      .subscribe(
-        (index: number) => {
-          this.activeIndex = index;
-          this.setCanvasLine(index);
-        }
-      );
+    this.pointer.$itemPointEmitter.subscribe((key: string) => {
+      this.deCollapseItems();
+      if (key !== null) {
+        this.activeIndex = this.data.findIndex((item) => item.key === key);
+        this.activeKey =
+          this.pointer.sidebarItems[this.pointer.navItemIndex][0];
+        this.setCanvasLine(this.activeIndex);
+        this.collapseItem(this.activeIndex);
+      } else {
+        this.resetCanvasLine();
+        this.activeIndex = -1;
+        this.deCollapseItems();
+      }
+    });
   }
 
   resizeOnSizeChanges(): number {
-    return this.fileImage.nativeElement.offsetWidth / this.fileImage.nativeElement.naturalWidth
+    return (
+      this.fileImage.nativeElement.offsetWidth /
+      this.fileImage.nativeElement.naturalWidth
+    );
+  }
+
+  deCollapseItems(): void {
+    this.data = this.data.map((item, i) => {
+      item.collapsed = false;
+      return item;
+    });
   }
 
   collapseItem(index: number): void {
-    this.data = this.data.map(
-      (item, i) => {
-        item[1].collapsed = false;
-        if (i === index) {
-          item[1].collapsed = true;
-        }
-        return item
+    if (typeof this.activeIndex === 'number' && this.activeIndex > -1) {
+      console.log({ active: this.activeIndex, index });
+      if (this.activeIndex === index) {
+        this.data = this.data.map((item, i) => {
+          item.collapsed = false;
+          if (i === this.activeIndex) {
+            item.collapsed = true;
+          }
+          return item;
+        });
+      } else {
+        this.pointer.$itemPointModifier.next({
+          active: this.activeIndex,
+          newIndex: index,
+        });
       }
-    );
+    }
   }
 
   setCoordinates(): void {
     this.aspectRatio = this.resizeOnSizeChanges();
-    this.data = this.data.map(
-      item => {
-        item[1].width = `${this.utility.extractValue(item[1].width) * this.aspectRatio}px`;
-        item[1].height = `${this.utility.extractValue(item[1].height) * this.aspectRatio}px`;
-        item[1].top = `${this.utility.extractValue(item[1].top) * this.aspectRatio}px`;
-        item[1].left = `${this.utility.extractValue(item[1].left) * this.aspectRatio}px`;
-        item[1].modalTop = `${this.utility.extractValue(item[1].top) + this.utility.extractValue(item[1].height)}px`;
-        item[1].collapsed = false;
-        return item
-      }
-    );
+    this.data = this.data.map((item) => {
+      item.width = `${
+        this.utility.extractValue(item.width) * this.aspectRatio
+      }px`;
+      item.height = `${
+        this.utility.extractValue(item.height) * this.aspectRatio
+      }px`;
+      item.top = `${this.utility.extractValue(item.top) * this.aspectRatio}px`;
+      item.left = `${
+        this.utility.extractValue(item.left) * this.aspectRatio
+      }px`;
+      item.modalTop = `${
+        this.utility.extractValue(item.top) +
+        this.utility.extractValue(item.height)
+      }px`;
+      item.collapsed = false;
+      return item;
+    });
   }
 
   setCanvasLine(index: number): void {
-      const c = (document.getElementById(`canvas-${this.activeIndex}`) as any);
-      const ctx = c.getContext("2d");
-      const topStartPoint = (this.navItemsHeight * (index + 1) - this.navItemsHeight / 2);
-      const topEndPoint = this.utility.extractValue(this.data[index][1].top) + this.toolbarHeight + 5;
-      const leftEndPoint = this.utility.extractValue(this.data[index][1].left);
-      ctx.beginPath();
-      ctx.moveTo(0, topStartPoint);
-      ctx.lineTo(leftEndPoint, topEndPoint);
-      ctx.stroke();
+    const c = document.getElementById(`canvas-${index}`) as any;
+    const ctx = c.getContext('2d');
+    ctx.clearRect(0, 0, c.width, c.height);
+    const topStartPoint =
+      this.navItemsHeight * (this.pointer.navItemIndex + 1) -
+      this.navItemsHeight / 2;
+    const topEndPoint =
+      this.utility.extractValue(this.data[index].top) + this.toolbarHeight + 5;
+    const leftEndPoint = this.utility.extractValue(this.data[index].left);
+    ctx.beginPath();
+    ctx.moveTo(0, topStartPoint);
+    ctx.lineTo(leftEndPoint, topEndPoint);
+    ctx.stroke();
+  }
+
+  resetCanvasLine(): void {
+    if (typeof this.activeIndex === 'number' && this.activeIndex > -1) {
+      const c = document.getElementById(`canvas-${this.activeIndex}`) as any;
+      c.style.display = 'none';
+    }
   }
 
   saveChange(newValue: string, key: string): void {
-    const index: number = this.data.findIndex(item => item[0] === key);
-    this.data[index][1].word = newValue;
+    const mutateIndex: number = this.pointer.sidebarItems.findIndex(
+      (item) => item[0] === key
+    );
+    this.pointer.sidebarItems = this.pointer.sidebarItems.map((item, i) => {
+      if (i === mutateIndex) {
+        item[1].word = newValue;
+        // item[1].key = newValue;
+      }
+      return item;
+    });
+    this.updateSidebarItems.next();
   }
 
+  getSidebarItemValue(): string {
+    const mutateIndex: number = this.pointer.sidebarItems.findIndex(
+      (item) => item[0] === this.activeKey
+    );
+    return this.pointer.sidebarItems[mutateIndex][1].word;
+  }
 }
