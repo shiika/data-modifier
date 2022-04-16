@@ -29,6 +29,14 @@
   left: 275px;
   z-index: 2000;
 }
+
+#grid-canvas {
+  position: absolute;
+  top: 610px;
+  left: 46px;
+  border: 1px solid red;
+}
+
 .item-pointer {
   position: fixed;
   top: 0;

@@ -8,6 +8,7 @@ import {
   ViewChild,
 } from '@angular/core';
 import { NAV_ITEM_HEIGHT, TOOLBAR_HEIGHT } from '../enums/constants';
+import { GRID_COORDS } from '../enums/grid-coords';
 import { PointerService } from '../services/pointer.service';
 import { UtilityService } from '../services/utility.service';
 
@@ -25,6 +26,7 @@ export class HighlighterComponent implements OnInit {
   activeKey: string;
   navItemsHeight: any = NAV_ITEM_HEIGHT;
   toolbarHeight: number = TOOLBAR_HEIGHT;
+  gridCoords: { [key: string]: number } = GRID_COORDS;
   constructor(
     private pointer: PointerService,
     private utility: UtilityService

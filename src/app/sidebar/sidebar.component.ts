@@ -55,10 +55,10 @@ export class SidebarComponent implements OnInit {
       const point = Object.entries(item)[0];
       if (point[1].length > 1) {
         point[1] = point[1].reduce(
-          (acc, item) => {
+          (acc, item, i) => {
             return {
               'page-index': acc['page-index'],
-              word: acc.word,
+              word: `${acc.word}${point[1][i].word}`,
               'top-left-point': acc['top-left-point'],
               width: acc.width + item.width,
               height: acc.height,
@@ -67,7 +67,7 @@ export class SidebarComponent implements OnInit {
           },
           {
             'page-index': point[1][0]['page-index'],
-            word: point[1][0].word,
+            word: '',
             'top-left-point': point[1][0]['top-left-point'],
             width: point[1][0].width,
             height: point[1][0].height,
