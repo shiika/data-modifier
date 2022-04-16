@@ -4,6 +4,31 @@
       display: flex;
       flex-direction: column;
     }
+
+    .mat-list-item-content {
+      padding: 0 !important;
+      &__container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        padding: 0 15px;
+
+        span {
+          display: block;
+        }
+
+        span:first-child {
+          max-width: 116px;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+
+        span:last-child {
+          color: #a9a9a9;
+        }
+      }
+    }
   }
 }
 
@@ -12,7 +37,7 @@
 }
 
 .sidenav {
-  width: 250px;
+  width: 275px;
 }
 
 .sidenav .mat-toolbar {
@@ -33,6 +58,10 @@
 .mat-list-item-active {
   background-color: rgba($color: #000000, $alpha: 0.04);
 }
+
+// .mat-list-item {
+
+// }
 
 #reset-btn {
   margin-top: auto;

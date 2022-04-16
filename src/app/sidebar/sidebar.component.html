@@ -15,7 +15,10 @@
         (click)="toggleItem(item[1].key, i)"
         [class.mat-list-item-active]="sidebarIndex === i"
       >
-        {{ item[0] }}
+        <div class="mat-list-item-content__container">
+          <span>{{ item[0] }}</span>
+          <span>{{ item[1].word }}</span>
+        </div>
       </a>
     </mat-nav-list>
     <button mat-raised-button (click)="resetPointer($event)" id="reset-btn">
