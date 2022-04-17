@@ -5,6 +5,26 @@
     (load)="setCoordinates()"
     #fileImage
   />
+  <!-- <ng-container *ngIf="isEditGrid">
+    <ng-container *ngFor="let row of gridData">
+    </ng-container>
+  </ng-container> -->
+
+  <ng-container *ngFor="let row of gridData; let rowIndex = index">
+    <canvas
+      *ngFor="let col of row[1]; let i = index"
+      [id]="'grid-canvas-box-' + rowIndex + i"
+      [width]="fileImage.width"
+      [height]="fileImage.height"
+      [style]="{
+        display:
+          activeSidebarIndex === i && activeRowIndex === rowIndex
+            ? 'block'
+            : 'none'
+      }"
+      class="grid-line"
+    ></canvas>
+  </ng-container>
   <ng-container *ngFor="let item of data; let i = index">
     <canvas
       [id]="'canvas-' + i"

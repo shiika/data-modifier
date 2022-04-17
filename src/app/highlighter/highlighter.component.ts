@@ -7,7 +7,12 @@ import {
   Output,
   ViewChild,
 } from '@angular/core';
-import { NAV_ITEM_HEIGHT, TOOLBAR_HEIGHT } from '../enums/constants';
+import {
+  GRID_ITEMS_HEADER_HEIGHT,
+  NAV_ITEM_HEIGHT,
+  ROW_TEXT_HEIGHT,
+  TOOLBAR_HEIGHT,
+} from '../enums/constants';
 import { GRID_COORDS } from '../enums/grid-coords';
 import { PointerService } from '../services/pointer.service';
 import { UtilityService } from '../services/utility.service';
@@ -21,11 +26,17 @@ export class HighlighterComponent implements OnInit {
   @Input() data: any;
   @ViewChild('fileImage') fileImage: ElementRef;
   @Output() updateSidebarItems: EventEmitter<any> = new EventEmitter<any>();
+  @Input() gridData: any;
+  @Input() isEditGrid: boolean;
   aspectRatio: number;
   activeIndex: number;
+  activeSidebarIndex: number;
+  activeRowIndex: number;
   activeKey: string;
   navItemsHeight: any = NAV_ITEM_HEIGHT;
   toolbarHeight: number = TOOLBAR_HEIGHT;
+  gridItemsHeaderHeight: number = GRID_ITEMS_HEADER_HEIGHT;
+  rowTextHeight: number = ROW_TEXT_HEIGHT;
   gridCoords: { [key: string]: number } = GRID_COORDS;
   constructor(
     private pointer: PointerService,
@@ -47,6 +58,33 @@ export class HighlighterComponent implements OnInit {
         this.deCollapseItems();
       }
     });
+    this.pointer.$gridItemPointEmitter.subscribe(
+      (info: { key: string; rowIndex: number }) => {
+        this.activeRowIndex = info.rowIndex;
+        if (info.key !== null) {
+          this.activeIndex = this.data.findIndex(
+            (item) => item.key === info.key
+          );
+          this.activeSidebarIndex = this.gridData[
+            this.activeRowIndex
+          ][1].findIndex((col) => {
+            return col[1].key === info.key;
+          });
+          this.activeKey =
+            this.pointer.gridItems[this.activeRowIndex][1][
+              this.pointer.gridItemIndex
+            ][0];
+          this.setGridCanvasLine(this.activeIndex);
+          this.setOverallColBox(this.activeSidebarIndex);
+          // this.collapseItem(this.activeIndex);
+        }
+        // else {
+        //   this.resetCanvasLine();
+        //   this.activeIndex = -1;
+        //   this.deCollapseItems();
+        // }
+      }
+    );
   }
 
   resizeOnSizeChanges(): number {
@@ -120,6 +158,48 @@ export class HighlighterComponent implements OnInit {
     ctx.beginPath();
     ctx.moveTo(0, topStartPoint);
     ctx.lineTo(leftEndPoint, topEndPoint);
+    ctx.stroke();
+  }
+  setGridCanvasLine(index: number): void {
+    const c = document.getElementById(`canvas-${index}`) as any;
+    const ctx = c.getContext('2d');
+    ctx.clearRect(0, 0, c.width, c.height);
+    const topStartPoint =
+      this.pointer.sidebarItems.length * this.navItemsHeight +
+      this.gridItemsHeaderHeight +
+      this.rowTextHeight +
+      this.pointer.sidebarOffsetTop +
+      this.navItemsHeight * (this.pointer.gridItemIndex + 1);
+    const topEndPoint =
+      this.utility.extractValue(this.data[index].top) +
+      this.toolbarHeight +
+      5 -
+      this.pointer.offsetTop;
+    const leftEndPoint = this.utility.extractValue(this.data[index].left);
+    ctx.beginPath();
+    ctx.moveTo(0, topStartPoint);
+    ctx.lineTo(leftEndPoint, topEndPoint);
+    ctx.stroke();
+  }
+  setOverallColBox(colIndex: number): void {
+    const c = document.getElementById(
+      `grid-canvas-box-${this.activeRowIndex}${this.activeSidebarIndex}`
+    ) as any;
+    const ctx = c.getContext('2d');
+    const col = this.gridData[this.activeRowIndex][1][colIndex][1];
+    const leftStartPoint =
+      this.utility.extractValue(col.left) * this.aspectRatio;
+    const topStartPoint =
+      this.utility.extractValue(col.top) * this.aspectRatio +
+      this.toolbarHeight -
+      this.pointer.offsetTop;
+    const boxWidth = this.utility.extractValue(col.width) * this.aspectRatio;
+    const boxHeight = this.utility.extractValue(col.height) * this.aspectRatio;
+    ctx.clearRect(0, 0, c.width, c.height);
+    ctx.beginPath();
+    ctx.strokeStyle = 'green';
+    ctx.lintWidth = '6';
+    ctx.rect(leftStartPoint, topStartPoint, boxWidth, boxHeight);
     ctx.stroke();
   }
 

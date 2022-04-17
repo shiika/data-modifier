@@ -29,6 +29,36 @@
         }
       }
     }
+
+    mat-nav-list:last-of-type {
+      margin-top: 40px;
+
+      .grid-items {
+        &__header {
+          font-size: 20px;
+          font-weight: 500;
+          padding: 0 15px;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        }
+
+        &__rows {
+          &__row {
+            p {
+              font-size: 18px;
+              padding: 15px;
+              color: #000000a6;
+              margin-bottom: 0;
+            }
+
+            span {
+              color: rgba(0, 0, 0, 0.87);
+            }
+          }
+        }
+      }
+    }
   }
 }
 
@@ -58,10 +88,6 @@
 .mat-list-item-active {
   background-color: rgba($color: #000000, $alpha: 0.04);
 }
-
-// .mat-list-item {
-
-// }
 
 #reset-btn {
   margin-top: auto;

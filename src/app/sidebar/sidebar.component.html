@@ -17,9 +17,39 @@
       >
         <div class="mat-list-item-content__container">
           <span>{{ item[0] }}</span>
-          <span>{{ item[1].word }}</span>
+          <span>{{ item[1]?.word }}</span>
         </div>
       </a>
+    </mat-nav-list>
+    <mat-nav-list>
+      <div class="grid-items">
+        <div class="grid-items__header">
+          Table Items
+          <button type="button" mat-button color="primary" (click)="editGrid()">
+            {{ isEditGrid ? "Cancel" : "Edit" }}
+          </button>
+        </div>
+        <div class="grid-items__rows">
+          <div
+            class="grid-items__rows__row"
+            *ngFor="let row of gridItems; let rowIndex = index"
+          >
+            <p>{{ row[0] }}</p>
+            <a
+              mat-list-item
+              href="#"
+              *ngFor="let col of row[1]; let i = index"
+              (click)="toggleGridItem(col[1].key, i, rowIndex)"
+              [class.mat-list-item-active]="sidebarGridIndex === i"
+            >
+              <div class="mat-list-item-content__container">
+                <span>{{ col[0] }}</span>
+                <!-- <span>{{ col[1].word }}</span> -->
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
     </mat-nav-list>
     <button mat-raised-button (click)="resetPointer($event)" id="reset-btn">
       Reset Pointer
@@ -40,6 +70,8 @@
     <section class="wrapper">
       <app-highlighter
         [data]="allPoints"
+        [isEditGrid]="isEditGrid"
+        [gridData]="gridItems"
         (updateSidebarItems)="updateSidebarItems()"
         #highlighter
       ></app-highlighter>

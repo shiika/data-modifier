@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
@@ -15,16 +15,19 @@ import { TOOLBAR_HEIGHT } from '../enums/constants';
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.scss'],
 })
-export class SidebarComponent implements OnInit {
+export class SidebarComponent implements OnInit, AfterViewInit {
   @ViewChild('highlighter') highlighterElement: HighlighterComponent;
-  allPoints: { [key: string]: any }[] = JSON.parse(JSON.stringify(jsonData));
   @ViewChild('sidenavContent') sidenavContentElement: any;
+  allPoints: { [key: string]: any }[] = JSON.parse(JSON.stringify(jsonData));
   sidebarItems: { [key: string]: any }[] = JSON.parse(
     JSON.stringify(objectiveItems)
   );
   sidebarIndex: number;
+  sidebarGridIndex: number;
   activeKey: string;
   toolbarHeight: number = TOOLBAR_HEIGHT;
+  gridItems: { [key: string]: any }[] = [];
+  isEditGrid: boolean = false;
 
   isHandset$: Observable<boolean> = this.breakpointObserver
     .observe(Breakpoints.Handset)
@@ -51,43 +54,102 @@ export class SidebarComponent implements OnInit {
       return item;
     });
     this.updateAllPoints();
-    this.pointer.sidebarItems = this.sidebarItems.map((item) => {
-      const point = Object.entries(item)[0];
-      if (point[1].length > 1) {
-        point[1] = point[1].reduce(
-          (acc, item, i) => {
-            return {
-              'page-index': acc['page-index'],
-              word: `${acc.word}${point[1][i].word}`,
-              'top-left-point': acc['top-left-point'],
-              width: acc.width + item.width,
-              height: acc.height,
-              key: acc.key,
-            };
-          },
-          {
-            'page-index': point[1][0]['page-index'],
-            word: '',
-            'top-left-point': point[1][0]['top-left-point'],
-            width: point[1][0].width,
-            height: point[1][0].height,
-            key: point[1][0].word,
-          }
-        );
-      } else {
-        point[1] = point[1][0];
-        point[1].modalTop = `${
-          point[1]['top-left-point'][0] + point[1].height
-        }px`;
-        point[1].width = `${point[1].width}px`;
-        point[1].height = `${point[1].height}px`;
-        point[1].top = `${point[1]['top-left-point'][0]}px`;
-        point[1].left = `${point[1]['top-left-point'][1]}px`;
-        point[1].collapsed = false;
-        point[1].key = point[1].word;
-      }
-      return point;
-    });
+    this.pointer.sidebarItems = this.sidebarItems
+      .filter((item) => {
+        const point = Object.entries(item)[0];
+        if (point[1][0] instanceof Array) {
+          point[1].forEach((row, rowIndex) => {
+            row = row.map((colObject) => {
+              const col: [string, any] = Object.entries(colObject)[0];
+              if (col[1].length > 1) {
+                col[1] = col[1].reduce(
+                  (acc, item, i) => {
+                    return {
+                      'page-index': acc['page-index'],
+                      word: `${acc.word}${col[1][i].word}`,
+                      'top-left-point': acc['top-left-point'],
+                      width: acc.width + item.width,
+                      height: acc.height,
+                      top: acc.top,
+                      left: acc.left,
+                      key: acc.key,
+                      row: rowIndex,
+                    };
+                  },
+                  {
+                    'page-index': col[1][0]['page-index'],
+                    word: '',
+                    'top-left-point': col[1][0]['top-left-point'],
+                    width: 0,
+                    height: col[1][0].height,
+                    top: col[1][0]['top-left-point'][0],
+                    left: col[1][0]['top-left-point'][1],
+                    key: col[1][0].word,
+                    row: rowIndex,
+                  }
+                );
+                col[1].width = `${col[1].width}px`;
+                col[1].height = `${col[1].height}px`;
+                col[1].top = `${col[1]['top-left-point'][0]}px`;
+                col[1].left = `${col[1]['top-left-point'][1]}px`;
+              } else if (col[1].length === 1) {
+                col[1] = col[1][0];
+                col[1].modalTop = `${
+                  col[1]['top-left-point'][0] + col[1].height
+                }px`;
+                col[1].width = `${col[1].width}px`;
+                col[1].height = `${col[1].height}px`;
+                col[1].top = `${col[1]['top-left-point'][0]}px`;
+                col[1].left = `${col[1]['top-left-point'][1]}px`;
+                col[1].collapsed = false;
+                col[1].key = col[1].word;
+              }
+              return col;
+            });
+            row = [`row ${rowIndex + 1}`, [...row]];
+            this.pointer.gridItems = [...this.pointer.gridItems, row];
+          });
+        }
+        this.updateGridItems();
+        return !(point[1][0] instanceof Array);
+      })
+      .map((item) => {
+        const point = Object.entries(item)[0];
+        if (point[1].length > 1) {
+          point[1] = point[1].reduce(
+            (acc, item, i) => {
+              return {
+                'page-index': acc['page-index'],
+                word: `${acc.word}${point[1][i].word}`,
+                'top-left-point': acc['top-left-point'],
+                width: acc.width + item.width,
+                height: acc.height,
+                key: acc.key,
+              };
+            },
+            {
+              'page-index': point[1][0]['page-index'],
+              word: '',
+              'top-left-point': point[1][0]['top-left-point'],
+              width: point[1][0].width,
+              height: point[1][0].height,
+              key: point[1][0].word,
+            }
+          );
+        } else {
+          point[1] = point[1][0];
+          point[1].modalTop = `${
+            point[1]['top-left-point'][0] + point[1].height
+          }px`;
+          point[1].width = `${point[1].width}px`;
+          point[1].height = `${point[1].height}px`;
+          point[1].top = `${point[1]['top-left-point'][0]}px`;
+          point[1].left = `${point[1]['top-left-point'][1]}px`;
+          point[1].collapsed = false;
+          point[1].key = point[1].word;
+        }
+        return point;
+      });
     this.updateSidebarItems();
     this.pointer.$itemPointModifier.subscribe(
       (value: { active: number; newIndex: number }) => {
@@ -109,15 +171,25 @@ export class SidebarComponent implements OnInit {
           return item;
         });
         this.updateSidebarItems();
-        console.log(this.sidebarItems[this.sidebarIndex]);
         this.toggleItem(this.activeKey, this.sidebarIndex);
       }
     );
   }
 
+  ngAfterViewInit(): void {
+    const sidebar = document.querySelector('.mat-drawer-inner-container');
+    sidebar.addEventListener('scroll', (e: Event) => {
+      this.pointer.sidebarOffsetTop = e.target['scrollTop'];
+    });
+  }
+
   updateSidebarItems(): void {
     this.sidebarItems = this.pointer.sidebarItems;
     this.updateAllPoints();
+  }
+  updateGridItems(): void {
+    this.gridItems = this.pointer.gridItems;
+    // this.updateAllPoints();
   }
 
   updateAllPoints(): void {
@@ -131,8 +203,18 @@ export class SidebarComponent implements OnInit {
     this.pointer.$itemPointEmitter.next(key);
   }
 
+  toggleGridItem(key: string, index: number, rowIndex: number): void {
+    this.sidebarGridIndex = index;
+    this.pointer.gridItemIndexSetter = index;
+    this.pointer.$gridItemPointEmitter.next({ key, rowIndex });
+  }
+
   resetPointer(e: Event): void {
     this.pointer.offsetTop = e.target['scrollTop'];
     this.pointer.$itemPointEmitter.next(null);
+  }
+
+  editGrid(): void {
+    this.isEditGrid = !this.isEditGrid;
   }
 }

@@ -30,6 +30,13 @@
   z-index: 2000;
 }
 
+.grid-line {
+  position: fixed;
+  top: 0;
+  left: 275;
+  z-index: 4000;
+}
+
 #grid-canvas {
   position: absolute;
   top: 610px;
