@@ -212,6 +212,7 @@ export class SidebarComponent implements OnInit, AfterViewInit {
   resetPointer(e: Event): void {
     this.pointer.offsetTop = e.target['scrollTop'];
     this.pointer.$itemPointEmitter.next(null);
+    this.pointer.$gridItemPointEmitter.next({ key: null, rowIndex: null });
   }
 
   editGrid(): void {
