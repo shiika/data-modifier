@@ -167,7 +167,7 @@ export class HighlighterComponent implements OnInit {
     const topStartPoint =
       this.pointer.sidebarItems.length * this.navItemsHeight +
       this.gridItemsHeaderHeight +
-      this.rowTextHeight +
+      this.rowTextHeight -
       this.pointer.sidebarOffsetTop +
       this.navItemsHeight * (this.pointer.gridItemIndex + 1);
     const topEndPoint =
