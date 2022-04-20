@@ -44,9 +44,9 @@
 }
 
 #grid-canvas {
-  position: fixed;
+  position: absolute;
   top: 0;
-  left: 46px;
+  left: -3px;
   border: 1px solid red;
-  z-index: 9000;
+  z-index: 3000;
 }

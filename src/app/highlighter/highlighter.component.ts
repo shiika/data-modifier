@@ -50,10 +50,8 @@ export class HighlighterComponent implements OnInit, OnChanges {
   ) {}
 
   ngOnChanges(changes: SimpleChanges): void {
-    console.log(changes);
     if (this.isEditGrid) {
-      // this.grid.initAndResizeCanvas();
-      // this.setCoordinates();
+      this.grid.initAndResizeCanvas();
       this.resetCoordinates();
     } else {
       if (!changes['isEditGrid'].firstChange) {

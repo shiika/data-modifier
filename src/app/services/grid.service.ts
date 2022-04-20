@@ -1,11 +1,15 @@
 import { Injectable } from '@angular/core';
 import { Rect } from '../enums/grid-coords';
+import { PointerService } from './pointer.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class GridService {
-  constructor() {}
+  static pointer;
+  constructor(public pointerService: PointerService) {
+    GridService.pointer = pointerService;
+  }
   initAndResizeCanvas(): void {
     var canvas = document.getElementById('grid-canvas') as HTMLCanvasElement,
       ctx = canvas.getContext('2d'),
@@ -16,7 +20,7 @@ export class GridService {
       dragBR,
       mouseX,
       mouseY,
-      closeEnough = 15,
+      closeEnough = 10,
       dragTL = (dragBL = dragTR = dragBR = false);
     function init() {
       canvas.addEventListener('mousedown', mouseDown, false);
@@ -24,14 +28,15 @@ export class GridService {
       canvas.addEventListener('mousemove', mouseMove, false);
       rect = {
         startX: 50,
-        startY: 200,
+        startY: 800,
         w: 300,
         h: 200,
       };
     }
     function mouseDown(e) {
+      console.log(GridService.pointer);
       mouseX = e.pageX - this.offsetLeft;
-      mouseY = e.pageY - this.offsetTop;
+      mouseY = e.pageY - this.offsetTop - 64 + GridService.pointer.offsetTop;
       // if there isn't a rect yet
       if (rect.w === undefined) {
         rect.startX = mouseY;
@@ -85,7 +90,7 @@ export class GridService {
     }
     function mouseMove(e) {
       mouseX = e.pageX - this.offsetLeft;
-      mouseY = e.pageY - this.offsetTop;
+      mouseY = e.pageY - this.offsetTop + GridService.pointer.offsetTop - 64;
       if (dragTL) {
         rect.w += rect.startX - mouseX;
         rect.h += rect.startY - mouseY;
@@ -107,12 +112,12 @@ export class GridService {
       draw();
     }
     function draw() {
-      ctx.fillStyle = '#222222';
+      ctx.fillStyle = 'transparent';
       ctx.fillRect(rect.startX, rect.startY, rect.w, rect.h);
       drawHandles();
     }
     function drawCircle(x, y, radius) {
-      ctx.fillStyle = '#FF0000';
+      ctx.fillStyle = 'rgba(0, 0, 100, 0.2)';
       ctx.beginPath();
       ctx.arc(x, y, radius, 0, 2 * Math.PI);
       ctx.fill();
