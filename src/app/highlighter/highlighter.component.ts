@@ -16,10 +16,11 @@ import {
   SIDEBAR_WIDTH,
   TOOLBAR_HEIGHT,
 } from '../enums/constants';
-import { GRID_COORDS } from '../enums/grid-coords';
+import { Rect, RectJson } from '../enums/grid-coords';
 import { GridService } from '../services/grid.service';
 import { PointerService } from '../services/pointer.service';
 import { UtilityService } from '../services/utility.service';
+import GridData from '../../assets/grid.json';
 
 @Component({
   selector: 'app-highlighter',
@@ -32,6 +33,8 @@ export class HighlighterComponent implements OnInit, OnChanges {
   @Output() updateSidebarItems: EventEmitter<any> = new EventEmitter<any>();
   @Input() gridData: any;
   @Input() isEditGrid: boolean;
+  gridJson: RectJson[] = JSON.parse(JSON.stringify(GridData));
+  gridCoords: Rect = {};
   aspectRatio: number;
   activeIndex: number;
   activeSidebarIndex: number;
@@ -41,7 +44,7 @@ export class HighlighterComponent implements OnInit, OnChanges {
   toolbarHeight: number = TOOLBAR_HEIGHT;
   gridItemsHeaderHeight: number = GRID_ITEMS_HEADER_HEIGHT;
   rowTextHeight: number = ROW_TEXT_HEIGHT;
-  gridCoords: { [key: string]: number } = GRID_COORDS;
+  // gridCoords: { [key: string]: number } = GRID_COORDS;
   sidebarWidth: number = SIDEBAR_WIDTH;
   constructor(
     private pointer: PointerService,
@@ -51,7 +54,7 @@ export class HighlighterComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (this.isEditGrid) {
-      this.grid.initAndResizeCanvas();
+      this.grid.initAndResizeCanvas(this.gridCoords);
       this.resetCoordinates();
     } else {
       if (!changes['isEditGrid'].firstChange) {
@@ -61,6 +64,8 @@ export class HighlighterComponent implements OnInit, OnChanges {
   }
 
   ngOnInit(): void {
+    this.gridCoords = this.mapGridCoords(this.gridJson);
+    console.log(this.gridCoords);
     this.pointer.$itemPointEmitter.subscribe((key: string) => {
       this.deCollapseItems();
       if (key !== null) {
@@ -102,6 +107,17 @@ export class HighlighterComponent implements OnInit, OnChanges {
         // }
       }
     );
+  }
+
+  private mapGridCoords(gridJson: RectJson[]): Rect {
+    const keyValue: [string, any] = Object.entries(gridJson[0])[0];
+    console.log(keyValue);
+    return {
+      startX: keyValue[1]['top-left-point'][1],
+      startY: keyValue[1]['top-left-point'][0],
+      w: keyValue[1].width,
+      h: keyValue[1].height,
+    };
   }
 
   resizeOnSizeChanges(): number {

@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { TOOLBAR_HEIGHT } from '../enums/constants';
 import { Rect } from '../enums/grid-coords';
 import { PointerService } from './pointer.service';
 
@@ -7,10 +8,11 @@ import { PointerService } from './pointer.service';
 })
 export class GridService {
   static pointer;
+  static toolbarHeight: number = TOOLBAR_HEIGHT;
   constructor(public pointerService: PointerService) {
     GridService.pointer = pointerService;
   }
-  initAndResizeCanvas(): void {
+  initAndResizeCanvas(gridCoords: Rect): void {
     var canvas = document.getElementById('grid-canvas') as HTMLCanvasElement,
       ctx = canvas.getContext('2d'),
       rect: Rect = {}, //  w   w   w . d   e   m  o  2 s  .  c  o  m
@@ -27,16 +29,20 @@ export class GridService {
       canvas.addEventListener('mouseup', mouseUp, false);
       canvas.addEventListener('mousemove', mouseMove, false);
       rect = {
-        startX: 50,
-        startY: 800,
-        w: 300,
-        h: 200,
+        startX: gridCoords.startX,
+        startY: gridCoords.startY,
+        w: gridCoords.w,
+        h: gridCoords.h,
       };
     }
     function mouseDown(e) {
       console.log(GridService.pointer);
       mouseX = e.pageX - this.offsetLeft;
-      mouseY = e.pageY - this.offsetTop - 64 + GridService.pointer.offsetTop;
+      mouseY =
+        e.pageY -
+        this.offsetTop -
+        GridService.toolbarHeight +
+        GridService.pointer.offsetTop;
       // if there isn't a rect yet
       if (rect.w === undefined) {
         rect.startX = mouseY;
@@ -90,7 +96,11 @@ export class GridService {
     }
     function mouseMove(e) {
       mouseX = e.pageX - this.offsetLeft;
-      mouseY = e.pageY - this.offsetTop + GridService.pointer.offsetTop - 64;
+      mouseY =
+        e.pageY -
+        this.offsetTop +
+        GridService.pointer.offsetTop -
+        GridService.toolbarHeight;
       if (dragTL) {
         rect.w += rect.startX - mouseX;
         rect.h += rect.startY - mouseY;

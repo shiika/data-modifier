@@ -9,3 +9,9 @@ export interface Rect {
   w?: number;
   h?: number;
 }
+
+export interface RectJson {
+  width: number;
+  height: number;
+  'top-left-point': [number, number];
+}
