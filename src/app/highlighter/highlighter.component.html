@@ -2,7 +2,7 @@
   <img
     src="../../assets/sample.jpeg"
     alt="document image"
-    (load)="setCoordinates()"
+    (load)="setCoordinates($event, true)"
     #fileImage
   />
   <!-- <ng-container *ngIf="isEditGrid">
@@ -56,7 +56,8 @@
   </ng-container>
   <canvas
     id="grid-canvas"
-    [width]="gridCoords.width"
-    [height]="gridCoords.height"
+    [width]="fileImage.width"
+    [height]="fileImage.height"
+    [style]="{ display: isEditGrid ? 'none' : 'none' }"
   ></canvas>
 </div>

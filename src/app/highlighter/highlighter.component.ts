@@ -3,17 +3,21 @@ import {
   ElementRef,
   EventEmitter,
   Input,
+  OnChanges,
   OnInit,
   Output,
+  SimpleChanges,
   ViewChild,
 } from '@angular/core';
 import {
   GRID_ITEMS_HEADER_HEIGHT,
   NAV_ITEM_HEIGHT,
   ROW_TEXT_HEIGHT,
+  SIDEBAR_WIDTH,
   TOOLBAR_HEIGHT,
 } from '../enums/constants';
 import { GRID_COORDS } from '../enums/grid-coords';
+import { GridService } from '../services/grid.service';
 import { PointerService } from '../services/pointer.service';
 import { UtilityService } from '../services/utility.service';
 
@@ -22,7 +26,7 @@ import { UtilityService } from '../services/utility.service';
   templateUrl: './highlighter.component.html',
   styleUrls: ['./highlighter.component.scss'],
 })
-export class HighlighterComponent implements OnInit {
+export class HighlighterComponent implements OnInit, OnChanges {
   @Input() data: any;
   @ViewChild('fileImage') fileImage: ElementRef;
   @Output() updateSidebarItems: EventEmitter<any> = new EventEmitter<any>();
@@ -38,10 +42,25 @@ export class HighlighterComponent implements OnInit {
   gridItemsHeaderHeight: number = GRID_ITEMS_HEADER_HEIGHT;
   rowTextHeight: number = ROW_TEXT_HEIGHT;
   gridCoords: { [key: string]: number } = GRID_COORDS;
+  sidebarWidth: number = SIDEBAR_WIDTH;
   constructor(
     private pointer: PointerService,
-    private utility: UtilityService
+    private utility: UtilityService,
+    private grid: GridService
   ) {}
+
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log(changes);
+    if (this.isEditGrid) {
+      // this.grid.initAndResizeCanvas();
+      // this.setCoordinates();
+      this.resetCoordinates();
+    } else {
+      if (!changes['isEditGrid'].firstChange) {
+        this.setCoordinates(null, false);
+      }
+    }
+  }
 
   ngOnInit(): void {
     this.pointer.$itemPointEmitter.subscribe((key: string) => {
@@ -94,6 +113,20 @@ export class HighlighterComponent implements OnInit {
     );
   }
 
+  resizeOnSidebarHidden(): number {
+    return (
+      (this.fileImage.nativeElement.clientWidth + this.sidebarWidth) /
+      this.fileImage.nativeElement.clientWidth
+    );
+  }
+
+  resizeOnSidebarVisible(): number {
+    return (
+      (this.fileImage.nativeElement.offsetWidth - this.sidebarWidth) /
+      this.fileImage.nativeElement.offsetWidth
+    );
+  }
+
   deCollapseItems(): void {
     this.data = this.data.map((item, i) => {
       item.collapsed = false;
@@ -120,8 +153,32 @@ export class HighlighterComponent implements OnInit {
     }
   }
 
-  setCoordinates(): void {
-    this.aspectRatio = this.resizeOnSizeChanges();
+  setCoordinates(event, isInitial: boolean): void {
+    this.aspectRatio = isInitial
+      ? this.resizeOnSizeChanges()
+      : this.resizeOnSidebarVisible();
+    this.data = this.data.map((item) => {
+      item.width = `${
+        this.utility.extractValue(item.width) * this.aspectRatio
+      }px`;
+      item.height = `${
+        this.utility.extractValue(item.height) * this.aspectRatio
+      }px`;
+      item.top = `${this.utility.extractValue(item.top) * this.aspectRatio}px`;
+      item.left = `${
+        this.utility.extractValue(item.left) * this.aspectRatio
+      }px`;
+      item.modalTop = `${
+        this.utility.extractValue(item.top) +
+        this.utility.extractValue(item.height)
+      }px`;
+      item.collapsed = false;
+      return item;
+    });
+  }
+
+  resetCoordinates(): void {
+    this.aspectRatio = this.resizeOnSidebarHidden();
     this.data = this.data.map((item) => {
       item.width = `${
         this.utility.extractValue(item.width) * this.aspectRatio

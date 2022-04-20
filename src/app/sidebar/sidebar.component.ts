@@ -1,4 +1,10 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import {
+  AfterViewInit,
+  ChangeDetectorRef,
+  Component,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
@@ -6,8 +12,8 @@ import jsonData from '../../assets/all_ocr.json';
 import objectiveItems from '../../assets/objectives_example.json';
 import { PointerService } from '../services/pointer.service';
 import { HighlighterComponent } from '../highlighter/highlighter.component';
-import { UtilityService } from '../services/utility.service';
 import { TOOLBAR_HEIGHT } from '../enums/constants';
+import { GridService } from '../services/grid.service';
 // import { MatSidenavContent } from '@angular/material/sidenav';
 
 @Component({
@@ -38,8 +44,7 @@ export class SidebarComponent implements OnInit, AfterViewInit {
 
   constructor(
     private breakpointObserver: BreakpointObserver,
-    private pointer: PointerService,
-    private utility: UtilityService
+    private pointer: PointerService
   ) {}
 
   ngOnInit(): void {
