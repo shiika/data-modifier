@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 import { TOOLBAR_HEIGHT } from '../enums/constants';
 import { Rect } from '../enums/grid-coords';
 import { PointerService } from './pointer.service';
@@ -13,6 +14,7 @@ export class GridService {
     GridService.pointer = pointerService;
   }
   initAndResizeCanvas(gridCoords: Rect): void {
+    console.log(gridCoords);
     var canvas = document.getElementById('grid-canvas') as HTMLCanvasElement,
       ctx = canvas.getContext('2d'),
       rect: Rect = {}, //  w   w   w . d   e   m  o  2 s  .  c  o  m
@@ -36,7 +38,6 @@ export class GridService {
       };
     }
     function mouseDown(e) {
-      console.log(GridService.pointer);
       mouseX = e.pageX - this.offsetLeft;
       mouseY =
         e.pageY -
@@ -93,6 +94,7 @@ export class GridService {
     }
     function mouseUp() {
       dragTL = dragTR = dragBL = dragBR = false;
+      GridService.pointer.$gridCoords.next(rect);
     }
     function mouseMove(e) {
       mouseX = e.pageX - this.offsetLeft;

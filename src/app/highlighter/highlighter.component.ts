@@ -28,13 +28,14 @@ import GridData from '../../assets/grid.json';
   styleUrls: ['./highlighter.component.scss'],
 })
 export class HighlighterComponent implements OnInit, OnChanges {
-  @Input() data: any;
+  @Input() data: any = [];
   @ViewChild('fileImage') fileImage: ElementRef;
   @Output() updateSidebarItems: EventEmitter<any> = new EventEmitter<any>();
   @Input() gridData: any;
   @Input() isEditGrid: boolean;
+  initialData: any = [];
   gridJson: RectJson[] = JSON.parse(JSON.stringify(GridData));
-  gridCoords: Rect = {};
+  gridCoords = this.mapGridCoords(this.gridJson);
   aspectRatio: number;
   activeIndex: number;
   activeSidebarIndex: number;
@@ -44,7 +45,6 @@ export class HighlighterComponent implements OnInit, OnChanges {
   toolbarHeight: number = TOOLBAR_HEIGHT;
   gridItemsHeaderHeight: number = GRID_ITEMS_HEADER_HEIGHT;
   rowTextHeight: number = ROW_TEXT_HEIGHT;
-  // gridCoords: { [key: string]: number } = GRID_COORDS;
   sidebarWidth: number = SIDEBAR_WIDTH;
   constructor(
     private pointer: PointerService,
@@ -53,19 +53,22 @@ export class HighlighterComponent implements OnInit, OnChanges {
   ) {}
 
   ngOnChanges(changes: SimpleChanges): void {
+    console.log(this.gridCoords);
     if (this.isEditGrid) {
       this.grid.initAndResizeCanvas(this.gridCoords);
-      this.resetCoordinates();
+      this.updateCoordinates();
     } else {
       if (!changes['isEditGrid'].firstChange) {
-        this.setCoordinates(null, false);
+        this.resetCoordinates();
       }
     }
   }
 
   ngOnInit(): void {
-    this.gridCoords = this.mapGridCoords(this.gridJson);
-    console.log(this.gridCoords);
+    this.initialData = JSON.parse(JSON.stringify(this.data));
+    this.pointer.$gridCoords.subscribe((rect: Rect) => {
+      if (rect) this.gridCoords = rect;
+    });
     this.pointer.$itemPointEmitter.subscribe((key: string) => {
       this.deCollapseItems();
       if (key !== null) {
@@ -98,20 +101,13 @@ export class HighlighterComponent implements OnInit, OnChanges {
             ][0];
           this.setGridCanvasLine(this.activeIndex);
           this.setOverallColBox(this.activeSidebarIndex);
-          // this.collapseItem(this.activeIndex);
         }
-        // else {
-        //   this.resetCanvasLine();
-        //   this.activeIndex = -1;
-        //   this.deCollapseItems();
-        // }
       }
     );
   }
 
   private mapGridCoords(gridJson: RectJson[]): Rect {
     const keyValue: [string, any] = Object.entries(gridJson[0])[0];
-    console.log(keyValue);
     return {
       startX: keyValue[1]['top-left-point'][1],
       startY: keyValue[1]['top-left-point'][0],
@@ -129,15 +125,15 @@ export class HighlighterComponent implements OnInit, OnChanges {
 
   resizeOnSidebarHidden(): number {
     return (
-      (this.fileImage.nativeElement.clientWidth + this.sidebarWidth) /
-      this.fileImage.nativeElement.clientWidth
+      (this.fileImage.nativeElement.offsetWidth + this.sidebarWidth) /
+      this.fileImage.nativeElement.naturalWidth
     );
   }
 
   resizeOnSidebarVisible(): number {
     return (
       (this.fileImage.nativeElement.offsetWidth - this.sidebarWidth) /
-      this.fileImage.nativeElement.offsetWidth
+      this.fileImage.nativeElement.naturalWidth
     );
   }
 
@@ -167,11 +163,9 @@ export class HighlighterComponent implements OnInit, OnChanges {
     }
   }
 
-  setCoordinates(event, isInitial: boolean): void {
-    this.aspectRatio = isInitial
-      ? this.resizeOnSizeChanges()
-      : this.resizeOnSidebarVisible();
-    this.data = this.data.map((item) => {
+  resetCoordinates(): void {
+    this.aspectRatio = this.resizeOnSidebarVisible();
+    this.data = JSON.parse(JSON.stringify(this.initialData)).map((item) => {
       item.width = `${
         this.utility.extractValue(item.width) * this.aspectRatio
       }px`;
@@ -191,9 +185,37 @@ export class HighlighterComponent implements OnInit, OnChanges {
     });
   }
 
-  resetCoordinates(): void {
+  setCoordinates(event, isInitial: boolean): void {
+    this.aspectRatio = isInitial
+      ? this.resizeOnSizeChanges()
+      : this.resizeOnSidebarVisible();
+    if (this.data) {
+      this.data = JSON.parse(JSON.stringify(this.initialData)).map((item) => {
+        item.width = `${
+          this.utility.extractValue(item.width) * this.aspectRatio
+        }px`;
+        item.height = `${
+          this.utility.extractValue(item.height) * this.aspectRatio
+        }px`;
+        item.top = `${
+          this.utility.extractValue(item.top) * this.aspectRatio
+        }px`;
+        item.left = `${
+          this.utility.extractValue(item.left) * this.aspectRatio
+        }px`;
+        item.modalTop = `${
+          this.utility.extractValue(item.top) +
+          this.utility.extractValue(item.height)
+        }px`;
+        item.collapsed = false;
+        return item;
+      });
+    }
+  }
+
+  updateCoordinates(): void {
     this.aspectRatio = this.resizeOnSidebarHidden();
-    this.data = this.data.map((item) => {
+    this.data = JSON.parse(JSON.stringify(this.initialData)).map((item) => {
       item.width = `${
         this.utility.extractValue(item.width) * this.aspectRatio
       }px`;

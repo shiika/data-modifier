@@ -58,8 +58,13 @@
   <mat-sidenav-content (scroll)="resetPointer($event)" #sidenavContent>
     <mat-toolbar color="primary">
       <span>Data Modifier</span>
-      <button type="button" mat-raised-button (click)="editGrid()">
-        Edit Grid
+      <button
+        type="button"
+        class="edit-button"
+        mat-raised-button
+        (click)="editGrid()"
+      >
+        {{ !isEditGrid ? "Edit Grid" : "Finish Editing" }}
       </button>
       <!-- <button
         type="button"

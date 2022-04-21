@@ -24,7 +24,7 @@ import { GridService } from '../services/grid.service';
 export class SidebarComponent implements OnInit, AfterViewInit {
   @ViewChild('highlighter') highlighterElement: HighlighterComponent;
   @ViewChild('sidenavContent') sidenavContentElement: any;
-  allPoints: { [key: string]: any }[] = JSON.parse(JSON.stringify(jsonData));
+  allPoints: { [key: string]: any }[] = [];
   sidebarItems: { [key: string]: any }[] = JSON.parse(
     JSON.stringify(objectiveItems)
   );
@@ -48,17 +48,7 @@ export class SidebarComponent implements OnInit, AfterViewInit {
   ) {}
 
   ngOnInit(): void {
-    this.pointer.allPoints = this.allPoints.map((item) => {
-      item.modalTop = `${item['top-left-point'][0] + item.height}px`;
-      item.width = `${item.width}px`;
-      item.height = `${item.height}px`;
-      item.top = `${item['top-left-point'][0]}px`;
-      item.left = `${item['top-left-point'][1]}px`;
-      item.collapsed = false;
-      item.key = item.word;
-      return item;
-    });
-    this.updateAllPoints();
+    this.mapAllPoints();
     this.pointer.sidebarItems = this.sidebarItems
       .filter((item) => {
         const point = Object.entries(item)[0];
@@ -168,9 +158,9 @@ export class SidebarComponent implements OnInit, AfterViewInit {
             item[1].height = this.allPoints[value.newIndex].height;
             item[1].modalTop = this.allPoints[value.newIndex].modalTop;
             item[1].word = this.allPoints[value.newIndex].word;
-            this.pointer.allPoints[value.newIndex].key = item[1].word;
+            this.allPoints[value.newIndex].key = item[1].word;
             item[1].key = this.allPoints[value.newIndex].key;
-            this.updateAllPoints();
+            // this.updateAllPoints();
             this.activeKey = this.allPoints[value.newIndex].key;
           }
           return item;
@@ -188,9 +178,23 @@ export class SidebarComponent implements OnInit, AfterViewInit {
     });
   }
 
+  mapAllPoints(): void {
+    this.allPoints = JSON.parse(JSON.stringify(jsonData)).map((item) => {
+      item.modalTop = `${item['top-left-point'][0] + item.height}px`;
+      item.width = `${item.width}px`;
+      item.height = `${item.height}px`;
+      item.top = `${item['top-left-point'][0]}px`;
+      item.left = `${item['top-left-point'][1]}px`;
+      item.collapsed = false;
+      item.key = item.word;
+      return item;
+    });
+    // this.updateAllPoints();
+  }
+
   updateSidebarItems(): void {
     this.sidebarItems = this.pointer.sidebarItems;
-    this.updateAllPoints();
+    // this.updateAllPoints();
   }
   updateGridItems(): void {
     this.gridItems = this.pointer.gridItems;
@@ -198,7 +202,7 @@ export class SidebarComponent implements OnInit, AfterViewInit {
   }
 
   updateAllPoints(): void {
-    this.allPoints = this.pointer.allPoints;
+    this.pointer.allPoints = this.allPoints;
   }
 
   toggleItem(key: string, index: number): void {
