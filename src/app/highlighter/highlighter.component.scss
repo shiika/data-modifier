@@ -37,15 +37,16 @@
   z-index: 4000;
 }
 
-#grid-canvas {
-  position: absolute;
-  top: 610px;
-  left: 46px;
-  border: 1px solid red;
-}
-
 .item-pointer {
   position: fixed;
   top: 0;
   z-index: 2001;
+}
+
+#grid-canvas {
+  position: absolute;
+  top: 0;
+  left: -3px;
+  border: 1px solid red;
+  z-index: 3000;
 }

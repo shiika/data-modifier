@@ -3,31 +3,39 @@ import {
   ElementRef,
   EventEmitter,
   Input,
+  OnChanges,
   OnInit,
   Output,
+  SimpleChanges,
   ViewChild,
 } from '@angular/core';
 import {
   GRID_ITEMS_HEADER_HEIGHT,
   NAV_ITEM_HEIGHT,
   ROW_TEXT_HEIGHT,
+  SIDEBAR_WIDTH,
   TOOLBAR_HEIGHT,
 } from '../enums/constants';
-import { GRID_COORDS } from '../enums/grid-coords';
+import { Rect, RectJson } from '../enums/grid-coords';
+import { GridService } from '../services/grid.service';
 import { PointerService } from '../services/pointer.service';
 import { UtilityService } from '../services/utility.service';
+import GridData from '../../assets/grid.json';
 
 @Component({
   selector: 'app-highlighter',
   templateUrl: './highlighter.component.html',
   styleUrls: ['./highlighter.component.scss'],
 })
-export class HighlighterComponent implements OnInit {
-  @Input() data: any;
+export class HighlighterComponent implements OnInit, OnChanges {
+  @Input() data: any = [];
   @ViewChild('fileImage') fileImage: ElementRef;
   @Output() updateSidebarItems: EventEmitter<any> = new EventEmitter<any>();
   @Input() gridData: any;
   @Input() isEditGrid: boolean;
+  initialData: any = [];
+  gridJson: RectJson[] = JSON.parse(JSON.stringify(GridData));
+  gridCoords = this.mapGridCoords(this.gridJson);
   aspectRatio: number;
   activeIndex: number;
   activeSidebarIndex: number;
@@ -37,13 +45,30 @@ export class HighlighterComponent implements OnInit {
   toolbarHeight: number = TOOLBAR_HEIGHT;
   gridItemsHeaderHeight: number = GRID_ITEMS_HEADER_HEIGHT;
   rowTextHeight: number = ROW_TEXT_HEIGHT;
-  gridCoords: { [key: string]: number } = GRID_COORDS;
+  sidebarWidth: number = SIDEBAR_WIDTH;
   constructor(
     private pointer: PointerService,
-    private utility: UtilityService
+    private utility: UtilityService,
+    private grid: GridService
   ) {}
 
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log(this.gridCoords);
+    if (this.isEditGrid) {
+      this.grid.initAndResizeCanvas(this.gridCoords);
+      this.updateCoordinates();
+    } else {
+      if (!changes['isEditGrid'].firstChange) {
+        this.resetCoordinates();
+      }
+    }
+  }
+
   ngOnInit(): void {
+    this.initialData = JSON.parse(JSON.stringify(this.data));
+    this.pointer.$gridCoords.subscribe((rect: Rect) => {
+      if (rect) this.gridCoords = rect;
+    });
     this.pointer.$itemPointEmitter.subscribe((key: string) => {
       this.deCollapseItems();
       if (key !== null) {
@@ -76,20 +101,38 @@ export class HighlighterComponent implements OnInit {
             ][0];
           this.setGridCanvasLine(this.activeIndex);
           this.setOverallColBox(this.activeSidebarIndex);
-          // this.collapseItem(this.activeIndex);
         }
-        // else {
-        //   this.resetCanvasLine();
-        //   this.activeIndex = -1;
-        //   this.deCollapseItems();
-        // }
       }
     );
+  }
+
+  private mapGridCoords(gridJson: RectJson[]): Rect {
+    const keyValue: [string, any] = Object.entries(gridJson[0])[0];
+    return {
+      startX: keyValue[1]['top-left-point'][1],
+      startY: keyValue[1]['top-left-point'][0],
+      w: keyValue[1].width,
+      h: keyValue[1].height,
+    };
   }
 
   resizeOnSizeChanges(): number {
     return (
       this.fileImage.nativeElement.offsetWidth /
+      this.fileImage.nativeElement.naturalWidth
+    );
+  }
+
+  resizeOnSidebarHidden(): number {
+    return (
+      (this.fileImage.nativeElement.offsetWidth + this.sidebarWidth) /
+      this.fileImage.nativeElement.naturalWidth
+    );
+  }
+
+  resizeOnSidebarVisible(): number {
+    return (
+      (this.fileImage.nativeElement.offsetWidth - this.sidebarWidth) /
       this.fileImage.nativeElement.naturalWidth
     );
   }
@@ -120,9 +163,59 @@ export class HighlighterComponent implements OnInit {
     }
   }
 
-  setCoordinates(): void {
-    this.aspectRatio = this.resizeOnSizeChanges();
-    this.data = this.data.map((item) => {
+  resetCoordinates(): void {
+    this.aspectRatio = this.resizeOnSidebarVisible();
+    this.data = JSON.parse(JSON.stringify(this.initialData)).map((item) => {
+      item.width = `${
+        this.utility.extractValue(item.width) * this.aspectRatio
+      }px`;
+      item.height = `${
+        this.utility.extractValue(item.height) * this.aspectRatio
+      }px`;
+      item.top = `${this.utility.extractValue(item.top) * this.aspectRatio}px`;
+      item.left = `${
+        this.utility.extractValue(item.left) * this.aspectRatio
+      }px`;
+      item.modalTop = `${
+        this.utility.extractValue(item.top) +
+        this.utility.extractValue(item.height)
+      }px`;
+      item.collapsed = false;
+      return item;
+    });
+  }
+
+  setCoordinates(event, isInitial: boolean): void {
+    this.aspectRatio = isInitial
+      ? this.resizeOnSizeChanges()
+      : this.resizeOnSidebarVisible();
+    if (this.data) {
+      this.data = JSON.parse(JSON.stringify(this.initialData)).map((item) => {
+        item.width = `${
+          this.utility.extractValue(item.width) * this.aspectRatio
+        }px`;
+        item.height = `${
+          this.utility.extractValue(item.height) * this.aspectRatio
+        }px`;
+        item.top = `${
+          this.utility.extractValue(item.top) * this.aspectRatio
+        }px`;
+        item.left = `${
+          this.utility.extractValue(item.left) * this.aspectRatio
+        }px`;
+        item.modalTop = `${
+          this.utility.extractValue(item.top) +
+          this.utility.extractValue(item.height)
+        }px`;
+        item.collapsed = false;
+        return item;
+      });
+    }
+  }
+
+  updateCoordinates(): void {
+    this.aspectRatio = this.resizeOnSidebarHidden();
+    this.data = JSON.parse(JSON.stringify(this.initialData)).map((item) => {
       item.width = `${
         this.utility.extractValue(item.width) * this.aspectRatio
       }px`;
@@ -167,7 +260,7 @@ export class HighlighterComponent implements OnInit {
     const topStartPoint =
       this.pointer.sidebarItems.length * this.navItemsHeight +
       this.gridItemsHeaderHeight +
-      this.rowTextHeight +
+      this.rowTextHeight -
       this.pointer.sidebarOffsetTop +
       this.navItemsHeight * (this.pointer.gridItemIndex + 1);
     const topEndPoint =

@@ -1,0 +1,10 @@
+[
+  {
+    "invoice-grid-coords": {
+      "width": 300,
+      "height": 200,
+      "startY": 800,
+      "top-left-point": [800, 50]
+    }
+  }
+]

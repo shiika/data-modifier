@@ -1,4 +1,10 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import {
+  AfterViewInit,
+  ChangeDetectorRef,
+  Component,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
@@ -6,8 +12,8 @@ import jsonData from '../../assets/all_ocr.json';
 import objectiveItems from '../../assets/objectives_example.json';
 import { PointerService } from '../services/pointer.service';
 import { HighlighterComponent } from '../highlighter/highlighter.component';
-import { UtilityService } from '../services/utility.service';
 import { TOOLBAR_HEIGHT } from '../enums/constants';
+import { GridService } from '../services/grid.service';
 // import { MatSidenavContent } from '@angular/material/sidenav';
 
 @Component({
@@ -18,7 +24,7 @@ import { TOOLBAR_HEIGHT } from '../enums/constants';
 export class SidebarComponent implements OnInit, AfterViewInit {
   @ViewChild('highlighter') highlighterElement: HighlighterComponent;
   @ViewChild('sidenavContent') sidenavContentElement: any;
-  allPoints: { [key: string]: any }[] = JSON.parse(JSON.stringify(jsonData));
+  allPoints: { [key: string]: any }[] = [];
   sidebarItems: { [key: string]: any }[] = JSON.parse(
     JSON.stringify(objectiveItems)
   );
@@ -38,22 +44,11 @@ export class SidebarComponent implements OnInit, AfterViewInit {
 
   constructor(
     private breakpointObserver: BreakpointObserver,
-    private pointer: PointerService,
-    private utility: UtilityService
+    private pointer: PointerService
   ) {}
 
   ngOnInit(): void {
-    this.pointer.allPoints = this.allPoints.map((item) => {
-      item.modalTop = `${item['top-left-point'][0] + item.height}px`;
-      item.width = `${item.width}px`;
-      item.height = `${item.height}px`;
-      item.top = `${item['top-left-point'][0]}px`;
-      item.left = `${item['top-left-point'][1]}px`;
-      item.collapsed = false;
-      item.key = item.word;
-      return item;
-    });
-    this.updateAllPoints();
+    this.mapAllPoints();
     this.pointer.sidebarItems = this.sidebarItems
       .filter((item) => {
         const point = Object.entries(item)[0];
@@ -163,9 +158,9 @@ export class SidebarComponent implements OnInit, AfterViewInit {
             item[1].height = this.allPoints[value.newIndex].height;
             item[1].modalTop = this.allPoints[value.newIndex].modalTop;
             item[1].word = this.allPoints[value.newIndex].word;
-            this.pointer.allPoints[value.newIndex].key = item[1].word;
+            this.allPoints[value.newIndex].key = item[1].word;
             item[1].key = this.allPoints[value.newIndex].key;
-            this.updateAllPoints();
+            // this.updateAllPoints();
             this.activeKey = this.allPoints[value.newIndex].key;
           }
           return item;
@@ -183,9 +178,23 @@ export class SidebarComponent implements OnInit, AfterViewInit {
     });
   }
 
+  mapAllPoints(): void {
+    this.allPoints = JSON.parse(JSON.stringify(jsonData)).map((item) => {
+      item.modalTop = `${item['top-left-point'][0] + item.height}px`;
+      item.width = `${item.width}px`;
+      item.height = `${item.height}px`;
+      item.top = `${item['top-left-point'][0]}px`;
+      item.left = `${item['top-left-point'][1]}px`;
+      item.collapsed = false;
+      item.key = item.word;
+      return item;
+    });
+    // this.updateAllPoints();
+  }
+
   updateSidebarItems(): void {
     this.sidebarItems = this.pointer.sidebarItems;
-    this.updateAllPoints();
+    // this.updateAllPoints();
   }
   updateGridItems(): void {
     this.gridItems = this.pointer.gridItems;
@@ -193,7 +202,7 @@ export class SidebarComponent implements OnInit, AfterViewInit {
   }
 
   updateAllPoints(): void {
-    this.allPoints = this.pointer.allPoints;
+    this.pointer.allPoints = this.allPoints;
   }
 
   toggleItem(key: string, index: number): void {
@@ -212,6 +221,7 @@ export class SidebarComponent implements OnInit, AfterViewInit {
   resetPointer(e: Event): void {
     this.pointer.offsetTop = e.target['scrollTop'];
     this.pointer.$itemPointEmitter.next(null);
+    this.pointer.$gridItemPointEmitter.next({ key: null, rowIndex: null });
   }
 
   editGrid(): void {
