@@ -124,7 +124,7 @@ export class GridService {
       draw();
     }
     function draw() {
-      ctx.fillStyle = 'transparent';
+      ctx.fillStyle = 'rgba(0, 0, 300, 0.2)';
       ctx.fillRect(rect.startX, rect.startY, rect.w, rect.h);
       drawHandles();
     }
