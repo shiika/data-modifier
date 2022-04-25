@@ -1,10 +1,70 @@
 [
   {
     "invoice-grid-coords": {
-      "width": 300,
-      "height": 200,
-      "startY": 800,
+      "width": 600,
+      "height": 600,
       "top-left-point": [800, 50]
     }
+  },
+  {
+    "invoice-grid-cols": [
+      {
+        "quantity": {
+          "startX": 100
+        }
+      },
+      {
+        "materialDescription": {
+          "startX": 150
+        }
+      },
+      {
+        "BBD": {
+          "startX": 200
+        }
+      },
+      {
+        "unitPrice": {
+          "startX": 250
+        }
+      },
+      {
+        "boxPrice": {
+          "startX": 300
+        }
+      },
+      {
+        "net": {
+          "startX": 350
+        }
+      },
+      {
+        "vat": {
+          "startX": 400
+        }
+      }
+    ]
+  },
+  {
+    "invoice-grid-rows": [
+      {
+        "startY": 50
+      },
+      {
+        "startY": 100
+      },
+      {
+        "startY": 150
+      },
+      {
+        "startY": 200
+      },
+      {
+        "startY": 250
+      },
+      {
+        "startY": 300
+      }
+    ]
   }
 ]

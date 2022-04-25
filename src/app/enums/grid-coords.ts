@@ -15,3 +15,15 @@ export interface RectJson {
   height: number;
   'top-left-point': [number, number];
 }
+export interface Column {
+  startX: number;
+  isDrag: boolean;
+  name: string;
+}
+export interface Row {
+  startY: number;
+  isDrag: boolean;
+}
+
+export type ColsJson = Record<string, Column>;
+export type GridJsonData = RectJson | ColsJson;
