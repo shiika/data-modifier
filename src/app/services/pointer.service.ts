@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Subject } from 'rxjs';
-import { Rect } from '../enums/grid-coords';
+import { Column, Rect } from '../enums/grid-coords';
 
 @Injectable({
   providedIn: 'root',
@@ -12,6 +12,9 @@ export class PointerService {
   $itemPointModifier: Subject<{ active: number; newIndex: number }> =
     new Subject<{ active: number; newIndex: number }>();
   $gridCoords: Subject<Rect> = new Subject<Rect>();
+  $gridCols: Subject<Record<string, Column>[]> = new Subject<
+    Record<string, Column>[]
+  >();
   $navItemIndex: number;
   $gridItemIndex: number;
   $sidebarItems: any[];

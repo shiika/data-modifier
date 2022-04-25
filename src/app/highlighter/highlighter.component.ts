@@ -4,6 +4,7 @@ import {
   EventEmitter,
   Input,
   OnChanges,
+  OnDestroy,
   OnInit,
   Output,
   SimpleChanges,
@@ -16,26 +17,36 @@ import {
   SIDEBAR_WIDTH,
   TOOLBAR_HEIGHT,
 } from '../enums/constants';
-import { Rect, RectJson } from '../enums/grid-coords';
+import {
+  ColsJson,
+  Column,
+  GridJsonData,
+  Rect,
+  RectJson,
+  Row,
+} from '../enums/grid-coords';
 import { GridService } from '../services/grid.service';
 import { PointerService } from '../services/pointer.service';
 import { UtilityService } from '../services/utility.service';
 import GridData from '../../assets/grid.json';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-highlighter',
   templateUrl: './highlighter.component.html',
   styleUrls: ['./highlighter.component.scss'],
 })
-export class HighlighterComponent implements OnInit, OnChanges {
+export class HighlighterComponent implements OnInit, OnChanges, OnDestroy {
   @Input() data: any = [];
   @ViewChild('fileImage') fileImage: ElementRef;
   @Output() updateSidebarItems: EventEmitter<any> = new EventEmitter<any>();
   @Input() gridData: any;
   @Input() isEditGrid: boolean;
   initialData: any = [];
-  gridJson: RectJson[] = JSON.parse(JSON.stringify(GridData));
-  gridCoords = this.mapGridCoords(this.gridJson);
+  gridJson: GridJsonData[] = JSON.parse(JSON.stringify(GridData));
+  gridCoords: Rect = this.mapGridCoords(this.gridJson);
+  gridCols: Record<string, Column>[] = [];
+  gridRows: Row[] = [];
   aspectRatio: number;
   activeIndex: number;
   activeSidebarIndex: number;
@@ -46,6 +57,7 @@ export class HighlighterComponent implements OnInit, OnChanges {
   gridItemsHeaderHeight: number = GRID_ITEMS_HEADER_HEIGHT;
   rowTextHeight: number = ROW_TEXT_HEIGHT;
   sidebarWidth: number = SIDEBAR_WIDTH;
+  subs: Subscription[] = [];
   constructor(
     private pointer: PointerService,
     private utility: UtilityService,
@@ -53,9 +65,12 @@ export class HighlighterComponent implements OnInit, OnChanges {
   ) {}
 
   ngOnChanges(changes: SimpleChanges): void {
-    console.log(this.gridCoords);
     if (this.isEditGrid) {
-      this.grid.initAndResizeCanvas(this.gridCoords);
+      this.grid.initAndResizeCanvas(
+        this.gridCoords,
+        this.gridCols,
+        this.gridRows
+      );
       this.updateCoordinates();
     } else {
       if (!changes['isEditGrid'].firstChange) {
@@ -65,48 +80,67 @@ export class HighlighterComponent implements OnInit, OnChanges {
   }
 
   ngOnInit(): void {
+    this.gridCols = this.mapGridCols(this.gridJson);
+    this.gridRows = this.mapGridRows(this.gridJson);
     this.initialData = JSON.parse(JSON.stringify(this.data));
-    this.pointer.$gridCoords.subscribe((rect: Rect) => {
-      if (rect) this.gridCoords = rect;
-    });
-    this.pointer.$itemPointEmitter.subscribe((key: string) => {
-      this.deCollapseItems();
-      if (key !== null) {
-        this.activeIndex = this.data.findIndex((item) => item.key === key);
-        this.activeKey =
-          this.pointer.sidebarItems[this.pointer.navItemIndex][0];
-        this.setCanvasLine(this.activeIndex);
-        this.collapseItem(this.activeIndex);
-      } else {
-        this.resetCanvasLine();
-        this.activeIndex = -1;
+    this.subs.push(
+      this.pointer.$gridCoords.subscribe((rect: Rect) => {
+        if (rect) this.gridCoords = rect;
+      })
+    );
+    this.subs.push(
+      this.pointer.$gridCols.subscribe((cols: Record<string, Column>[]) => {
+        this.gridCols = cols;
+      })
+    );
+    this.subs.push(
+      this.pointer.$itemPointEmitter.subscribe((key: string) => {
         this.deCollapseItems();
-      }
-    });
-    this.pointer.$gridItemPointEmitter.subscribe(
-      (info: { key: string; rowIndex: number }) => {
-        this.activeRowIndex = info.rowIndex;
-        if (info.key !== null) {
-          this.activeIndex = this.data.findIndex(
-            (item) => item.key === info.key
-          );
-          this.activeSidebarIndex = this.gridData[
-            this.activeRowIndex
-          ][1].findIndex((col) => {
-            return col[1].key === info.key;
-          });
+        if (key !== null) {
+          this.activeIndex = this.data.findIndex((item) => item.key === key);
           this.activeKey =
-            this.pointer.gridItems[this.activeRowIndex][1][
-              this.pointer.gridItemIndex
-            ][0];
-          this.setGridCanvasLine(this.activeIndex);
-          this.setOverallColBox(this.activeSidebarIndex);
+            this.pointer.sidebarItems[this.pointer.navItemIndex][0];
+          this.setCanvasLine(this.activeIndex);
+          this.collapseItem(this.activeIndex);
+        } else {
+          this.resetCanvasLine();
+          this.activeIndex = -1;
+          this.deCollapseItems();
         }
-      }
+      })
+    );
+    this.subs.push(
+      this.pointer.$gridItemPointEmitter.subscribe(
+        (info: { key: string; rowIndex: number }) => {
+          this.activeRowIndex = info.rowIndex;
+          if (info.key !== null) {
+            this.activeIndex = this.data.findIndex(
+              (item) => item.key === info.key
+            );
+            this.activeSidebarIndex = this.gridData[
+              this.activeRowIndex
+            ][1].findIndex((col) => {
+              return col[1].key === info.key;
+            });
+            this.activeKey =
+              this.pointer.gridItems[this.activeRowIndex][1][
+                this.pointer.gridItemIndex
+              ][0];
+            this.setGridCanvasLine(this.activeIndex);
+            this.setOverallColBox(this.activeSidebarIndex);
+          }
+        }
+      )
     );
   }
 
-  private mapGridCoords(gridJson: RectJson[]): Rect {
+  ngOnDestroy(): void {
+    for (let sub of this.subs) {
+      sub.unsubscribe();
+    }
+  }
+
+  private mapGridCoords(gridJson: GridJsonData[]): Rect {
     const keyValue: [string, any] = Object.entries(gridJson[0])[0];
     return {
       startX: keyValue[1]['top-left-point'][1],
@@ -114,6 +148,15 @@ export class HighlighterComponent implements OnInit, OnChanges {
       w: keyValue[1].width,
       h: keyValue[1].height,
     };
+  }
+
+  private mapGridCols(gridJson: GridJsonData[]): Record<string, Column>[] {
+    const keyValue: [string, any] = Object.entries(gridJson[1])[0];
+    return keyValue[1];
+  }
+  private mapGridRows(gridJson: GridJsonData[]): Row[] {
+    const keyValue: [string, any] = Object.entries(gridJson[2])[0];
+    return keyValue[1];
   }
 
   resizeOnSizeChanges(): number {
@@ -262,7 +305,11 @@ export class HighlighterComponent implements OnInit, OnChanges {
       this.gridItemsHeaderHeight +
       this.rowTextHeight -
       this.pointer.sidebarOffsetTop +
-      this.navItemsHeight * (this.pointer.gridItemIndex + 1);
+      this.navItemsHeight * (this.pointer.gridItemIndex + 1) +
+      this.activeRowIndex *
+        (this.gridItemsHeaderHeight +
+          this.pointer.gridItems[0][1].length * this.navItemsHeight -
+          this.navItemsHeight);
     const topEndPoint =
       this.utility.extractValue(this.data[index].top) +
       this.toolbarHeight +
