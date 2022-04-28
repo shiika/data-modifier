@@ -1,0 +1,49 @@
+<section class="uploader">
+  <form [formGroup]="form">
+    <a
+      mat-flat-button
+      href="https://www.google.com/"
+      target="_blank"
+      *ngIf="form.get('name').value"
+      >{{ form.get("name").value }}</a
+    >
+    <div class="uploader__container">
+      <img
+        src="../../assets/icons/loader-icon.png"
+        alt="spinner"
+        width="30"
+        height="30"
+        class="uploader__spinner"
+        *ngIf="isUpload"
+      />
+      <div class="photos__additional__comment__file__container">
+        <label for="sample-upload" class="tra-btn px-0">
+          <span>Upload PDF</span>
+        </label>
+        <input id="sample-upload" type="file" (change)="onFileUpload($event)" />
+      </div>
+      <div class="uploader__container__input">
+        <mat-form-field appearance="fill">
+          <input
+            matInput
+            formControlName="vendor"
+            placeholder="Enter vendor name"
+          />
+        </mat-form-field>
+      </div>
+      <mat-radio-group aria-label="Select an option" formControlName="type">
+        <mat-radio-button value="receipt">Receipt</mat-radio-button>
+        <mat-radio-button value="invoice">Invoice</mat-radio-button>
+      </mat-radio-group>
+      <button
+        type="submit"
+        mat-raised-button
+        color="primary"
+        class="uploader__submit"
+        [disabled]="form.invalid"
+      >
+        Submit
+      </button>
+    </div>
+  </form>
+</section>
