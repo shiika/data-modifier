@@ -227,4 +227,23 @@ export class SidebarComponent implements OnInit, AfterViewInit {
   editGrid(): void {
     this.isEditGrid = !this.isEditGrid;
   }
+
+  export(): void {
+    let exportedData: any[] = [];
+    for (let item of this.pointer.sidebarItems) {
+      exportedData.push({
+        [item[0]]: [{ word: item[1].word }],
+      });
+    }
+    let dataStr = JSON.stringify(exportedData);
+    let dataUri =
+      'data:application/json;charset=utf-8,' + encodeURIComponent(dataStr);
+
+    let exportFileDefaultName = 'data.json';
+
+    let linkElement = document.createElement('a');
+    linkElement.setAttribute('href', dataUri);
+    linkElement.setAttribute('download', exportFileDefaultName);
+    linkElement.click();
+  }
 }

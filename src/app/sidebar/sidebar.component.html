@@ -66,6 +66,14 @@
       >
         {{ !isEditGrid ? "Edit Grid" : "Finish Editing" }}
       </button>
+      <button
+        type="button"
+        class="edit-button"
+        mat-raised-button
+        (click)="export()"
+      >
+        Export
+      </button>
       <!-- <button
         type="button"
         aria-label="Toggle sidenav"
