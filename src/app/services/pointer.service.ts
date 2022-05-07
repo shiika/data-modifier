@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Subject } from 'rxjs';
-import { Column, Rect } from '../enums/grid-coords';
+import { Column, Rect, Row } from '../enums/grid-coords';
 
 @Injectable({
   providedIn: 'root',
@@ -15,11 +15,11 @@ export class PointerService {
   $gridCols: Subject<Record<string, Column>[]> = new Subject<
     Record<string, Column>[]
   >();
+  $gridRows: Subject<Row[]> = new Subject<Row[]>();
   $navItemIndex: number;
   $gridItemIndex: number;
   $sidebarItems: any[];
   $gridItems: any[] = [];
-  allPoints: any[];
   offsetTop: number = 0;
   sidebarOffsetTop: number = 0;
 
@@ -50,13 +50,5 @@ export class PointerService {
   set gridItems(newItems: any[]) {
     this.$gridItems = newItems;
   }
-
-  // get allPoints(): any[] {
-  //   return this.$allPoints;
-  // }
-
-  // set allPoints(newItems: any[]) {
-  //   this.$allPoints = newItems;
-  // }
   constructor() {}
 }

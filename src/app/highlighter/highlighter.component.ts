@@ -42,6 +42,7 @@ export class HighlighterComponent implements OnInit, OnChanges, OnDestroy {
   @Output() updateSidebarItems: EventEmitter<any> = new EventEmitter<any>();
   @Input() gridData: any;
   @Input() isEditGrid: boolean;
+  @Input() isSelectionBox: boolean;
   initialData: any = [];
   gridJson: GridJsonData[] = JSON.parse(JSON.stringify(GridData));
   gridCoords: Rect = this.mapGridCoords(this.gridJson);
@@ -72,8 +73,17 @@ export class HighlighterComponent implements OnInit, OnChanges, OnDestroy {
         this.gridRows
       );
       this.updateCoordinates();
+    } else if (this.isSelectionBox) {
+      this.grid.selectByHighlight();
+      this.resetCanvasLine();
+      this.activeIndex = -1;
+      this.deCollapseItems();
+      this.updateCoordinates();
     } else {
-      if (!changes['isEditGrid'].firstChange) {
+      if (
+        !changes['isEditGrid']?.firstChange ||
+        !changes['isSelectionBox']?.firstChange
+      ) {
         this.resetCoordinates();
       }
     }
@@ -91,6 +101,11 @@ export class HighlighterComponent implements OnInit, OnChanges, OnDestroy {
     this.subs.push(
       this.pointer.$gridCols.subscribe((cols: Record<string, Column>[]) => {
         this.gridCols = cols;
+      })
+    );
+    this.subs.push(
+      this.pointer.$gridRows.subscribe((rows: Row[]) => {
+        this.gridRows = rows;
       })
     );
     this.subs.push(

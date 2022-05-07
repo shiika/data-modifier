@@ -4,6 +4,7 @@ import {
   Component,
   OnInit,
   ViewChild,
+  ViewRef,
 } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
@@ -14,6 +15,7 @@ import { PointerService } from '../services/pointer.service';
 import { HighlighterComponent } from '../highlighter/highlighter.component';
 import { TOOLBAR_HEIGHT } from '../enums/constants';
 import { GridService } from '../services/grid.service';
+import { MatSidenavContent } from '@angular/material/sidenav';
 // import { MatSidenavContent } from '@angular/material/sidenav';
 
 @Component({
@@ -23,7 +25,7 @@ import { GridService } from '../services/grid.service';
 })
 export class SidebarComponent implements OnInit, AfterViewInit {
   @ViewChild('highlighter') highlighterElement: HighlighterComponent;
-  @ViewChild('sidenavContent') sidenavContentElement: any;
+  @ViewChild(MatSidenavContent) $sidenavComponent: MatSidenavContent;
   allPoints: { [key: string]: any }[] = [];
   sidebarItems: { [key: string]: any }[] = JSON.parse(
     JSON.stringify(objectiveItems)
@@ -34,6 +36,7 @@ export class SidebarComponent implements OnInit, AfterViewInit {
   toolbarHeight: number = TOOLBAR_HEIGHT;
   gridItems: { [key: string]: any }[] = [];
   isEditGrid: boolean = false;
+  isSelectionBox: boolean = false;
 
   isHandset$: Observable<boolean> = this.breakpointObserver
     .observe(Breakpoints.Handset)
@@ -44,7 +47,7 @@ export class SidebarComponent implements OnInit, AfterViewInit {
 
   constructor(
     private breakpointObserver: BreakpointObserver,
-    private pointer: PointerService
+    public pointer: PointerService
   ) {}
 
   ngOnInit(): void {
@@ -160,7 +163,6 @@ export class SidebarComponent implements OnInit, AfterViewInit {
             item[1].word = this.allPoints[value.newIndex].word;
             this.allPoints[value.newIndex].key = item[1].word;
             item[1].key = this.allPoints[value.newIndex].key;
-            // this.updateAllPoints();
             this.activeKey = this.allPoints[value.newIndex].key;
           }
           return item;
@@ -189,20 +191,13 @@ export class SidebarComponent implements OnInit, AfterViewInit {
       item.key = item.word;
       return item;
     });
-    // this.updateAllPoints();
   }
 
   updateSidebarItems(): void {
     this.sidebarItems = this.pointer.sidebarItems;
-    // this.updateAllPoints();
   }
   updateGridItems(): void {
     this.gridItems = this.pointer.gridItems;
-    // this.updateAllPoints();
-  }
-
-  updateAllPoints(): void {
-    this.pointer.allPoints = this.allPoints;
   }
 
   toggleItem(key: string, index: number): void {
@@ -222,10 +217,24 @@ export class SidebarComponent implements OnInit, AfterViewInit {
     this.pointer.offsetTop = e.target['scrollTop'];
     this.pointer.$itemPointEmitter.next(null);
     this.pointer.$gridItemPointEmitter.next({ key: null, rowIndex: null });
+    this.pointer.$navItemIndex = undefined;
+    this.pointer.$gridItemIndex = undefined;
   }
 
   editGrid(): void {
+    this.$sidenavComponent.getElementRef().nativeElement.scrollTo(0, 0);
     this.isEditGrid = !this.isEditGrid;
+  }
+
+  selectByHighlight(): void {
+    this.$sidenavComponent.getElementRef().nativeElement.scrollTo(0, 0);
+    this.isSelectionBox = !this.isSelectionBox;
+  }
+
+  resetSelectionBox(): void {
+    this.pointer.$navItemIndex = undefined;
+    this.pointer.$gridItemIndex = undefined;
+    this.isSelectionBox = false;
   }
 
   export(): void {

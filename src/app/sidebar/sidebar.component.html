@@ -5,7 +5,7 @@
     fixedInViewport
     [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
     [mode]="(isHandset$ | async) ? 'over' : 'side'"
-    [opened]="!isEditGrid"
+    [opened]="!isEditGrid && !isSelectionBox"
   >
     <mat-nav-list>
       <a
@@ -23,12 +23,7 @@
     </mat-nav-list>
     <mat-nav-list>
       <div class="grid-items">
-        <div class="grid-items__header">
-          Table Items
-          <button type="button" mat-button color="primary" (click)="editGrid()">
-            {{ isEditGrid ? "Cancel" : "Edit" }}
-          </button>
-        </div>
+        <div class="grid-items__header">Table Items</div>
         <div class="grid-items__rows">
           <div
             class="grid-items__rows__row"
@@ -63,8 +58,22 @@
         class="edit-button"
         mat-raised-button
         (click)="editGrid()"
+        *ngIf="!isSelectionBox"
       >
         {{ !isEditGrid ? "Edit Grid" : "Finish Editing" }}
+      </button>
+      <button
+        type="button"
+        class="edit-button"
+        mat-raised-button
+        (click)="!isSelectionBox ? selectByHighlight() : resetSelectionBox()"
+        *ngIf="
+          (pointer.$navItemIndex != undefined ||
+            pointer.gridItemIndex != undefined) &&
+          !isEditGrid
+        "
+      >
+        {{ !isSelectionBox ? "Edit by Highlight" : "Finish Editing" }}
       </button>
       <button
         type="button"
@@ -87,6 +96,7 @@
       <app-highlighter
         [data]="allPoints"
         [isEditGrid]="isEditGrid"
+        [isSelectionBox]="isSelectionBox"
         [gridData]="gridItems"
         (updateSidebarItems)="updateSidebarItems()"
         #highlighter
