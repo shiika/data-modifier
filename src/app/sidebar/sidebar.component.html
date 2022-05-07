@@ -27,6 +27,9 @@
         <div class="grid-items__rows">
           <div
             class="grid-items__rows__row"
+            [class.grid-items__rows__row__disabled]="
+              pointer.$navItemIndex != undefined
+            "
             *ngFor="let row of gridItems; let rowIndex = index"
           >
             <p>{{ row[0] }}</p>
@@ -36,6 +39,7 @@
               *ngFor="let col of row[1]; let i = index"
               (click)="toggleGridItem(col[1].key, i, rowIndex)"
               [class.mat-list-item-active]="sidebarGridIndex === i"
+              [disabled]="pointer.$navItemIndex != undefined"
             >
               <div class="mat-list-item-content__container">
                 <span>{{ col[0] }}</span>

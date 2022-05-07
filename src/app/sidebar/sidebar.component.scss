@@ -56,6 +56,12 @@
               color: rgba(0, 0, 0, 0.87);
             }
           }
+
+          &__row__disabled {
+            span {
+              color: #a9a9a9;
+            }
+          }
         }
       }
     }

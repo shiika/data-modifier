@@ -17,14 +17,7 @@ import {
   SIDEBAR_WIDTH,
   TOOLBAR_HEIGHT,
 } from '../enums/constants';
-import {
-  ColsJson,
-  Column,
-  GridJsonData,
-  Rect,
-  RectJson,
-  Row,
-} from '../enums/grid-coords';
+import { Column, GridJsonData, Rect, Row } from '../enums/grid-coords';
 import { GridService } from '../services/grid.service';
 import { PointerService } from '../services/pointer.service';
 import { UtilityService } from '../services/utility.service';

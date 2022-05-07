@@ -1,11 +1,4 @@
-import {
-  AfterViewInit,
-  ChangeDetectorRef,
-  Component,
-  OnInit,
-  ViewChild,
-  ViewRef,
-} from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
@@ -14,9 +7,7 @@ import objectiveItems from '../../assets/objectives_example.json';
 import { PointerService } from '../services/pointer.service';
 import { HighlighterComponent } from '../highlighter/highlighter.component';
 import { TOOLBAR_HEIGHT } from '../enums/constants';
-import { GridService } from '../services/grid.service';
 import { MatSidenavContent } from '@angular/material/sidenav';
-// import { MatSidenavContent } from '@angular/material/sidenav';
 
 @Component({
   selector: 'app-sidebar',
@@ -203,12 +194,14 @@ export class SidebarComponent implements OnInit, AfterViewInit {
   toggleItem(key: string, index: number): void {
     this.activeKey = key;
     this.sidebarIndex = index;
+    this.pointer.$gridItemIndex = undefined;
     this.pointer.navItemIndexSetter = index;
     this.pointer.$itemPointEmitter.next(key);
   }
 
   toggleGridItem(key: string, index: number, rowIndex: number): void {
     this.sidebarGridIndex = index;
+    this.pointer.$navItemIndex = undefined;
     this.pointer.gridItemIndexSetter = index;
     this.pointer.$gridItemPointEmitter.next({ key, rowIndex });
   }
@@ -217,12 +210,16 @@ export class SidebarComponent implements OnInit, AfterViewInit {
     this.pointer.offsetTop = e.target['scrollTop'];
     this.pointer.$itemPointEmitter.next(null);
     this.pointer.$gridItemPointEmitter.next({ key: null, rowIndex: null });
-    this.pointer.$navItemIndex = undefined;
-    this.pointer.$gridItemIndex = undefined;
+    if (!this.isSelectionBox) {
+      this.pointer.$navItemIndex = undefined;
+      this.pointer.$gridItemIndex = undefined;
+    }
   }
 
   editGrid(): void {
     this.$sidenavComponent.getElementRef().nativeElement.scrollTo(0, 0);
+    this.pointer.$navItemIndex = undefined;
+    this.pointer.$gridItemIndex = undefined;
     this.isEditGrid = !this.isEditGrid;
   }
 
