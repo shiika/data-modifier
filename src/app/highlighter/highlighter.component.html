@@ -1,6 +1,6 @@
-<div class="wrapper__image">
+<div class="wrapper__image" *ngIf="currentImage">
   <img
-    src="../../assets/sample.jpeg"
+    [src]="'data:image/png;base64,' + currentImage"
     alt="document image"
     (load)="setCoordinates($event, true)"
     #fileImage

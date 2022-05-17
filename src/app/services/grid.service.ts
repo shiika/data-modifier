@@ -1,18 +1,25 @@
 import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 import { TOOLBAR_HEIGHT } from '../enums/constants';
 import { Column, Rect, Row } from '../enums/grid-coords';
 import { PointerService } from './pointer.service';
+import { UtilityService } from './utility.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class GridService {
   static pointer;
+  static utility;
   static toolbarHeight: number = TOOLBAR_HEIGHT;
   static cols: Column[];
   static rows: Row[];
-  constructor(public pointerService: PointerService) {
+  constructor(
+    public pointerService: PointerService,
+    public utilityService: UtilityService
+  ) {
     GridService.pointer = pointerService;
+    GridService.utility = utilityService;
   }
 
   private static mapCols(cols: Record<string, Column>[]): Column[] {
@@ -119,7 +126,14 @@ export class GridService {
     }
     function mouseUp() {
       dragTL = dragTR = dragBL = dragBR = false;
-      console.log(rect);
+      GridService.pointer.$selectedBox.next({
+        top: `${Math.round(rect.startY / GridService.utility.aspectRatio)}`,
+        left: `${Math.round(rect.startX / GridService.utility.aspectRatio)}`,
+        width: `${Math.round(rect.w / GridService.utility.aspectRatio)}`,
+        height: `${Math.round(rect.h / GridService.utility.aspectRatio)}`,
+        page_index: `${GridService.pointer.currentPageIndex}`,
+      });
+
       rect.startX = 0;
       rect.startY = 0;
       rect.w = 0;

@@ -10,7 +10,6 @@
     <mat-nav-list>
       <a
         mat-list-item
-        href="#"
         *ngFor="let item of sidebarItems; let i = index"
         (click)="toggleItem(item[1].key, i)"
         [class.mat-list-item-active]="sidebarIndex === i"
@@ -35,7 +34,6 @@
             <p>{{ row[0] }}</p>
             <a
               mat-list-item
-              href="#"
               *ngFor="let col of row[1]; let i = index"
               (click)="toggleGridItem(col[1].key, i, rowIndex)"
               [class.mat-list-item-active]="sidebarGridIndex === i"
@@ -96,11 +94,13 @@
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button> -->
     </mat-toolbar>
-    <section class="wrapper">
+    <section class="wrapper" #wrapper>
       <app-highlighter
         [data]="allPoints"
         [isEditGrid]="isEditGrid"
         [isSelectionBox]="isSelectionBox"
+        [images]="images"
+        [currentImage]="currentImage"
         [gridData]="gridItems"
         (updateSidebarItems)="updateSidebarItems()"
         #highlighter

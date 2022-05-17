@@ -15,6 +15,19 @@ export class PointerService {
   $gridCols: Subject<Record<string, Column>[]> = new Subject<
     Record<string, Column>[]
   >();
+  $selectedBox: BehaviorSubject<{
+    top: string;
+    left: string;
+    width: string;
+    height: string;
+    page_index: string;
+  }> = new BehaviorSubject<{
+    top: string;
+    left: string;
+    width: string;
+    height: string;
+    page_index: string;
+  }>(null);
   $gridRows: Subject<Row[]> = new Subject<Row[]>();
   $navItemIndex: number;
   $gridItemIndex: number;
@@ -22,6 +35,7 @@ export class PointerService {
   $gridItems: any[] = [];
   offsetTop: number = 0;
   sidebarOffsetTop: number = 0;
+  currentPageIndex: number = 0;
 
   get navItemIndex(): number {
     return this.$navItemIndex;
