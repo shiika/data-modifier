@@ -36,6 +36,7 @@ export class PointerService {
   offsetTop: number = 0;
   sidebarOffsetTop: number = 0;
   currentPageIndex: number = 0;
+  currentRowIndex: number = 0;
 
   get navItemIndex(): number {
     return this.$navItemIndex;

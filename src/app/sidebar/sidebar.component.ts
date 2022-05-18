@@ -176,37 +176,6 @@ export class SidebarComponent implements OnInit, AfterViewInit {
           this.toggleItem(this.activeKey, this.sidebarIndex);
         }
       );
-      this.pointer.$selectedBox.subscribe((rect) => {
-        if (rect) {
-          const formData = new FormData();
-          formData.append('top', rect.top);
-          formData.append('left', rect.left);
-          formData.append('height', rect.height);
-          formData.append('width', rect.width);
-          formData.append('page_index', rect.page_index);
-          formData.append('allocr', JSON.stringify(this.api.allPoints));
-          this.api
-            .getSelectedPoint(formData)
-            .pipe(take(1))
-            .subscribe((text) => {
-              const point =
-                this.pointer.sidebarItems[this.pointer.navItemIndex];
-              this.pointer.sidebarItems[this.pointer.navItemIndex] = [
-                point[0],
-                {
-                  ...point[1],
-                  key: text,
-                  word: text,
-                  width: `${+rect.width * this.utility.aspectRatio}px`,
-                  height: `${+rect.height * this.utility.aspectRatio}px`,
-                  top: `${+rect.top * this.utility.aspectRatio}px`,
-                  left: `${+rect.left * this.utility.aspectRatio}px`,
-                  'page-index': rect.page_index,
-                },
-              ];
-            });
-        }
-      });
     }
   }
 
@@ -251,6 +220,7 @@ export class SidebarComponent implements OnInit, AfterViewInit {
     this.sidebarGridIndex = index;
     this.pointer.$navItemIndex = undefined;
     this.pointer.gridItemIndexSetter = index;
+    this.pointer.currentRowIndex = rowIndex;
     this.pointer.$gridItemPointEmitter.next({ key, rowIndex });
   }
 

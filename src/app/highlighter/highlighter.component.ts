@@ -25,6 +25,8 @@ import { PointerService } from '../services/pointer.service';
 import { UtilityService } from '../services/utility.service';
 import GridData from '../../assets/grid.json';
 import { Subscription } from 'rxjs';
+import { ApiService } from '../services/api.service';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-highlighter',
@@ -42,6 +44,7 @@ export class HighlighterComponent
   @Input() isSelectionBox: boolean;
   @Input() images: any[];
   @Input() currentImage: string = '';
+  currentEditingPoint: any;
   initialData: any = [];
   gridJson: GridJsonData[] = JSON.parse(JSON.stringify(GridData));
   gridCoords: Rect = this.mapGridCoords(this.gridJson);
@@ -61,6 +64,7 @@ export class HighlighterComponent
   constructor(
     private pointer: PointerService,
     private utility: UtilityService,
+    private api: ApiService,
     private grid: GridService
   ) {}
 
@@ -141,10 +145,91 @@ export class HighlighterComponent
                 this.pointer.gridItemIndex
               ][0];
             this.setGridCanvasLine(this.activeIndex);
-            this.setOverallColBox(this.activeSidebarIndex);
+            // this.setOverallColBox(this.activeSidebarIndex);
           }
         }
       )
+    );
+    this.subs.push(
+      this.pointer.$selectedBox.subscribe((rect) => {
+        if (rect) {
+          const formData = new FormData();
+          formData.append('top', rect.top);
+          formData.append('left', rect.left);
+          formData.append('height', rect.height);
+          formData.append('width', rect.width);
+          formData.append('page_index', rect.page_index);
+          formData.append('allocr', JSON.stringify(this.api.allPoints));
+          this.api
+            .getSelectedPoint(formData)
+            .pipe(take(1))
+            .subscribe((text) => {
+              if (isNaN(this.pointer.navItemIndex)) {
+                const point =
+                  this.pointer.gridItems[this.pointer.currentRowIndex][1][
+                    this.pointer.gridItemIndex
+                  ];
+                if (point) {
+                  this.pointer.gridItems[this.pointer.currentRowIndex][1][
+                    this.pointer.gridItemIndex
+                  ] = [
+                    point[0],
+                    {
+                      ...point[1],
+                      key: text,
+                      word: text,
+                      width: `${+rect.width * this.utility.aspectRatio}px`,
+                      height: `${+rect.height * this.utility.aspectRatio}px`,
+                      top: `${+rect.top * this.utility.aspectRatio}px`,
+                      left: `${+rect.left * this.utility.aspectRatio}px`,
+                      'page-index': +rect.page_index,
+                    },
+                  ];
+                  this.currentEditingPoint = {
+                    ...point[1],
+                    key: text,
+                    word: text,
+                    width: `${+rect.width}px`,
+                    height: `${+rect.height}px`,
+                    top: `${+rect.top}px`,
+                    left: `${+rect.left}px`,
+                    modalTop: `${+rect.top + +rect.height}px`,
+                    collapsed: false,
+                    'page-index': +rect.page_index,
+                  };
+                }
+              } else {
+                const point =
+                  this.pointer.sidebarItems[this.pointer.navItemIndex];
+                this.pointer.sidebarItems[this.pointer.navItemIndex] = [
+                  point[0],
+                  {
+                    ...point[1],
+                    key: text,
+                    word: text,
+                    width: `${+rect.width * this.utility.aspectRatio}px`,
+                    height: `${+rect.height * this.utility.aspectRatio}px`,
+                    top: `${+rect.top * this.utility.aspectRatio}px`,
+                    left: `${+rect.left * this.utility.aspectRatio}px`,
+                    'page-index': +rect.page_index,
+                  },
+                ];
+                this.currentEditingPoint = {
+                  ...point[1],
+                  key: text,
+                  word: text,
+                  width: `${+rect.width}px`,
+                  height: `${+rect.height}px`,
+                  top: `${+rect.top}px`,
+                  left: `${+rect.left}px`,
+                  modalTop: `${+rect.top + +rect.height}px`,
+                  collapsed: false,
+                  'page-index': +rect.page_index,
+                };
+              }
+            });
+        }
+      })
     );
   }
 
@@ -230,6 +315,9 @@ export class HighlighterComponent
   }
 
   resetCoordinates(): void {
+    if (!!this.currentEditingPoint)
+      this.initialData.push(this.currentEditingPoint);
+    this.currentEditingPoint = null;
     this.aspectRatio = this.resizeOnSidebarVisible();
     this.data = JSON.parse(JSON.stringify(this.initialData)).map((item) => {
       item.width = `${
@@ -352,25 +440,26 @@ export class HighlighterComponent
     }
   }
   setOverallColBox(colIndex: number): void {
-    const c = document.getElementById(
-      `grid-canvas-box-${this.activeRowIndex}${this.activeSidebarIndex}`
-    ) as any;
-    const ctx = c.getContext('2d');
-    const col = this.gridData[this.activeRowIndex][1][colIndex][1];
-    const leftStartPoint =
-      this.utility.extractValue(col.left) * this.aspectRatio;
-    const topStartPoint =
-      this.utility.extractValue(col.top) * this.aspectRatio +
-      this.toolbarHeight -
-      this.pointer.offsetTop;
-    const boxWidth = this.utility.extractValue(col.width) * this.aspectRatio;
-    const boxHeight = this.utility.extractValue(col.height) * this.aspectRatio;
-    ctx.clearRect(0, 0, c.width, c.height);
-    ctx.beginPath();
-    ctx.strokeStyle = 'green';
-    ctx.lintWidth = '6';
-    ctx.rect(leftStartPoint, topStartPoint, boxWidth, boxHeight);
-    ctx.stroke();
+    if (colIndex !== -1) {
+      const c = document.getElementById(
+        `grid-canvas-box-${this.activeRowIndex}${this.activeSidebarIndex}`
+      ) as any;
+      const ctx = c.getContext('2d');
+      const col = this.gridData[this.activeRowIndex][1][colIndex][1];
+      const leftStartPoint = this.utility.extractValue(col.left);
+      const topStartPoint =
+        this.utility.extractValue(col.top) +
+        this.toolbarHeight -
+        this.pointer.offsetTop;
+      const boxWidth = this.utility.extractValue(col.width);
+      const boxHeight = this.utility.extractValue(col.height);
+      ctx.clearRect(0, 0, c.width, c.height);
+      ctx.beginPath();
+      ctx.strokeStyle = 'green';
+      ctx.lintWidth = '6';
+      ctx.rect(leftStartPoint, topStartPoint, boxWidth, boxHeight);
+      ctx.stroke();
+    }
   }
 
   resetCanvasLine(): void {

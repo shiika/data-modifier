@@ -2,6 +2,7 @@
   flex: 1;
 }
 .wrapper {
+  overflow-x: hidden;
   &__image {
     position: relative;
     display: inline-block;
