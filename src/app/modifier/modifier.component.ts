@@ -25,6 +25,7 @@ export class ModifierComponent implements OnInit {
   close(): void {
     this.onClose.emit(false);
     this.pointer.$itemPointEmitter.next(null);
+    this.pointer.$navItemIndex = undefined;
   }
 
   save(): void {

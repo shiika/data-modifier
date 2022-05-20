@@ -1,10 +1,15 @@
+:host {
+  flex: 1;
+}
 .wrapper {
+  overflow-x: hidden;
   &__image {
     position: relative;
     display: inline-block;
+    width: 100%;
 
     img {
-      max-width: 100%;
+      width: 100%;
       display: block;
       margin-inline: auto;
     }
@@ -18,7 +23,7 @@
 
     &__active {
       border: 1px solid rgba($color: #535bec, $alpha: 0.5);
-      background-color: rgba(0, 0, 100, 0.2);
+      background-color: rgba(0, 0, 38, 0.15);
     }
   }
 }
@@ -49,4 +54,12 @@
   left: -3px;
   border: 1px solid red;
   z-index: 3000;
+}
+
+#selection-canvas {
+  position: absolute;
+  top: 0;
+  left: -3px;
+  border: 1px solid red;
+  z-index: 4500;
 }

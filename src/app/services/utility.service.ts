@@ -1,12 +1,14 @@
-import { Injectable } from "@angular/core";
+import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
-    providedIn: "root"
+  providedIn: 'root',
 })
-
 export class UtilityService {
-    extractValue(property: string): number {
-        const numericValue = parseInt(property.split("px")[0]);
-        return numericValue
-    }
+  $images: BehaviorSubject<File[]> = new BehaviorSubject<File[]>([]);
+  aspectRatio: number;
+  extractValue(property: string): number {
+    const numericValue = parseInt(property.split('px')[0]);
+    return numericValue;
+  }
 }

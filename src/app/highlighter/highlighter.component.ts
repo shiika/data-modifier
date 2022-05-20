@@ -1,4 +1,6 @@
 import {
+  AfterViewInit,
+  ChangeDetectorRef,
   Component,
   ElementRef,
   EventEmitter,
@@ -17,31 +19,32 @@ import {
   SIDEBAR_WIDTH,
   TOOLBAR_HEIGHT,
 } from '../enums/constants';
-import {
-  ColsJson,
-  Column,
-  GridJsonData,
-  Rect,
-  RectJson,
-  Row,
-} from '../enums/grid-coords';
+import { Column, GridJsonData, Rect, Row } from '../enums/grid-coords';
 import { GridService } from '../services/grid.service';
 import { PointerService } from '../services/pointer.service';
 import { UtilityService } from '../services/utility.service';
 import GridData from '../../assets/grid.json';
 import { Subscription } from 'rxjs';
+import { ApiService } from '../services/api.service';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-highlighter',
   templateUrl: './highlighter.component.html',
   styleUrls: ['./highlighter.component.scss'],
 })
-export class HighlighterComponent implements OnInit, OnChanges, OnDestroy {
+export class HighlighterComponent
+  implements OnInit, OnChanges, OnDestroy, AfterViewInit
+{
   @Input() data: any = [];
   @ViewChild('fileImage') fileImage: ElementRef;
   @Output() updateSidebarItems: EventEmitter<any> = new EventEmitter<any>();
   @Input() gridData: any;
   @Input() isEditGrid: boolean;
+  @Input() isSelectionBox: boolean;
+  @Input() images: any[];
+  @Input() currentImage: string = '';
+  currentEditingPoint: any;
   initialData: any = [];
   gridJson: GridJsonData[] = JSON.parse(JSON.stringify(GridData));
   gridCoords: Rect = this.mapGridCoords(this.gridJson);
@@ -61,6 +64,7 @@ export class HighlighterComponent implements OnInit, OnChanges, OnDestroy {
   constructor(
     private pointer: PointerService,
     private utility: UtilityService,
+    private api: ApiService,
     private grid: GridService
   ) {}
 
@@ -72,8 +76,17 @@ export class HighlighterComponent implements OnInit, OnChanges, OnDestroy {
         this.gridRows
       );
       this.updateCoordinates();
+    } else if (this.isSelectionBox) {
+      this.grid.selectByHighlight();
+      this.resetCanvasLine();
+      this.activeIndex = -1;
+      this.deCollapseItems();
+      this.updateCoordinates();
     } else {
-      if (!changes['isEditGrid'].firstChange) {
+      if (
+        !changes['isEditGrid']?.firstChange ||
+        !changes['isSelectionBox']?.firstChange
+      ) {
         this.resetCoordinates();
       }
     }
@@ -91,6 +104,11 @@ export class HighlighterComponent implements OnInit, OnChanges, OnDestroy {
     this.subs.push(
       this.pointer.$gridCols.subscribe((cols: Record<string, Column>[]) => {
         this.gridCols = cols;
+      })
+    );
+    this.subs.push(
+      this.pointer.$gridRows.subscribe((rows: Row[]) => {
+        this.gridRows = rows;
       })
     );
     this.subs.push(
@@ -127,11 +145,101 @@ export class HighlighterComponent implements OnInit, OnChanges, OnDestroy {
                 this.pointer.gridItemIndex
               ][0];
             this.setGridCanvasLine(this.activeIndex);
-            this.setOverallColBox(this.activeSidebarIndex);
+            // this.setOverallColBox(this.activeSidebarIndex);
           }
         }
       )
     );
+    this.subs.push(
+      this.pointer.$selectedBox.subscribe((rect) => {
+        if (rect) {
+          const formData = new FormData();
+          formData.append('top', rect.top);
+          formData.append('left', rect.left);
+          formData.append('height', rect.height);
+          formData.append('width', rect.width);
+          formData.append('page_index', rect.page_index);
+          formData.append('allocr', JSON.stringify(this.api.allPoints));
+          this.api
+            .getSelectedPoint(formData)
+            .pipe(take(1))
+            .subscribe((text) => {
+              if (isNaN(this.pointer.navItemIndex)) {
+                const point =
+                  this.pointer.gridItems[this.pointer.currentRowIndex][1][
+                    this.pointer.gridItemIndex
+                  ];
+                if (point) {
+                  this.pointer.gridItems[this.pointer.currentRowIndex][1][
+                    this.pointer.gridItemIndex
+                  ] = [
+                    point[0],
+                    {
+                      ...point[1],
+                      key: text,
+                      word: text,
+                      width: `${+rect.width * this.utility.aspectRatio}px`,
+                      height: `${+rect.height * this.utility.aspectRatio}px`,
+                      top: `${+rect.top * this.utility.aspectRatio}px`,
+                      left: `${+rect.left * this.utility.aspectRatio}px`,
+                      'page-index': +rect.page_index,
+                    },
+                  ];
+                  this.currentEditingPoint = {
+                    ...point[1],
+                    key: text,
+                    word: text,
+                    width: `${+rect.width}px`,
+                    height: `${+rect.height}px`,
+                    top: `${+rect.top}px`,
+                    left: `${+rect.left}px`,
+                    modalTop: `${+rect.top + +rect.height}px`,
+                    collapsed: false,
+                    'page-index': +rect.page_index,
+                  };
+                }
+              } else {
+                const point =
+                  this.pointer.sidebarItems[this.pointer.navItemIndex];
+                this.pointer.sidebarItems[this.pointer.navItemIndex] = [
+                  point[0],
+                  {
+                    ...point[1],
+                    key: text,
+                    word: text,
+                    width: `${+rect.width * this.utility.aspectRatio}px`,
+                    height: `${+rect.height * this.utility.aspectRatio}px`,
+                    top: `${+rect.top * this.utility.aspectRatio}px`,
+                    left: `${+rect.left * this.utility.aspectRatio}px`,
+                    'page-index': +rect.page_index,
+                  },
+                ];
+                this.currentEditingPoint = {
+                  ...point[1],
+                  key: text,
+                  word: text,
+                  width: `${+rect.width}px`,
+                  height: `${+rect.height}px`,
+                  top: `${+rect.top}px`,
+                  left: `${+rect.left}px`,
+                  modalTop: `${+rect.top + +rect.height}px`,
+                  collapsed: false,
+                  'page-index': +rect.page_index,
+                };
+              }
+            });
+        }
+      })
+    );
+  }
+
+  ngAfterViewInit(): void {
+    this.initializeImage();
+  }
+
+  initializeImage(): void {
+    if (this.fileImage)
+      this.fileImage.nativeElement.src = `data:image/png;base64,${this.currentImage}`;
   }
 
   ngOnDestroy(): void {
@@ -207,6 +315,9 @@ export class HighlighterComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   resetCoordinates(): void {
+    if (!!this.currentEditingPoint)
+      this.initialData.push(this.currentEditingPoint);
+    this.currentEditingPoint = null;
     this.aspectRatio = this.resizeOnSidebarVisible();
     this.data = JSON.parse(JSON.stringify(this.initialData)).map((item) => {
       item.width = `${
@@ -232,6 +343,7 @@ export class HighlighterComponent implements OnInit, OnChanges, OnDestroy {
     this.aspectRatio = isInitial
       ? this.resizeOnSizeChanges()
       : this.resizeOnSidebarVisible();
+    this.utility.aspectRatio = this.aspectRatio;
     if (this.data) {
       this.data = JSON.parse(JSON.stringify(this.initialData)).map((item) => {
         item.width = `${
@@ -251,6 +363,7 @@ export class HighlighterComponent implements OnInit, OnChanges, OnDestroy {
           this.utility.extractValue(item.height)
         }px`;
         item.collapsed = false;
+
         return item;
       });
     }
@@ -258,6 +371,7 @@ export class HighlighterComponent implements OnInit, OnChanges, OnDestroy {
 
   updateCoordinates(): void {
     this.aspectRatio = this.resizeOnSidebarHidden();
+    this.utility.aspectRatio = this.aspectRatio;
     this.data = JSON.parse(JSON.stringify(this.initialData)).map((item) => {
       item.width = `${
         this.utility.extractValue(item.width) * this.aspectRatio
@@ -279,68 +393,73 @@ export class HighlighterComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   setCanvasLine(index: number): void {
-    const c = document.getElementById(`canvas-${index}`) as any;
-    const ctx = c.getContext('2d');
-    ctx.clearRect(0, 0, c.width, c.height);
-    const topStartPoint =
-      this.navItemsHeight * (this.pointer.navItemIndex + 1) -
-      this.navItemsHeight / 2;
-    const topEndPoint =
-      this.utility.extractValue(this.data[index].top) +
-      this.toolbarHeight +
-      5 -
-      this.pointer.offsetTop;
-    const leftEndPoint = this.utility.extractValue(this.data[index].left);
-    ctx.beginPath();
-    ctx.moveTo(0, topStartPoint);
-    ctx.lineTo(leftEndPoint, topEndPoint);
-    ctx.stroke();
+    if (index !== -1) {
+      const c = document.getElementById(`canvas-${index}`) as any;
+      const ctx = c.getContext('2d');
+      ctx.clearRect(0, 0, c.width, c.height);
+      const topStartPoint =
+        this.navItemsHeight * (this.pointer.navItemIndex + 1) -
+        this.navItemsHeight / 2;
+      const topEndPoint =
+        this.utility.extractValue(this.data[index].top) +
+        this.toolbarHeight +
+        5 -
+        this.pointer.offsetTop;
+      const leftEndPoint = this.utility.extractValue(this.data[index].left);
+      ctx.beginPath();
+      ctx.moveTo(0, topStartPoint);
+      ctx.lineTo(leftEndPoint, topEndPoint);
+      ctx.stroke();
+    }
   }
   setGridCanvasLine(index: number): void {
-    const c = document.getElementById(`canvas-${index}`) as any;
-    const ctx = c.getContext('2d');
-    ctx.clearRect(0, 0, c.width, c.height);
-    const topStartPoint =
-      this.pointer.sidebarItems.length * this.navItemsHeight +
-      this.gridItemsHeaderHeight +
-      this.rowTextHeight -
-      this.pointer.sidebarOffsetTop +
-      this.navItemsHeight * (this.pointer.gridItemIndex + 1) +
-      this.activeRowIndex *
-        (this.gridItemsHeaderHeight +
-          this.pointer.gridItems[0][1].length * this.navItemsHeight -
-          this.navItemsHeight);
-    const topEndPoint =
-      this.utility.extractValue(this.data[index].top) +
-      this.toolbarHeight +
-      5 -
-      this.pointer.offsetTop;
-    const leftEndPoint = this.utility.extractValue(this.data[index].left);
-    ctx.beginPath();
-    ctx.moveTo(0, topStartPoint);
-    ctx.lineTo(leftEndPoint, topEndPoint);
-    ctx.stroke();
+    if (index !== -1) {
+      const c = document.getElementById(`canvas-${index}`) as any;
+      const ctx = c.getContext('2d');
+      ctx.clearRect(0, 0, c.width, c.height);
+      const topStartPoint =
+        this.pointer.sidebarItems.length * this.navItemsHeight +
+        this.gridItemsHeaderHeight +
+        this.rowTextHeight -
+        this.pointer.sidebarOffsetTop +
+        this.navItemsHeight * (this.pointer.gridItemIndex + 1) +
+        this.activeRowIndex *
+          (this.gridItemsHeaderHeight +
+            this.pointer.gridItems[0][1].length * this.navItemsHeight -
+            this.navItemsHeight);
+      const topEndPoint =
+        this.utility.extractValue(this.data[index].top) +
+        this.toolbarHeight +
+        5 -
+        this.pointer.offsetTop;
+      const leftEndPoint = this.utility.extractValue(this.data[index].left);
+      ctx.beginPath();
+      ctx.moveTo(0, topStartPoint);
+      ctx.lineTo(leftEndPoint, topEndPoint);
+      ctx.stroke();
+    }
   }
   setOverallColBox(colIndex: number): void {
-    const c = document.getElementById(
-      `grid-canvas-box-${this.activeRowIndex}${this.activeSidebarIndex}`
-    ) as any;
-    const ctx = c.getContext('2d');
-    const col = this.gridData[this.activeRowIndex][1][colIndex][1];
-    const leftStartPoint =
-      this.utility.extractValue(col.left) * this.aspectRatio;
-    const topStartPoint =
-      this.utility.extractValue(col.top) * this.aspectRatio +
-      this.toolbarHeight -
-      this.pointer.offsetTop;
-    const boxWidth = this.utility.extractValue(col.width) * this.aspectRatio;
-    const boxHeight = this.utility.extractValue(col.height) * this.aspectRatio;
-    ctx.clearRect(0, 0, c.width, c.height);
-    ctx.beginPath();
-    ctx.strokeStyle = 'green';
-    ctx.lintWidth = '6';
-    ctx.rect(leftStartPoint, topStartPoint, boxWidth, boxHeight);
-    ctx.stroke();
+    if (colIndex !== -1) {
+      const c = document.getElementById(
+        `grid-canvas-box-${this.activeRowIndex}${this.activeSidebarIndex}`
+      ) as any;
+      const ctx = c.getContext('2d');
+      const col = this.gridData[this.activeRowIndex][1][colIndex][1];
+      const leftStartPoint = this.utility.extractValue(col.left);
+      const topStartPoint =
+        this.utility.extractValue(col.top) +
+        this.toolbarHeight -
+        this.pointer.offsetTop;
+      const boxWidth = this.utility.extractValue(col.width);
+      const boxHeight = this.utility.extractValue(col.height);
+      ctx.clearRect(0, 0, c.width, c.height);
+      ctx.beginPath();
+      ctx.strokeStyle = 'green';
+      ctx.lintWidth = '6';
+      ctx.rect(leftStartPoint, topStartPoint, boxWidth, boxHeight);
+      ctx.stroke();
+    }
   }
 
   resetCanvasLine(): void {

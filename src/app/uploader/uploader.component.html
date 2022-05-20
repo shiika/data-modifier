@@ -1,5 +1,6 @@
 <section class="uploader">
-  <form [formGroup]="form">
+  <!-- <img src="" alt="test image" id="invoice" #imgElement /> -->
+  <form [formGroup]="form" (ngSubmit)="submitForm()">
     <a
       mat-flat-button
       href="https://www.google.com/"
@@ -8,14 +9,14 @@
       >{{ form.get("name").value }}</a
     >
     <div class="uploader__container">
-      <img
+      <!-- <img
         src="../../assets/icons/loader-icon.png"
         alt="spinner"
         width="30"
         height="30"
         class="uploader__spinner"
         *ngIf="isUpload"
-      />
+      /> -->
       <div class="photos__additional__comment__file__container">
         <label for="sample-upload" class="tra-btn px-0">
           <span>Upload PDF</span>
@@ -40,7 +41,7 @@
         mat-raised-button
         color="primary"
         class="uploader__submit"
-        [disabled]="form.invalid"
+        [disabled]="form.invalid || isLoading"
       >
         Submit
       </button>

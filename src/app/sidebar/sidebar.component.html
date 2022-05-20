@@ -5,12 +5,11 @@
     fixedInViewport
     [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
     [mode]="(isHandset$ | async) ? 'over' : 'side'"
-    [opened]="!isEditGrid"
+    [opened]="!isEditGrid && !isSelectionBox"
   >
     <mat-nav-list>
       <a
         mat-list-item
-        href="#"
         *ngFor="let item of sidebarItems; let i = index"
         (click)="toggleItem(item[1].key, i)"
         [class.mat-list-item-active]="sidebarIndex === i"
@@ -23,24 +22,22 @@
     </mat-nav-list>
     <mat-nav-list>
       <div class="grid-items">
-        <div class="grid-items__header">
-          Table Items
-          <button type="button" mat-button color="primary" (click)="editGrid()">
-            {{ isEditGrid ? "Cancel" : "Edit" }}
-          </button>
-        </div>
+        <div class="grid-items__header">Table Items</div>
         <div class="grid-items__rows">
           <div
             class="grid-items__rows__row"
+            [class.grid-items__rows__row__disabled]="
+              pointer.$navItemIndex != undefined
+            "
             *ngFor="let row of gridItems; let rowIndex = index"
           >
             <p>{{ row[0] }}</p>
             <a
               mat-list-item
-              href="#"
               *ngFor="let col of row[1]; let i = index"
               (click)="toggleGridItem(col[1].key, i, rowIndex)"
               [class.mat-list-item-active]="sidebarGridIndex === i"
+              [disabled]="pointer.$navItemIndex != undefined"
             >
               <div class="mat-list-item-content__container">
                 <span>{{ col[0] }}</span>
@@ -63,8 +60,30 @@
         class="edit-button"
         mat-raised-button
         (click)="editGrid()"
+        *ngIf="!isSelectionBox"
       >
         {{ !isEditGrid ? "Edit Grid" : "Finish Editing" }}
+      </button>
+      <button
+        type="button"
+        class="edit-button"
+        mat-raised-button
+        (click)="!isSelectionBox ? selectByHighlight() : resetSelectionBox()"
+        *ngIf="
+          (pointer.$navItemIndex != undefined ||
+            pointer.gridItemIndex != undefined) &&
+          !isEditGrid
+        "
+      >
+        {{ !isSelectionBox ? "Edit by Highlight" : "Finish Editing" }}
+      </button>
+      <button
+        type="button"
+        class="edit-button"
+        mat-raised-button
+        (click)="export()"
+      >
+        Export
       </button>
       <!-- <button
         type="button"
@@ -75,10 +94,13 @@
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button> -->
     </mat-toolbar>
-    <section class="wrapper">
+    <section class="wrapper" #wrapper>
       <app-highlighter
         [data]="allPoints"
         [isEditGrid]="isEditGrid"
+        [isSelectionBox]="isSelectionBox"
+        [images]="images"
+        [currentImage]="currentImage"
         [gridData]="gridItems"
         (updateSidebarItems)="updateSidebarItems()"
         #highlighter

@@ -5,12 +5,12 @@ import { UploaderComponent } from './uploader/uploader.component';
 
 const routes: Routes = [
   {
-    path: 'upload',
-    component: UploaderComponent,
+    path: 'preview',
+    component: SidebarComponent,
   },
   {
     path: '',
-    component: SidebarComponent,
+    component: UploaderComponent,
     pathMatch: 'full',
   },
 ];
