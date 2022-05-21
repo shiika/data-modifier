@@ -61,6 +61,7 @@ export class HighlighterComponent
   rowTextHeight: number = ROW_TEXT_HEIGHT;
   sidebarWidth: number = SIDEBAR_WIDTH;
   subs: Subscription[] = [];
+  isReset: boolean = false;
   constructor(
     private pointer: PointerService,
     private utility: UtilityService,
@@ -69,7 +70,10 @@ export class HighlighterComponent
   ) {}
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (this.isEditGrid) {
+    console.log(changes);
+    if (changes['data'] && !changes['data'].firstChange) {
+      this.setCoordinates(null, true);
+    } else if (this.isEditGrid) {
       this.grid.initAndResizeCanvas(
         this.gridCoords,
         this.gridCols,
@@ -82,13 +86,11 @@ export class HighlighterComponent
       this.activeIndex = -1;
       this.deCollapseItems();
       this.updateCoordinates();
-    } else {
-      if (
-        !changes['isEditGrid']?.firstChange ||
-        !changes['isSelectionBox']?.firstChange
-      ) {
-        this.resetCoordinates();
-      }
+    } else if (
+      changes['isSelectionBox'] &&
+      changes['isSelectionBox'].previousValue === true
+    ) {
+      if (!this.isReset) this.resetCoordinates();
     }
   }
 
@@ -315,37 +317,13 @@ export class HighlighterComponent
   }
 
   resetCoordinates(): void {
+    console.log('resetted');
     if (!!this.currentEditingPoint)
       this.initialData.push(this.currentEditingPoint);
     this.currentEditingPoint = null;
     this.aspectRatio = this.resizeOnSidebarVisible();
-    this.data = JSON.parse(JSON.stringify(this.initialData)).map((item) => {
-      item.width = `${
-        this.utility.extractValue(item.width) * this.aspectRatio
-      }px`;
-      item.height = `${
-        this.utility.extractValue(item.height) * this.aspectRatio
-      }px`;
-      item.top = `${this.utility.extractValue(item.top) * this.aspectRatio}px`;
-      item.left = `${
-        this.utility.extractValue(item.left) * this.aspectRatio
-      }px`;
-      item.modalTop = `${
-        this.utility.extractValue(item.top) +
-        this.utility.extractValue(item.height)
-      }px`;
-      item.collapsed = false;
-      return item;
-    });
-  }
-
-  setCoordinates(event, isInitial: boolean): void {
-    this.aspectRatio = isInitial
-      ? this.resizeOnSizeChanges()
-      : this.resizeOnSidebarVisible();
-    this.utility.aspectRatio = this.aspectRatio;
-    if (this.data) {
-      this.data = JSON.parse(JSON.stringify(this.initialData)).map((item) => {
+    this.data = JSON.parse(JSON.stringify(this.initialData))
+      .map((item) => {
         item.width = `${
           this.utility.extractValue(item.width) * this.aspectRatio
         }px`;
@@ -363,33 +341,70 @@ export class HighlighterComponent
           this.utility.extractValue(item.height)
         }px`;
         item.collapsed = false;
-
         return item;
-      });
+      })
+      .filter((item) => item['page-index'] === this.pointer.currentPageIndex);
+  }
+
+  setCoordinates(event, isInitial: boolean): void {
+    this.aspectRatio = isInitial
+      ? this.resizeOnSizeChanges()
+      : this.resizeOnSidebarVisible();
+    console.log('set');
+    this.utility.aspectRatio = this.aspectRatio;
+    if (this.data) {
+      this.data = JSON.parse(JSON.stringify(this.initialData))
+        .map((item) => {
+          item.width = `${
+            this.utility.extractValue(item.width) * this.aspectRatio
+          }px`;
+          item.height = `${
+            this.utility.extractValue(item.height) * this.aspectRatio
+          }px`;
+          item.top = `${
+            this.utility.extractValue(item.top) * this.aspectRatio
+          }px`;
+          item.left = `${
+            this.utility.extractValue(item.left) * this.aspectRatio
+          }px`;
+          item.modalTop = `${
+            this.utility.extractValue(item.top) +
+            this.utility.extractValue(item.height)
+          }px`;
+          item.collapsed = false;
+
+          return item;
+        })
+        .filter((item) => item['page-index'] === this.pointer.currentPageIndex);
     }
   }
 
   updateCoordinates(): void {
     this.aspectRatio = this.resizeOnSidebarHidden();
+    console.log('updated');
     this.utility.aspectRatio = this.aspectRatio;
-    this.data = JSON.parse(JSON.stringify(this.initialData)).map((item) => {
-      item.width = `${
-        this.utility.extractValue(item.width) * this.aspectRatio
-      }px`;
-      item.height = `${
-        this.utility.extractValue(item.height) * this.aspectRatio
-      }px`;
-      item.top = `${this.utility.extractValue(item.top) * this.aspectRatio}px`;
-      item.left = `${
-        this.utility.extractValue(item.left) * this.aspectRatio
-      }px`;
-      item.modalTop = `${
-        this.utility.extractValue(item.top) +
-        this.utility.extractValue(item.height)
-      }px`;
-      item.collapsed = false;
-      return item;
-    });
+    this.data = JSON.parse(JSON.stringify(this.initialData))
+      .map((item) => {
+        item.width = `${
+          this.utility.extractValue(item.width) * this.aspectRatio
+        }px`;
+        item.height = `${
+          this.utility.extractValue(item.height) * this.aspectRatio
+        }px`;
+        item.top = `${
+          this.utility.extractValue(item.top) * this.aspectRatio
+        }px`;
+        item.left = `${
+          this.utility.extractValue(item.left) * this.aspectRatio
+        }px`;
+        item.modalTop = `${
+          this.utility.extractValue(item.top) +
+          this.utility.extractValue(item.height)
+        }px`;
+        item.collapsed = false;
+        return item;
+      })
+      .filter((item) => item['page-index'] === this.pointer.currentPageIndex);
   }
 
   setCanvasLine(index: number): void {

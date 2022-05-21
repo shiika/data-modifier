@@ -35,7 +35,7 @@
             <a
               mat-list-item
               *ngFor="let col of row[1]; let i = index"
-              (click)="toggleGridItem(col[1].key, i, rowIndex)"
+              (click)="toggleGridItem(col[1].key, i, col[1].row)"
               [class.mat-list-item-active]="sidebarGridIndex === i"
               [disabled]="pointer.$navItemIndex != undefined"
             >
@@ -84,6 +84,15 @@
         (click)="export()"
       >
         Export
+      </button>
+      <button
+        type="button"
+        class="edit-button"
+        mat-raised-button
+        *ngIf="images?.length > 1"
+        (click)="changePage()"
+      >
+        {{ currentPageIndex === 0 ? "Next page" : "Prev page" }}
       </button>
       <!-- <button
         type="button"

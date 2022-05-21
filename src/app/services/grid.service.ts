@@ -319,6 +319,51 @@ export class GridService {
     function checkCloseEnough(p1, p2) {
       return Math.abs(p1 - p2) < closeEnough;
     }
+
+    function updateGrid(cols: any) {
+      const coordsBody = {
+        'invoice-grid-coords': {
+          width: rect.w / GridService.utility.aspectRatio,
+          height: rect.h / GridService.utility.aspectRatio,
+          'top-left-point': [rect.startY, rect.startX],
+          'page-index': GridService.pointer.currentPageIndex,
+        },
+      };
+
+      const colsBody = {
+        'invoice-grid-cols': JSON.parse(JSON.stringify(cols)).map(
+          (col: { [key: string]: any }) => {
+            const colValue: { [key: string]: number } = Object.values(col)[0];
+            const colKey: string = Object.keys(col)[0];
+            colValue.startX = Math.round(
+              colValue.startX / GridService.utility.aspectRatio
+            );
+            return {
+              [colKey]: { startX: colValue.startX },
+            };
+          }
+        ),
+      };
+
+      const rowsBody = {
+        'invoice-grid-rows': JSON.parse(JSON.stringify(GridService.rows)).map(
+          (row: { [key: string]: any }) => {
+            row.startY = Math.round(
+              row.startY / GridService.utility.aspectRatio
+            );
+            return {
+              startY: row.startY,
+            };
+          }
+        ),
+      };
+      GridService.pointer.gridBoxJson = JSON.stringify([
+        coordsBody,
+        colsBody,
+        rowsBody,
+      ]);
+    }
+
     function mouseUp() {
       dragTL = dragTR = dragBL = dragBR = false;
       GridService.cols = GridService.cols.map((col) => {
@@ -331,8 +376,9 @@ export class GridService {
         return col;
       });
       GridService.pointer.$gridCoords.next(rect);
-      updateCols(GridService.cols);
+      const newCols = updateCols(GridService.cols);
       updateRows(GridService.rows);
+      updateGrid(newCols);
     }
     function mouseMove(e) {
       mouseX = e.pageX - this.offsetLeft;
