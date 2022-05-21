@@ -39,4 +39,10 @@ export class ApiService {
       responseType: 'text',
     });
   }
+
+  updateGrid(body: any): Observable<any> {
+    return this.http.post(`${this.host}/edit-grid`, body, {
+      responseType: 'text',
+    });
+  }
 }
