@@ -435,13 +435,12 @@ export class HighlighterComponent
       const topStartPoint =
         this.pointer.sidebarItems.length * this.navItemsHeight +
         this.gridItemsHeaderHeight +
-        this.rowTextHeight -
-        this.pointer.sidebarOffsetTop +
-        this.navItemsHeight * (this.pointer.gridItemIndex + 1) +
-        this.activeRowIndex *
-          (this.gridItemsHeaderHeight +
-            this.pointer.gridItems[0][1].length * this.navItemsHeight -
-            this.navItemsHeight);
+        this.navItemsHeight *
+          this.pointer.gridItems[0][1].length *
+          this.activeRowIndex +
+        this.rowTextHeight * this.activeRowIndex +
+        (this.pointer.gridItemIndex + 1) * this.navItemsHeight -
+        this.pointer.sidebarOffsetTop;
       const topEndPoint =
         this.utility.extractValue(this.data[index].top) +
         this.toolbarHeight +
