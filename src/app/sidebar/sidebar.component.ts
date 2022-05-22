@@ -62,6 +62,9 @@ export class SidebarComponent implements OnInit, AfterViewInit {
       this.customizePage();
       this.pointer.$updateGrid.subscribe((gridJson) => {
         if (gridJson) {
+          this.allPoints = this.allPoints.filter((point) => {
+            return !point.isGrid;
+          });
           let grid: any = Object.values(JSON.parse(gridJson)[0])[0];
           grid = grid.map((row, i) => {
             const rowIndex = i;
@@ -82,8 +85,11 @@ export class SidebarComponent implements OnInit, AfterViewInit {
                 this.allPoints.findIndex(
                   (point) => point.word == value[0].word
                 ) === -1
-              )
-                this.allPoints = this.allPoints.concat([value[0]]);
+              ) {
+                this.allPoints = this.allPoints.concat([
+                  { ...value[0], isGrid: true },
+                ]);
+              }
               return [key, value[0]];
             });
             return [`row ${i + 1}`, row];
@@ -311,6 +317,11 @@ export class SidebarComponent implements OnInit, AfterViewInit {
     this.pointer.$itemPointEmitter.next(null);
     this.pointer.$gridItemPointEmitter.next({ key: null, rowIndex: null });
     this.isEditGrid = !this.isEditGrid;
+    if (this.isEditGrid) {
+      this.allPoints = this.allPoints.filter((point) => {
+        return !point.isGrid;
+      });
+    }
     if (!this.isEditGrid) {
       const formData = new FormData();
       formData.append('grid_json', this.pointer.gridBoxJson);
@@ -323,6 +334,10 @@ export class SidebarComponent implements OnInit, AfterViewInit {
             this.pointer.$updateGrid.next(res);
           }
         });
+    } else {
+      // this.allPoints = this.allPoints.filter((point) => {
+      //   return !point.isGrid;
+      // });
     }
   }
 
