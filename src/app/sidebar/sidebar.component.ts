@@ -30,7 +30,7 @@ export class SidebarComponent implements OnInit, AfterViewInit {
   sidebarGridIndex: number;
   activeKey: string;
   toolbarHeight: number = TOOLBAR_HEIGHT;
-  gridItems: { [key: string]: any }[] = [];
+  gridItems: any[] = [];
   isEditGrid: boolean = false;
   isSelectionBox: boolean = false;
   isGridEditted: boolean = false;
@@ -255,6 +255,7 @@ export class SidebarComponent implements OnInit, AfterViewInit {
             col[1].left = `${col[1]['top-left-point'][1]}px`;
             col[1].collapsed = false;
             col[1].key = col[1].word;
+            col[1].row = rowIndex;
           }
           return col;
         });
@@ -370,4 +371,19 @@ export class SidebarComponent implements OnInit, AfterViewInit {
     linkElement.setAttribute('download', exportFileDefaultName);
     linkElement.click();
   }
+
+  addColumn(): void {
+    const additionalPoint: { [key: string]: any } = this.gridItems[0][1][0][1];
+    additionalPoint.left = `${additionalPoint['top-left-point'][1] + 10}px`;
+    additionalPoint.word = 'additional point';
+    additionalPoint.key = 'additional point';
+    additionalPoint['page-index'] = this.pointer.currentPageIndex;
+    this.gridItems.forEach((row, i) => {
+      additionalPoint.row = i;
+      row[1].push([`added-col`, additionalPoint]);
+    });
+    this.pointer.gridItems = this.gridItems;
+    this.gridItems = this.pointer.gridItems;
+  }
+  addRow(): void {}
 }
