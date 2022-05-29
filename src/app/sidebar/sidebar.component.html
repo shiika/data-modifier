@@ -94,6 +94,24 @@
       >
         {{ currentPageIndex === 0 ? "Next page" : "Prev page" }}
       </button>
+      <div class="grid-buttons">
+        <button
+          type="button"
+          class="edit-button"
+          mat-raised-button
+          (click)="addColumn()"
+        >
+          Add Column
+        </button>
+        <button
+          type="button"
+          class="edit-button"
+          mat-raised-button
+          (click)="addRow()"
+        >
+          Add Row
+        </button>
+      </div>
       <!-- <button
         type="button"
         aria-label="Toggle sidenav"

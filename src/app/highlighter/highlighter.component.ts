@@ -70,9 +70,18 @@ export class HighlighterComponent
   ) {}
 
   ngOnChanges(changes: SimpleChanges): void {
-    console.log(changes);
     if (changes['data'] && !changes['data'].firstChange) {
-      this.setCoordinates(null, true);
+      this.initialData = JSON.parse(JSON.stringify(this.data));
+      if (this.isEditGrid) {
+        this.grid.initAndResizeCanvas(
+          this.gridCoords,
+          this.gridCols,
+          this.gridRows
+        );
+        this.updateCoordinates();
+      } else {
+        this.setCoordinates(null, true);
+      }
     } else if (this.isEditGrid) {
       this.grid.initAndResizeCanvas(
         this.gridCoords,
@@ -435,13 +444,13 @@ export class HighlighterComponent
       const topStartPoint =
         this.pointer.sidebarItems.length * this.navItemsHeight +
         this.gridItemsHeaderHeight +
-        this.rowTextHeight -
+        this.navItemsHeight *
+          this.pointer.gridItems[0][1].length *
+          this.activeRowIndex +
+        this.rowTextHeight * this.activeRowIndex +
+        (this.pointer.gridItemIndex + 1) * this.navItemsHeight -
         this.pointer.sidebarOffsetTop +
-        this.navItemsHeight * (this.pointer.gridItemIndex + 1) +
-        this.activeRowIndex *
-          (this.gridItemsHeaderHeight +
-            this.pointer.gridItems[0][1].length * this.navItemsHeight -
-            this.navItemsHeight);
+        20;
       const topEndPoint =
         this.utility.extractValue(this.data[index].top) +
         this.toolbarHeight +

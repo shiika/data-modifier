@@ -30,7 +30,7 @@ export class SidebarComponent implements OnInit, AfterViewInit {
   sidebarGridIndex: number;
   activeKey: string;
   toolbarHeight: number = TOOLBAR_HEIGHT;
-  gridItems: { [key: string]: any }[] = [];
+  gridItems: any[] = [];
   isEditGrid: boolean = false;
   isSelectionBox: boolean = false;
   isGridEditted: boolean = false;
@@ -62,6 +62,9 @@ export class SidebarComponent implements OnInit, AfterViewInit {
       this.customizePage();
       this.pointer.$updateGrid.subscribe((gridJson) => {
         if (gridJson) {
+          this.allPoints = this.allPoints.filter((point) => {
+            return !point.isGrid;
+          });
           let grid: any = Object.values(JSON.parse(gridJson)[0])[0];
           grid = grid.map((row, i) => {
             const rowIndex = i;
@@ -82,8 +85,11 @@ export class SidebarComponent implements OnInit, AfterViewInit {
                 this.allPoints.findIndex(
                   (point) => point.word == value[0].word
                 ) === -1
-              )
-                this.allPoints = this.allPoints.concat([value[0]]);
+              ) {
+                this.allPoints = this.allPoints.concat([
+                  { ...value[0], isGrid: true },
+                ]);
+              }
               return [key, value[0]];
             });
             return [`row ${i + 1}`, row];
@@ -249,6 +255,7 @@ export class SidebarComponent implements OnInit, AfterViewInit {
             col[1].left = `${col[1]['top-left-point'][1]}px`;
             col[1].collapsed = false;
             col[1].key = col[1].word;
+            col[1].row = rowIndex;
           }
           return col;
         });
@@ -311,6 +318,11 @@ export class SidebarComponent implements OnInit, AfterViewInit {
     this.pointer.$itemPointEmitter.next(null);
     this.pointer.$gridItemPointEmitter.next({ key: null, rowIndex: null });
     this.isEditGrid = !this.isEditGrid;
+    if (this.isEditGrid) {
+      this.allPoints = this.allPoints.filter((point) => {
+        return !point.isGrid;
+      });
+    }
     if (!this.isEditGrid) {
       const formData = new FormData();
       formData.append('grid_json', this.pointer.gridBoxJson);
@@ -323,6 +335,10 @@ export class SidebarComponent implements OnInit, AfterViewInit {
             this.pointer.$updateGrid.next(res);
           }
         });
+    } else {
+      // this.allPoints = this.allPoints.filter((point) => {
+      //   return !point.isGrid;
+      // });
     }
   }
 
@@ -355,4 +371,19 @@ export class SidebarComponent implements OnInit, AfterViewInit {
     linkElement.setAttribute('download', exportFileDefaultName);
     linkElement.click();
   }
+
+  addColumn(): void {
+    const additionalPoint: { [key: string]: any } = this.gridItems[0][1][0][1];
+    additionalPoint.left = `${additionalPoint['top-left-point'][1] + 10}px`;
+    additionalPoint.word = 'additional point';
+    additionalPoint.key = 'additional point';
+    additionalPoint['page-index'] = this.pointer.currentPageIndex;
+    this.gridItems.forEach((row, i) => {
+      additionalPoint.row = i;
+      row[1].push([`added-col`, additionalPoint]);
+    });
+    this.pointer.gridItems = this.gridItems;
+    this.gridItems = this.pointer.gridItems;
+  }
+  addRow(): void {}
 }
