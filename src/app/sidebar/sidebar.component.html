@@ -42,8 +42,8 @@
               [disabled]="pointer.$navItemIndex != undefined"
             >
               <div class="mat-list-item-content__container">
-                <span>{{ col[1].name }}</span>
-                <span>{{ col[1].word }}</span>
+                <span [title]="col[1].name">{{ col[1].name }}</span>
+                <span [title]="col[1].word">{{ col[1].word }}</span>
               </div>
             </a>
           </div>

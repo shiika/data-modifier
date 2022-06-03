@@ -68,7 +68,7 @@ export class GridService {
     }
 
     function mouseDown(e) {
-      mouseX = e.pageX - this.offsetLeft;
+      mouseX = e.pageX - this.offsetLeft - GridService.sidebarWidth;
       mouseY =
         e.pageY -
         this.offsetTop -
@@ -135,14 +135,14 @@ export class GridService {
         page_index: `${GridService.pointer.currentPageIndex}`,
       });
 
-      rect.startX = 0;
-      rect.startY = 0;
-      rect.w = 0;
-      rect.h = 0;
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      // rect.startX = 0;
+      // rect.startY = 0;
+      // rect.w = 0;
+      // rect.h = 0;
+      // ctx.clearRect(0, 0, canvas.width, canvas.height);
     }
     function mouseMove(e) {
-      mouseX = e.pageX - this.offsetLeft;
+      mouseX = e.pageX - this.offsetLeft - GridService.sidebarWidth;
       mouseY =
         e.pageY -
         this.offsetTop +

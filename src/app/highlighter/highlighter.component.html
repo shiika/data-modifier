@@ -39,10 +39,10 @@
       (click)="collapseItem(i)"
       [matTooltip]="item.word"
       [style]="{
-        width: item.width,
-        height: item.height,
-        top: item.top,
-        left: item.left
+        width: (item && item.width) || '',
+        height: (item && item.height) || '',
+        top: (item && item.top) || '',
+        left: (item && item.left) || ''
       }"
     ></button>
     <app-modifier

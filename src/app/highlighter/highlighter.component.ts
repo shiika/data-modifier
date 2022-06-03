@@ -77,16 +77,28 @@ export class HighlighterComponent
         this.gridRows
       );
     } else if (!this.isEditGrid && !changes.isEditGrid?.firstChange) {
-      this.grid.initAndResizeCanvas(
-        this.gridCoords,
-        this.gridCols,
-        this.gridRows
-      );
-      const cachedOcr = localStorage.getItem('allocr');
-      cachedOcr
-        ? (this.data = JSON.parse(cachedOcr))
-        : this.setCoordinates(null, true);
+      if (this.isSelectionBox) {
+        this.grid.selectByHighlight();
+        this.resetCanvasLine();
+        this.activeIndex = -1;
+        this.deCollapseItems();
+      } else if (!this.isSelectionBox && !changes.isSelectionBox?.firstChange) {
+        this.data.push(this.currentEditingPoint);
+        this.currentEditingPoint = null;
+      } else {
+        this.grid.initAndResizeCanvas(
+          this.gridCoords,
+          this.gridCols,
+          this.gridRows
+        );
+        const cachedOcr = localStorage.getItem('allocr');
+        cachedOcr
+          ? (this.data = JSON.parse(cachedOcr))
+          : this.setCoordinates(null, true);
+      }
     }
+    // else if (this.isSelectionBox) {
+    // }
     // if (changes['data'] && !changes['data'].firstChange) {
     //   this.initialData = JSON.parse(JSON.stringify(this.data));
     //   if (this.isEditGrid) {
@@ -185,6 +197,7 @@ export class HighlighterComponent
     );
     this.subs.push(
       this.pointer.$selectedBox.subscribe((rect) => {
+        console.log(rect);
         if (rect) {
           const formData = new FormData();
           formData.append('top', rect.top);
@@ -222,10 +235,10 @@ export class HighlighterComponent
                     ...point[1],
                     key: text,
                     word: text,
-                    width: `${+rect.width}px`,
-                    height: `${+rect.height}px`,
-                    top: `${+rect.top}px`,
-                    left: `${+rect.left}px`,
+                    width: `${+rect.width * this.utility.aspectRatio}px`,
+                    height: `${+rect.height * this.utility.aspectRatio}px`,
+                    top: `${+rect.top * this.utility.aspectRatio}px`,
+                    left: `${+rect.left * this.utility.aspectRatio}px`,
                     modalTop: `${+rect.top + +rect.height}px`,
                     collapsed: false,
                     'page-index': +rect.page_index,
@@ -251,10 +264,10 @@ export class HighlighterComponent
                   ...point[1],
                   key: text,
                   word: text,
-                  width: `${+rect.width}px`,
-                  height: `${+rect.height}px`,
-                  top: `${+rect.top}px`,
-                  left: `${+rect.left}px`,
+                  width: `${+rect.width * this.utility.aspectRatio}px`,
+                  height: `${+rect.height * this.utility.aspectRatio}px`,
+                  top: `${+rect.top * this.utility.aspectRatio}px`,
+                  left: `${+rect.left * this.utility.aspectRatio}px`,
                   modalTop: `${+rect.top + +rect.height}px`,
                   collapsed: false,
                   'page-index': +rect.page_index,
