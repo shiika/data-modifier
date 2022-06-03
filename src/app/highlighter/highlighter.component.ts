@@ -341,7 +341,7 @@ export class HighlighterComponent
 
   deCollapseItems(): void {
     this.data = this.data.map((item, i) => {
-      item.collapsed = false;
+      item && (item.collapsed = false);
       return item;
     });
   }

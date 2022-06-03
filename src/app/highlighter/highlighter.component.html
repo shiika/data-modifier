@@ -37,20 +37,20 @@
       type="button"
       class="wrapper__highlighter wrapper__highlighter__active"
       (click)="collapseItem(i)"
-      [matTooltip]="item.word"
+      [matTooltip]="(item && item?.word) || 'col'"
       [style]="{
-        width: (item && item.width) || '',
-        height: (item && item.height) || '',
-        top: (item && item.top) || '',
-        left: (item && item.left) || ''
+        width: (item && item?.width) || '',
+        height: (item && item?.height) || '',
+        top: (item && item?.top) || '',
+        left: (item && item?.left) || ''
       }"
     ></button>
     <app-modifier
-      *ngIf="item.collapsed"
-      (onClose)="item.collapsed = false"
+      *ngIf="item?.collapsed"
+      (onClose)="item ? (item.collapsed = false) : undefined"
       (onSave)="saveChange($event, this.activeKey)"
       [item]="{ key: activeKey, value: getSidebarItemValue() }"
-      [position]="{ top: item.modalTop, left: item.left }"
+      [position]="{ top: item?.modalTop, left: item?.left }"
     >
     </app-modifier>
   </ng-container>
