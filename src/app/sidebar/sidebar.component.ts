@@ -37,18 +37,16 @@ export class SidebarComponent implements OnInit, AfterViewInit {
   currentImage: string;
   currentPageIndex: number;
 
-  isHandset$: Observable<boolean> = this.breakpointObserver
-    .observe(Breakpoints.Handset)
-    .pipe(
-      map((result) => result.matches),
-      shareReplay()
-    );
+  // isHandset$: Observable<boolean> = this.breakpointObserver
+  //   .observe(Breakpoints.Handset)
+  //   .pipe(
+  //     map((result) => result.matches),
+  //     shareReplay()
+  //   );
 
   constructor(
-    private breakpointObserver: BreakpointObserver,
     public pointer: PointerService,
     private api: ApiService,
-    private utility: UtilityService,
     private router: Router
   ) {}
 
@@ -62,9 +60,9 @@ export class SidebarComponent implements OnInit, AfterViewInit {
       this.customizePage();
       this.pointer.$updateGrid.subscribe((gridJson) => {
         if (gridJson) {
-          this.allPoints = this.allPoints.filter((point) => {
-            return !point.isGrid;
-          });
+          // this.allPoints = this.allPoints.filter((point) => {
+          //   return !point.isGrid;
+          // });
           let grid: any = Object.values(JSON.parse(gridJson)[0])[0];
           grid = grid.map((row, i) => {
             const rowIndex = i;
@@ -81,15 +79,15 @@ export class SidebarComponent implements OnInit, AfterViewInit {
                 left: `${value[0]['top-left-point'][1]}px`,
                 'page-index': value[0]['page-index'],
               };
-              if (
-                this.allPoints.findIndex(
-                  (point) => point.word == value[0].word
-                ) === -1
-              ) {
-                this.allPoints = this.allPoints.concat([
-                  { ...value[0], isGrid: true },
-                ]);
-              }
+              // if (
+              //   this.allPoints.findIndex(
+              //     (point) => point.word == value[0].word
+              //   ) === -1
+              // ) {
+              //   this.allPoints = this.allPoints.concat([
+              //     { ...value[0], isGrid: true },
+              //   ]);
+              // }
               return [key, value[0]];
             });
             return [`row ${i + 1}`, row];
@@ -275,6 +273,7 @@ export class SidebarComponent implements OnInit, AfterViewInit {
   updateGridItems(): void {
     this.gridItems = this.pointer.gridItems.map(([index, cols]) => {
       cols = cols.filter(([colIndex, col]) => {
+        col.name = colIndex;
         return col['page-index'] === this.pointer.currentPageIndex;
       });
       return [index, cols];
@@ -288,24 +287,32 @@ export class SidebarComponent implements OnInit, AfterViewInit {
     this.pointer.$gridItemIndex = undefined;
     this.pointer.navItemIndexSetter = index;
     this.pointer.$itemPointEmitter.next(key);
+    if (document.querySelector('#added-col'))
+      document
+        .querySelector('.wrapper__image')
+        .removeChild(document.querySelector('#added-col'));
   }
 
-  toggleGridItem(key: string, index: number, rowIndex: number): void {
+  toggleGridItem(col: any, index: number, rowIndex: number): void {
     this.sidebarGridIndex = index;
     this.pointer.$navItemIndex = undefined;
     this.pointer.gridItemIndexSetter = index;
     this.pointer.currentRowIndex = rowIndex;
-    this.pointer.$gridItemPointEmitter.next({ key, rowIndex });
+    this.pointer.$gridItemPointEmitter.next({ col, rowIndex });
   }
 
   resetPointer(e: Event): void {
     this.pointer.offsetTop = e.target['scrollTop'];
     this.pointer.$itemPointEmitter.next(null);
-    this.pointer.$gridItemPointEmitter.next({ key: null, rowIndex: null });
+    this.pointer.$gridItemPointEmitter.next({ col: null, rowIndex: null });
     if (!this.isSelectionBox) {
       this.pointer.$navItemIndex = undefined;
       this.pointer.$gridItemIndex = undefined;
     }
+    if (document.querySelector('#added-col'))
+      document
+        .querySelector('.wrapper__image')
+        .removeChild(document.querySelector('#added-col'));
   }
 
   editGrid(): void {
@@ -316,13 +323,13 @@ export class SidebarComponent implements OnInit, AfterViewInit {
     this.pointer.currentRowIndex = undefined;
     // this.pointer.offsetTop = e.target['scrollTop'];
     this.pointer.$itemPointEmitter.next(null);
-    this.pointer.$gridItemPointEmitter.next({ key: null, rowIndex: null });
+    this.pointer.$gridItemPointEmitter.next({ col: null, rowIndex: null });
     this.isEditGrid = !this.isEditGrid;
-    if (this.isEditGrid) {
-      this.allPoints = this.allPoints.filter((point) => {
-        return !point.isGrid;
-      });
-    }
+    // if (this.isEditGrid) {
+    //   this.allPoints = this.allPoints.filter((point) => {
+    //     return !point.isGrid;
+    //   });
+    // }
     if (!this.isEditGrid) {
       const formData = new FormData();
       formData.append('grid_json', this.pointer.gridBoxJson);
@@ -340,6 +347,10 @@ export class SidebarComponent implements OnInit, AfterViewInit {
       //   return !point.isGrid;
       // });
     }
+    if (document.querySelector('#added-col'))
+      document
+        .querySelector('.wrapper__image')
+        .removeChild(document.querySelector('#added-col'));
   }
 
   selectByHighlight(): void {
