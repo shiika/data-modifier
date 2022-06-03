@@ -70,37 +70,66 @@ export class HighlighterComponent
   ) {}
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['data'] && !changes['data'].firstChange) {
-      this.initialData = JSON.parse(JSON.stringify(this.data));
-      if (this.isEditGrid) {
-        this.grid.initAndResizeCanvas(
-          this.gridCoords,
-          this.gridCols,
-          this.gridRows
-        );
-        this.updateCoordinates();
-      } else {
-        this.setCoordinates(null, true);
-      }
-    } else if (this.isEditGrid) {
+    if (this.isEditGrid) {
       this.grid.initAndResizeCanvas(
         this.gridCoords,
         this.gridCols,
         this.gridRows
       );
-      this.updateCoordinates();
-    } else if (this.isSelectionBox) {
-      this.grid.selectByHighlight();
-      this.resetCanvasLine();
-      this.activeIndex = -1;
-      this.deCollapseItems();
-      this.updateCoordinates();
-    } else if (
-      changes['isSelectionBox'] &&
-      changes['isSelectionBox'].previousValue === true
-    ) {
-      if (!this.isReset) this.resetCoordinates();
+    } else if (!this.isEditGrid && !changes.isEditGrid?.firstChange) {
+      if (this.isSelectionBox) {
+        this.grid.selectByHighlight();
+        this.resetCanvasLine();
+        this.activeIndex = -1;
+        this.deCollapseItems();
+      } else if (!this.isSelectionBox && !changes.isSelectionBox?.firstChange) {
+        this.data.push(this.currentEditingPoint);
+        this.currentEditingPoint = null;
+      } else {
+        this.grid.initAndResizeCanvas(
+          this.gridCoords,
+          this.gridCols,
+          this.gridRows
+        );
+        const cachedOcr = localStorage.getItem('allocr');
+        cachedOcr
+          ? (this.data = JSON.parse(cachedOcr))
+          : this.setCoordinates(null, true);
+      }
     }
+    // else if (this.isSelectionBox) {
+    // }
+    // if (changes['data'] && !changes['data'].firstChange) {
+    //   this.initialData = JSON.parse(JSON.stringify(this.data));
+    //   if (this.isEditGrid) {
+    //     this.grid.initAndResizeCanvas(
+    //       this.gridCoords,
+    //       this.gridCols,
+    //       this.gridRows
+    //     );
+    //     // this.updateCoordinates();
+    //   } else {
+    //     // this.setCoordinates(null, true);
+    //   }
+    // } else if (this.isEditGrid) {
+    //   this.grid.initAndResizeCanvas(
+    //     this.gridCoords,
+    //     this.gridCols,
+    //     this.gridRows
+    //   );
+    //   this.updateCoordinates();
+    // } else if (this.isSelectionBox) {
+    //   this.grid.selectByHighlight();
+    //   this.resetCanvasLine();
+    //   this.activeIndex = -1;
+    //   this.deCollapseItems();
+    //   this.updateCoordinates();
+    // } else if (
+    //   changes['isSelectionBox'] &&
+    //   changes['isSelectionBox'].previousValue === true
+    // ) {
+    //   if (!this.isReset) this.resetCoordinates();
+    // }
   }
 
   ngOnInit(): void {
@@ -140,22 +169,27 @@ export class HighlighterComponent
     );
     this.subs.push(
       this.pointer.$gridItemPointEmitter.subscribe(
-        (info: { key: string; rowIndex: number }) => {
+        (info: { col: any; rowIndex: number }) => {
           this.activeRowIndex = info.rowIndex;
-          if (info.key !== null) {
-            this.activeIndex = this.data.findIndex(
-              (item) => item.key === info.key
-            );
+          if (info.col !== null) {
+            // this.activeIndex = this.data.findIndex(
+            //   (item) =>
+            //     item.key === info.col.key ||
+            //     (info.col.width === item.width &&
+            //       info.col.height === item.height &&
+            //       info.col['top-left-point'][0] === item['top-left-point'][0] &&
+            //       info.col['top-left-point'][1] === item['top-left-point'][1])
+            // );
             this.activeSidebarIndex = this.gridData[
               this.activeRowIndex
             ][1].findIndex((col) => {
-              return col[1].key === info.key;
+              return col[1].key === info.col.key;
             });
             this.activeKey =
               this.pointer.gridItems[this.activeRowIndex][1][
                 this.pointer.gridItemIndex
               ][0];
-            this.setGridCanvasLine(this.activeIndex);
+            this.setGridCanvasLine(info.col);
             // this.setOverallColBox(this.activeSidebarIndex);
           }
         }
@@ -163,6 +197,7 @@ export class HighlighterComponent
     );
     this.subs.push(
       this.pointer.$selectedBox.subscribe((rect) => {
+        console.log(rect);
         if (rect) {
           const formData = new FormData();
           formData.append('top', rect.top);
@@ -200,10 +235,10 @@ export class HighlighterComponent
                     ...point[1],
                     key: text,
                     word: text,
-                    width: `${+rect.width}px`,
-                    height: `${+rect.height}px`,
-                    top: `${+rect.top}px`,
-                    left: `${+rect.left}px`,
+                    width: `${+rect.width * this.utility.aspectRatio}px`,
+                    height: `${+rect.height * this.utility.aspectRatio}px`,
+                    top: `${+rect.top * this.utility.aspectRatio}px`,
+                    left: `${+rect.left * this.utility.aspectRatio}px`,
                     modalTop: `${+rect.top + +rect.height}px`,
                     collapsed: false,
                     'page-index': +rect.page_index,
@@ -229,10 +264,10 @@ export class HighlighterComponent
                   ...point[1],
                   key: text,
                   word: text,
-                  width: `${+rect.width}px`,
-                  height: `${+rect.height}px`,
-                  top: `${+rect.top}px`,
-                  left: `${+rect.left}px`,
+                  width: `${+rect.width * this.utility.aspectRatio}px`,
+                  height: `${+rect.height * this.utility.aspectRatio}px`,
+                  top: `${+rect.top * this.utility.aspectRatio}px`,
+                  left: `${+rect.left * this.utility.aspectRatio}px`,
                   modalTop: `${+rect.top + +rect.height}px`,
                   collapsed: false,
                   'page-index': +rect.page_index,
@@ -246,6 +281,11 @@ export class HighlighterComponent
 
   ngAfterViewInit(): void {
     this.initializeImage();
+    this.grid.initAndResizeCanvas(
+      this.gridCoords,
+      this.gridCols,
+      this.gridRows
+    );
   }
 
   initializeImage(): void {
@@ -385,6 +425,7 @@ export class HighlighterComponent
           return item;
         })
         .filter((item) => item['page-index'] === this.pointer.currentPageIndex);
+      localStorage.setItem('allocr', JSON.stringify(this.data));
     }
   }
 
@@ -436,32 +477,41 @@ export class HighlighterComponent
       ctx.stroke();
     }
   }
-  setGridCanvasLine(index: number): void {
-    if (index !== -1) {
-      const c = document.getElementById(`canvas-${index}`) as any;
-      const ctx = c.getContext('2d');
-      ctx.clearRect(0, 0, c.width, c.height);
-      const topStartPoint =
-        this.pointer.sidebarItems.length * this.navItemsHeight +
-        this.gridItemsHeaderHeight +
-        this.navItemsHeight *
-          this.pointer.gridItems[0][1].length *
-          this.activeRowIndex +
-        this.rowTextHeight * this.activeRowIndex +
-        (this.pointer.gridItemIndex + 1) * this.navItemsHeight -
-        this.pointer.sidebarOffsetTop +
-        20;
-      const topEndPoint =
-        this.utility.extractValue(this.data[index].top) +
-        this.toolbarHeight +
-        5 -
-        this.pointer.offsetTop;
-      const leftEndPoint = this.utility.extractValue(this.data[index].left);
-      ctx.beginPath();
-      ctx.moveTo(0, topStartPoint);
-      ctx.lineTo(leftEndPoint, topEndPoint);
-      ctx.stroke();
-    }
+  setGridCanvasLine(col: any): void {
+    const addedColElement =
+      document.querySelector<HTMLCanvasElement>('#added-col');
+    const canvasElement = addedColElement || document.createElement('canvas');
+    const c = canvasElement;
+    const ctx = c.getContext('2d');
+    ctx.clearRect(0, 0, c.width, c.height);
+    canvasElement.width = this.fileImage.nativeElement.width;
+    canvasElement.height = this.fileImage.nativeElement.height;
+    canvasElement.style.position = 'fixed';
+    canvasElement.style.top = '0';
+    canvasElement.style.left = '275px';
+    canvasElement.style.zIndex = '2000';
+    canvasElement.id = 'added-col';
+    document.querySelector('.wrapper__image').appendChild(canvasElement);
+    const topStartPoint =
+      this.pointer.sidebarItems.length * this.navItemsHeight +
+      this.gridItemsHeaderHeight +
+      this.navItemsHeight *
+        this.pointer.gridItems[0][1].length *
+        this.activeRowIndex +
+      this.rowTextHeight * this.activeRowIndex +
+      (this.pointer.gridItemIndex + 1) * this.navItemsHeight -
+      this.pointer.sidebarOffsetTop +
+      20;
+    const topEndPoint =
+      this.utility.extractValue(col.top) * this.aspectRatio +
+      this.toolbarHeight +
+      5 -
+      this.pointer.offsetTop;
+    const leftEndPoint = this.utility.extractValue(col.left) * this.aspectRatio;
+    ctx.beginPath();
+    ctx.moveTo(0, topStartPoint);
+    ctx.lineTo(leftEndPoint, topEndPoint);
+    ctx.stroke();
   }
   setOverallColBox(colIndex: number): void {
     if (colIndex !== -1) {

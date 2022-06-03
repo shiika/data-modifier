@@ -16,12 +16,10 @@
 
         span {
           display: block;
-        }
-
-        span:first-child {
-          max-width: 116px;
+          max-width: 98px;
           overflow: hidden;
           text-overflow: ellipsis;
+          white-space: nowrap;
         }
 
         span:last-child {

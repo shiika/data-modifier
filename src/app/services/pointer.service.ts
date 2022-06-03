@@ -7,8 +7,10 @@ import { Column, Rect, Row } from '../enums/grid-coords';
 })
 export class PointerService {
   $itemPointEmitter: Subject<string> = new Subject<string>();
-  $gridItemPointEmitter: Subject<{ key: string; rowIndex: number }> =
-    new Subject<{ key: string; rowIndex: number }>();
+  $gridItemPointEmitter: Subject<{ col: any; rowIndex: number }> = new Subject<{
+    col: any;
+    rowIndex: number;
+  }>();
   $itemPointModifier: Subject<{ active: number; newIndex: number }> =
     new Subject<{ active: number; newIndex: number }>();
   $gridCoords: Subject<Rect> = new Subject<Rect>();

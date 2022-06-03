@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { TOOLBAR_HEIGHT } from '../enums/constants';
+import { SIDEBAR_WIDTH, TOOLBAR_HEIGHT } from '../enums/constants';
 import { Column, Rect, Row } from '../enums/grid-coords';
 import { PointerService } from './pointer.service';
 import { UtilityService } from './utility.service';
@@ -12,6 +12,7 @@ export class GridService {
   static pointer;
   static utility;
   static toolbarHeight: number = TOOLBAR_HEIGHT;
+  static sidebarWidth: number = SIDEBAR_WIDTH;
   static cols: Column[];
   static rows: Row[];
   constructor(
@@ -67,7 +68,7 @@ export class GridService {
     }
 
     function mouseDown(e) {
-      mouseX = e.pageX - this.offsetLeft;
+      mouseX = e.pageX - this.offsetLeft - GridService.sidebarWidth;
       mouseY =
         e.pageY -
         this.offsetTop -
@@ -134,14 +135,14 @@ export class GridService {
         page_index: `${GridService.pointer.currentPageIndex}`,
       });
 
-      rect.startX = 0;
-      rect.startY = 0;
-      rect.w = 0;
-      rect.h = 0;
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      // rect.startX = 0;
+      // rect.startY = 0;
+      // rect.w = 0;
+      // rect.h = 0;
+      // ctx.clearRect(0, 0, canvas.width, canvas.height);
     }
     function mouseMove(e) {
-      mouseX = e.pageX - this.offsetLeft;
+      mouseX = e.pageX - this.offsetLeft - GridService.sidebarWidth;
       mouseY =
         e.pageY -
         this.offsetTop +
@@ -234,7 +235,7 @@ export class GridService {
     }
 
     function mouseDown(e) {
-      mouseX = e.pageX - this.offsetLeft;
+      mouseX = e.pageX - this.offsetLeft - GridService.sidebarWidth;
       mouseY =
         e.pageY -
         this.offsetTop -
@@ -325,7 +326,10 @@ export class GridService {
         'invoice-grid-coords': {
           width: rect.w / GridService.utility.aspectRatio,
           height: rect.h / GridService.utility.aspectRatio,
-          'top-left-point': [rect.startY, rect.startX],
+          'top-left-point': [
+            rect.startY / GridService.utility.aspectRatio,
+            rect.startX / GridService.utility.aspectRatio,
+          ],
           'page-index': GridService.pointer.currentPageIndex,
         },
       };
@@ -381,7 +385,7 @@ export class GridService {
       updateGrid(newCols);
     }
     function mouseMove(e) {
-      mouseX = e.pageX - this.offsetLeft;
+      mouseX = e.pageX - this.offsetLeft - GridService.sidebarWidth;
       mouseY =
         e.pageY -
         this.offsetTop +

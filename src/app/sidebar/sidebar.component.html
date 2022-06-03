@@ -3,10 +3,12 @@
     #drawer
     class="sidenav"
     fixedInViewport
-    [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
-    [mode]="(isHandset$ | async) ? 'over' : 'side'"
-    [opened]="!isEditGrid && !isSelectionBox"
+    [opened]="true"
+    mode="side"
   >
+    <!-- [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+    [mode]="(isHandset$ | async) ? 'over' : 'side'" -->
+    <!-- [opened]="!isEditGrid && !isSelectionBox" -->
     <mat-nav-list>
       <a
         mat-list-item
@@ -15,7 +17,7 @@
         [class.mat-list-item-active]="sidebarIndex === i"
       >
         <div class="mat-list-item-content__container">
-          <span>{{ item[0] }}</span>
+          <span [title]="item[0]">{{ item[0] }}</span>
           <span>{{ item[1]?.word }}</span>
         </div>
       </a>
@@ -35,13 +37,13 @@
             <a
               mat-list-item
               *ngFor="let col of row[1]; let i = index"
-              (click)="toggleGridItem(col[1].key, i, col[1].row)"
+              (click)="toggleGridItem(col[1], i, col[1].row)"
               [class.mat-list-item-active]="sidebarGridIndex === i"
               [disabled]="pointer.$navItemIndex != undefined"
             >
               <div class="mat-list-item-content__container">
-                <span>{{ col[0] }}</span>
-                <!-- <span>{{ col[1].word }}</span> -->
+                <span [title]="col[1].name">{{ col[1].name }}</span>
+                <span [title]="col[1].word">{{ col[1].word }}</span>
               </div>
             </a>
           </div>

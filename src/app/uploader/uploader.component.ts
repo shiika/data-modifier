@@ -95,8 +95,10 @@ export class UploaderComponent implements OnInit {
           );
           this.api.isActive = true;
           this.router.navigate(['/preview']);
+          this.form.setValue({ name: '', vendor: '', type: '' });
         },
         (err) => {
+          this.form.setValue({ name: '', vendor: '', type: '' });
           this.isLoading = false;
         }
       );
