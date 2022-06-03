@@ -366,11 +366,19 @@ export class SidebarComponent implements OnInit, AfterViewInit {
 
   export(): void {
     let exportedData: any[] = [];
+    const gridData = {};
     for (let item of this.pointer.sidebarItems) {
       exportedData.push({
         [item[0]]: [{ word: item[1].word }],
       });
     }
+    const gridItems = this.gridItems.map((item) => {
+      item[1] = item[1].map((col) => {
+        return [col[0], { word: col[1].word }];
+      });
+      return item;
+    });
+    exportedData.push(gridItems);
     let dataStr = JSON.stringify(exportedData);
     let dataUri =
       'data:application/json;charset=utf-8,' + encodeURIComponent(dataStr);
