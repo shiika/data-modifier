@@ -97,39 +97,6 @@ export class HighlighterComponent
           : this.setCoordinates(null, true);
       }
     }
-    // else if (this.isSelectionBox) {
-    // }
-    // if (changes['data'] && !changes['data'].firstChange) {
-    //   this.initialData = JSON.parse(JSON.stringify(this.data));
-    //   if (this.isEditGrid) {
-    //     this.grid.initAndResizeCanvas(
-    //       this.gridCoords,
-    //       this.gridCols,
-    //       this.gridRows
-    //     );
-    //     // this.updateCoordinates();
-    //   } else {
-    //     // this.setCoordinates(null, true);
-    //   }
-    // } else if (this.isEditGrid) {
-    //   this.grid.initAndResizeCanvas(
-    //     this.gridCoords,
-    //     this.gridCols,
-    //     this.gridRows
-    //   );
-    //   this.updateCoordinates();
-    // } else if (this.isSelectionBox) {
-    //   this.grid.selectByHighlight();
-    //   this.resetCanvasLine();
-    //   this.activeIndex = -1;
-    //   this.deCollapseItems();
-    //   this.updateCoordinates();
-    // } else if (
-    //   changes['isSelectionBox'] &&
-    //   changes['isSelectionBox'].previousValue === true
-    // ) {
-    //   if (!this.isReset) this.resetCoordinates();
-    // }
   }
 
   ngOnInit(): void {
@@ -172,14 +139,6 @@ export class HighlighterComponent
         (info: { col: any; rowIndex: number }) => {
           this.activeRowIndex = info.rowIndex;
           if (info.col !== null) {
-            // this.activeIndex = this.data.findIndex(
-            //   (item) =>
-            //     item.key === info.col.key ||
-            //     (info.col.width === item.width &&
-            //       info.col.height === item.height &&
-            //       info.col['top-left-point'][0] === item['top-left-point'][0] &&
-            //       info.col['top-left-point'][1] === item['top-left-point'][1])
-            // );
             this.activeSidebarIndex = this.gridData[
               this.activeRowIndex
             ][1].findIndex((col) => {
@@ -197,7 +156,6 @@ export class HighlighterComponent
     );
     this.subs.push(
       this.pointer.$selectedBox.subscribe((rect) => {
-        console.log(rect);
         if (rect) {
           const formData = new FormData();
           formData.append('top', rect.top);
@@ -224,10 +182,10 @@ export class HighlighterComponent
                       ...point[1],
                       key: text,
                       word: text,
-                      width: `${+rect.width * this.utility.aspectRatio}px`,
-                      height: `${+rect.height * this.utility.aspectRatio}px`,
-                      top: `${+rect.top * this.utility.aspectRatio}px`,
-                      left: `${+rect.left * this.utility.aspectRatio}px`,
+                      width: `${+rect.width}px`,
+                      height: `${+rect.height}px`,
+                      top: `${+rect.top}px`,
+                      left: `${+rect.left}px`,
                       'page-index': +rect.page_index,
                     },
                   ];
@@ -253,10 +211,10 @@ export class HighlighterComponent
                     ...point[1],
                     key: text,
                     word: text,
-                    width: `${+rect.width * this.utility.aspectRatio}px`,
-                    height: `${+rect.height * this.utility.aspectRatio}px`,
-                    top: `${+rect.top * this.utility.aspectRatio}px`,
-                    left: `${+rect.left * this.utility.aspectRatio}px`,
+                    width: `${+rect.width}px`,
+                    height: `${+rect.height}px`,
+                    top: `${+rect.top}px`,
+                    left: `${+rect.left}px`,
                     'page-index': +rect.page_index,
                   },
                 ];
@@ -325,13 +283,6 @@ export class HighlighterComponent
     );
   }
 
-  resizeOnSidebarHidden(): number {
-    return (
-      (this.fileImage.nativeElement.offsetWidth + this.sidebarWidth) /
-      this.fileImage.nativeElement.naturalWidth
-    );
-  }
-
   resizeOnSidebarVisible(): number {
     return (
       (this.fileImage.nativeElement.offsetWidth - this.sidebarWidth) /
@@ -365,41 +316,10 @@ export class HighlighterComponent
     }
   }
 
-  resetCoordinates(): void {
-    console.log('resetted');
-    if (!!this.currentEditingPoint)
-      this.initialData.push(this.currentEditingPoint);
-    this.currentEditingPoint = null;
-    this.aspectRatio = this.resizeOnSidebarVisible();
-    this.data = JSON.parse(JSON.stringify(this.initialData))
-      .map((item) => {
-        item.width = `${
-          this.utility.extractValue(item.width) * this.aspectRatio
-        }px`;
-        item.height = `${
-          this.utility.extractValue(item.height) * this.aspectRatio
-        }px`;
-        item.top = `${
-          this.utility.extractValue(item.top) * this.aspectRatio
-        }px`;
-        item.left = `${
-          this.utility.extractValue(item.left) * this.aspectRatio
-        }px`;
-        item.modalTop = `${
-          this.utility.extractValue(item.top) +
-          this.utility.extractValue(item.height)
-        }px`;
-        item.collapsed = false;
-        return item;
-      })
-      .filter((item) => item['page-index'] === this.pointer.currentPageIndex);
-  }
-
   setCoordinates(event, isInitial: boolean): void {
     this.aspectRatio = isInitial
       ? this.resizeOnSizeChanges()
       : this.resizeOnSidebarVisible();
-    console.log('set');
     this.utility.aspectRatio = this.aspectRatio;
     if (this.data) {
       this.data = JSON.parse(JSON.stringify(this.initialData))
@@ -427,34 +347,6 @@ export class HighlighterComponent
         .filter((item) => item['page-index'] === this.pointer.currentPageIndex);
       localStorage.setItem('allocr', JSON.stringify(this.data));
     }
-  }
-
-  updateCoordinates(): void {
-    this.aspectRatio = this.resizeOnSidebarHidden();
-    console.log('updated');
-    this.utility.aspectRatio = this.aspectRatio;
-    this.data = JSON.parse(JSON.stringify(this.initialData))
-      .map((item) => {
-        item.width = `${
-          this.utility.extractValue(item.width) * this.aspectRatio
-        }px`;
-        item.height = `${
-          this.utility.extractValue(item.height) * this.aspectRatio
-        }px`;
-        item.top = `${
-          this.utility.extractValue(item.top) * this.aspectRatio
-        }px`;
-        item.left = `${
-          this.utility.extractValue(item.left) * this.aspectRatio
-        }px`;
-        item.modalTop = `${
-          this.utility.extractValue(item.top) +
-          this.utility.extractValue(item.height)
-        }px`;
-        item.collapsed = false;
-        return item;
-      })
-      .filter((item) => item['page-index'] === this.pointer.currentPageIndex);
   }
 
   setCanvasLine(index: number): void {
