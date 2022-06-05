@@ -62,6 +62,7 @@ export class HighlighterComponent
   sidebarWidth: number = SIDEBAR_WIDTH;
   subs: Subscription[] = [];
   isReset: boolean = false;
+
   constructor(
     private pointer: PointerService,
     private utility: UtilityService,
@@ -101,6 +102,7 @@ export class HighlighterComponent
 
   ngOnInit(): void {
     this.gridCols = this.mapGridCols(this.gridJson);
+    this.pointer.gridCols = this.gridCols;
     this.gridRows = this.mapGridRows(this.gridJson);
     this.initialData = JSON.parse(JSON.stringify(this.data));
     this.subs.push(
@@ -149,7 +151,14 @@ export class HighlighterComponent
                 this.pointer.gridItemIndex
               ][0];
             this.setGridCanvasLine(info.col);
+
             // this.setOverallColBox(this.activeSidebarIndex);
+          } else {
+            this.grid.initAndResizeCanvas(
+              this.gridCoords,
+              this.gridCols,
+              this.gridRows
+            );
           }
         }
       )

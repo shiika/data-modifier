@@ -47,7 +47,8 @@ export class SidebarComponent implements OnInit, AfterViewInit {
   constructor(
     public pointer: PointerService,
     private api: ApiService,
-    private router: Router
+    private router: Router,
+    private utility: UtilityService
   ) {}
 
   ngOnInit(): void {
@@ -392,17 +393,40 @@ export class SidebarComponent implements OnInit, AfterViewInit {
   }
 
   addColumn(): void {
-    const additionalPoint: { [key: string]: any } = this.gridItems[0][1][0][1];
-    additionalPoint.left = `${additionalPoint['top-left-point'][1] + 10}px`;
-    additionalPoint.word = 'additional point';
-    additionalPoint.key = 'additional point';
-    additionalPoint['page-index'] = this.pointer.currentPageIndex;
+    let additionalPoint: { [key: string]: any };
     this.gridItems.forEach((row, i) => {
+      additionalPoint = Object.assign({}, this.gridItems[0][1][0][1]);
+      additionalPoint['page-index'] = this.pointer.currentPageIndex;
       additionalPoint.row = i;
+      additionalPoint.word = 'additional point';
+      additionalPoint.key = 'additional point';
+      additionalPoint.left = `${additionalPoint['top-left-point'][1] + 10}px`;
+      additionalPoint.top = `${
+        additionalPoint['top-left-point'][0] + i * 10
+      }px`;
+      additionalPoint.name = `added-col`;
       row[1].push([`added-col`, additionalPoint]);
+      // this.pointer.$gridItemPointEmitter.next({
+      //   col: additionalPoint,
+      //   rowIndex: 0,
+      // });
     });
     this.pointer.gridItems = this.gridItems;
     this.gridItems = this.pointer.gridItems;
+    this.pointer.$gridCols.next([
+      ...this.pointer.gridCols,
+      {
+        additionalCol: {
+          startX: this.utility.extractValue(additionalPoint.left),
+          isDrag: false,
+          name: 'additional-col',
+        },
+      },
+    ]);
+    this.pointer.$gridItemPointEmitter.next({
+      col: null,
+      rowIndex: 0,
+    });
   }
   addRow(): void {}
 }

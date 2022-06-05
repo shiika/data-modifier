@@ -193,6 +193,7 @@ export class GridService {
     cols: Record<string, Column>[],
     rows: Row[]
   ): void {
+    console.log('from resize canvas');
     var canvas = document.getElementById('grid-canvas') as HTMLCanvasElement,
       ctx = canvas.getContext('2d'),
       rect: Rect = {}, //  w   w   w . d   e   m  o  2 s  .  c  o  m
