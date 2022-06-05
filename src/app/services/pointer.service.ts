@@ -41,6 +41,7 @@ export class PointerService {
   sidebarOffsetTop: number = 0;
   currentPageIndex: number = 0;
   currentRowIndex: number = 0;
+  gridCols: Record<string, Column>[];
 
   get navItemIndex(): number {
     return this.$navItemIndex;
