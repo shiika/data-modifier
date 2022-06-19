@@ -113,11 +113,13 @@ export class HighlighterComponent
     this.subs.push(
       this.pointer.$gridCols.subscribe((cols: Record<string, Column>[]) => {
         this.gridCols = cols;
+        this.pointer.gridCols = this.gridCols;
       })
     );
     this.subs.push(
       this.pointer.$gridRows.subscribe((rows: Row[]) => {
         this.gridRows = rows;
+        this.pointer.gridRows = this.gridRows;
       })
     );
     this.subs.push(

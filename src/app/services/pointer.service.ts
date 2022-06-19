@@ -42,6 +42,7 @@ export class PointerService {
   currentPageIndex: number = 0;
   currentRowIndex: number = 0;
   gridCols: Record<string, Column>[];
+  gridRows: any[];
 
   get navItemIndex(): number {
     return this.$navItemIndex;
