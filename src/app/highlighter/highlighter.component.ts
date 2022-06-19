@@ -314,7 +314,7 @@ export class HighlighterComponent
     if (typeof this.activeIndex === 'number' && this.activeIndex > -1) {
       if (this.activeIndex === index) {
         this.data = this.data.map((item, i) => {
-          item.collapsed = false;
+          item && (item.collapsed = false);
           if (i === this.activeIndex) {
             item.collapsed = true;
           }
