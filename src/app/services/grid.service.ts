@@ -56,9 +56,11 @@ export class GridService {
       closeEnough = 10,
       dragTL = (dragBL = dragTR = dragBR = false);
     function init() {
-      canvas.addEventListener('mousedown', mouseDown, false);
-      canvas.addEventListener('mouseup', mouseUp, false);
-      canvas.addEventListener('mousemove', mouseMove, false);
+      if (canvas.eventListeners().length === 0) {
+        canvas.addEventListener('mousedown', mouseDown, false);
+        canvas.addEventListener('mouseup', mouseUp, false);
+        canvas.addEventListener('mousemove', mouseMove, false);
+      }
       rect = {
         startX: 0,
         startY: 0,
@@ -191,9 +193,9 @@ export class GridService {
   initAndResizeCanvas(
     gridCoords: Rect,
     cols: Record<string, Column>[],
-    rows: Row[]
+    rows: Row[],
+    isEditGrid: boolean = false
   ): void {
-    console.log('from resize canvas');
     var canvas = document.getElementById('grid-canvas') as HTMLCanvasElement,
       ctx = canvas.getContext('2d'),
       rect: Rect = {}, //  w   w   w . d   e   m  o  2 s  .  c  o  m
@@ -206,9 +208,12 @@ export class GridService {
       closeEnough = 10,
       dragTL = (dragBL = dragTR = dragBR = false);
     function init() {
-      canvas.addEventListener('mousedown', mouseDown, false);
-      canvas.addEventListener('mouseup', mouseUp, false);
-      canvas.addEventListener('mousemove', mouseMove, false);
+      const listeners = canvas.eventListeners();
+      if (listeners.length === 0) {
+        canvas.addEventListener('mousedown', mouseDown, false);
+        canvas.addEventListener('mouseup', mouseUp, false);
+        canvas.addEventListener('mousemove', mouseMove, false);
+      }
       rect = {
         startX: gridCoords.startX,
         startY: gridCoords.startY,
@@ -485,6 +490,7 @@ export class GridService {
     function drawRowHandles(row: Row) {
       drawCircle(rect.startX, rect.startY + row.startY, closeEnough);
     }
+
     init();
   }
 }

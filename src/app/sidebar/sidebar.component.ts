@@ -36,7 +36,7 @@ export class SidebarComponent implements OnInit, AfterViewInit {
   isGridEditted: boolean = false;
   currentImage: string;
   currentPageIndex: number;
-
+  loaders: { [key: string]: boolean } = {};
   // isHandset$: Observable<boolean> = this.breakpointObserver
   //   .observe(Breakpoints.Handset)
   //   .pipe(
@@ -48,7 +48,7 @@ export class SidebarComponent implements OnInit, AfterViewInit {
     public pointer: PointerService,
     private api: ApiService,
     private router: Router,
-    private utility: UtilityService
+    public utility: UtilityService
   ) {}
 
   ngOnInit(): void {
@@ -335,11 +335,13 @@ export class SidebarComponent implements OnInit, AfterViewInit {
       const formData = new FormData();
       formData.append('grid_json', this.pointer.gridBoxJson);
       formData.append('allocr', JSON.stringify(this.api.allPoints));
+      this.loaders.grid = true;
       this.api
         .updateGrid(formData)
         .pipe(take(1))
         .subscribe((res) => {
           if (res) {
+            this.loaders.grid = false;
             this.pointer.$updateGrid.next(res);
           }
         });
