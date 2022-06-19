@@ -10,7 +10,7 @@
     </ng-container>
   </ng-container> -->
 
-  <ng-container *ngFor="let row of gridData; let rowIndex = index">
+  <!-- <ng-container *ngFor="let row of gridData; let rowIndex = index">
     <canvas
       *ngFor="let col of row[1]; let i = index"
       [id]="'grid-canvas-box-' + rowIndex + i"
@@ -24,7 +24,7 @@
       }"
       class="grid-line"
     ></canvas>
-  </ng-container>
+  </ng-container> -->
   <ng-container *ngFor="let item of data; let i = index">
     <canvas
       [id]="'canvas-' + i"

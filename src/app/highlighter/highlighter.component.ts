@@ -124,7 +124,7 @@ export class HighlighterComponent
       this.pointer.$itemPointEmitter.subscribe((key: string) => {
         this.deCollapseItems();
         if (key !== null) {
-          this.activeIndex = this.data.findIndex((item) => item.key === key);
+          this.activeIndex = this.data.findIndex((item) => item?.key === key);
           this.activeKey =
             this.pointer.sidebarItems[this.pointer.navItemIndex][0];
           this.setCanvasLine(this.activeIndex);
