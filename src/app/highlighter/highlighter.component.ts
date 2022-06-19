@@ -166,6 +166,7 @@ export class HighlighterComponent
     this.subs.push(
       this.pointer.$selectedBox.subscribe((rect) => {
         if (rect) {
+          this.utility.loaders.selectionBox = true;
           const formData = new FormData();
           formData.append('top', rect.top);
           formData.append('left', rect.left);
@@ -177,6 +178,7 @@ export class HighlighterComponent
             .getSelectedPoint(formData)
             .pipe(take(1))
             .subscribe((text) => {
+              this.utility.loaders.selectionBox = false;
               if (isNaN(this.pointer.navItemIndex)) {
                 const point =
                   this.pointer.gridItems[this.pointer.currentRowIndex][1][

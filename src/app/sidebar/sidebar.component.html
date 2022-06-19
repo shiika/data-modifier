@@ -39,11 +39,19 @@
               *ngFor="let col of row[1]; let i = index"
               (click)="toggleGridItem(col[1], i, col[1].row)"
               [class.mat-list-item-active]="sidebarGridIndex === i"
-              [disabled]="pointer.$navItemIndex != undefined"
+              [disabled]="pointer.$navItemIndex != undefined || loaders.grid"
             >
               <div class="mat-list-item-content__container">
-                <span [title]="col[1].name">{{ col[1].name }}</span>
-                <span [title]="col[1].word">{{ col[1].word }}</span>
+                <span
+                  [title]="col[1].name"
+                  [class.text-disabled]="loaders.grid"
+                  >{{ col[1].name }}</span
+                >
+                <span
+                  [title]="col[1].word"
+                  [class.text-disabled]="loaders.grid"
+                  >{{ col[1].word }}</span
+                >
               </div>
             </a>
           </div>
@@ -70,6 +78,7 @@
         type="button"
         class="edit-button"
         mat-raised-button
+        [disabled]="utility.loaders.selectionBox"
         (click)="!isSelectionBox ? selectByHighlight() : resetSelectionBox()"
         *ngIf="
           (pointer.$navItemIndex != undefined ||
