@@ -104,6 +104,7 @@ export class HighlighterComponent
     this.gridCols = this.mapGridCols(this.gridJson);
     this.pointer.gridCols = this.gridCols;
     this.gridRows = this.mapGridRows(this.gridJson);
+    this.pointer.gridRows = this.gridRows;
     this.initialData = JSON.parse(JSON.stringify(this.data));
     this.subs.push(
       this.pointer.$gridCoords.subscribe((rect: Rect) => {

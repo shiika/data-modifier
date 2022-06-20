@@ -426,5 +426,17 @@ export class SidebarComponent implements OnInit, AfterViewInit {
       },
     ]);
   }
-  addRow(): void {}
+  addRow(): void {
+    let additionalPoint: any = {
+      ...this.pointer.gridRows[this.pointer.gridRows.length - 1],
+      startY:
+        this.pointer.gridRows[this.pointer.gridRows.length - 1].startY + 50,
+    };
+    this.gridItems = [
+      ...this.gridItems,
+      this.gridItems[this.gridItems.length - 1],
+    ];
+    this.pointer.gridItems = this.gridItems;
+    this.pointer.$gridRows.next([...this.pointer.gridRows, additionalPoint]);
+  }
 }
