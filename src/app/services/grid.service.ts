@@ -224,7 +224,7 @@ export class GridService {
       GridService.rows = GridService.mapRows(rows);
     }
 
-    function updateCols(newCols: Column[]): Record<string, Column>[] {
+    function updateCols(newCols: Column[]): any[] {
       const retainedCols = newCols.map((col) => {
         return {
           [col.name]: {
@@ -233,7 +233,8 @@ export class GridService {
         };
       });
       GridService.pointer.$gridCols.next(retainedCols);
-      return cols;
+      console.log(cols);
+      return retainedCols;
     }
 
     function updateRows(newRows: Row[]): void {

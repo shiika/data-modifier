@@ -104,6 +104,7 @@ export class HighlighterComponent
     this.gridCols = this.mapGridCols(this.gridJson);
     this.pointer.gridCols = this.gridCols;
     this.gridRows = this.mapGridRows(this.gridJson);
+    this.pointer.gridRows = this.gridRows;
     this.initialData = JSON.parse(JSON.stringify(this.data));
     this.subs.push(
       this.pointer.$gridCoords.subscribe((rect: Rect) => {
@@ -113,11 +114,13 @@ export class HighlighterComponent
     this.subs.push(
       this.pointer.$gridCols.subscribe((cols: Record<string, Column>[]) => {
         this.gridCols = cols;
+        this.pointer.gridCols = this.gridCols;
       })
     );
     this.subs.push(
       this.pointer.$gridRows.subscribe((rows: Row[]) => {
         this.gridRows = rows;
+        this.pointer.gridRows = this.gridRows;
       })
     );
     this.subs.push(
@@ -312,7 +315,7 @@ export class HighlighterComponent
     if (typeof this.activeIndex === 'number' && this.activeIndex > -1) {
       if (this.activeIndex === index) {
         this.data = this.data.map((item, i) => {
-          item.collapsed = false;
+          item && (item.collapsed = false);
           if (i === this.activeIndex) {
             item.collapsed = true;
           }
